@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>播放链路自检 · 云收音机</title>
+<style>
+  body { font: 14px/1.7 "Segoe UI", "Microsoft YaHei", sans-serif; background: #f4efe6; color: #1f1b18; padding: 32px; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.tip { color: #8b8177; margin: 0 0 18px; font-size: 12.5px; }
+  pre { background: #fffcf7; border: 1px solid #e6dccc; border-radius: 12px; padding: 16px; white-space: pre-wrap; font-size: 12.5px; }
+  .ok { color: #37735f; } .bad { color: #b4483a; }
+  audio { width: 100%; margin-top: 14px; }
+</style>
+</head>
+<body>
+<h1>播放链路自检</h1>
+<p class="tip">依次验证：频道接口 → HLS 播放列表代理 → 分片代理 → hls.js 解码播放。可直接用于排查服务器出网问题。</p>
+<pre id="out">running…</pre>
+<audio id="player" controls></audio>
+<script src="/vendor/hls.min.js"></script>
+<script>
+(() => {
+  const out = document.getElementById('out');
+  const log = (msg) => { out.innerHTML += '\n' + msg; };
+  out.textContent = '自检开始 ' + new Date().toLocaleString('zh-CN');
+  const audio = document.getElementById('player');
+  let hls = null;
+
+  async function run() {
+    const meta = await fetch('/api/meta').then(r => r.json());
+    log(`[1] 频道接口：${meta.total} 个频道，更新于 ${meta.updated_at}`);
+    const list = await fetch('/api/channels?limit=500').then(r => r.json());
+    const st = list.items.find(s => s.hls) || list.items[0];
+    log(`[2] 选中测试频道：${st.name}（${st.category} / ${st.region}）`);
+
+    const detail = await fetch('/api/channels/' + st.id).then(r => r.json());
+    log(`[3] 线路数：${detail.streams.length}，首选编码：${detail.streams[0].hls ? 'HLS' : '直连'}`);
+
+    const url = `/api/stream/${st.id}?i=0`;
+    const head = await fetch(url).then(async r => ({ type: r.headers.get('content-type'), text: (await r.text()).slice(0, 80) }));
+    log(`[4] 代理响应：${head.type} | ${head.text.split('\n')[0]}`);
+
+    const useHlsJs = !!(window.Hls && Hls.isSupported());
+    log(`[5] 播放内核：${useHlsJs ? 'hls.js ' + Hls.version : '浏览器原生 HLS'}`);
+
+    if (useHlsJs) {
+      hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(audio);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => log('[6] 播放列表解析成功'));
+      hls.on(Hls.Events.FRAG_LOADED, () => log('[7] 首个分片已加载'));
+      hls.on(Hls.Events.ERROR, (_e, d) => { if (d.fatal) log('<span class="bad">✗ 播放错误：' + d.type + ' / ' + (d.details || '') + '</span>'); });
+    } else {
+      audio.src = url;
+    }
+
+    audio.addEventListener('playing', () => {
+      log('<span class="ok">✓ 已开始播放，链路正常</span>');
+      setTimeout(() => { log(`播放进度：${audio.currentTime.toFixed(1)}s，缓冲 ${audio.buffered.length ? (audio.buffered.end(0) - audio.currentTime).toFixed(1) : 0}s`); }, 3000);
+    }, { once: true });
+    audio.addEventListener('error', () => log('<span class="bad">✗ 音频元素报错，检查上游地址是否可用</span>'));
+
+    try { await audio.play(); } catch (e) { log('<span class="bad">✗ 自动播放被拦截：' + e.message + '（点击下方播放器即可）</span>'); }
+  }
+
+  run().catch(err => log('<span class="bad">✗ 自检失败：' + err.message + '</span>'));
+})();
+</script>
+</body>
+</html>

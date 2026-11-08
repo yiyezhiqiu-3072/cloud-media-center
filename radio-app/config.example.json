@@ -1,0 +1,12 @@
+{
+  "host": "0.0.0.0",
+  "port": 8080,
+  "refresh_hours": 6,
+  "admin_token": "",
+  "crawl_on_start": true,
+  "username": "admin",
+  "password": "",
+  "session_days": 30,
+  "log_dir": "logs",
+  "log_days": 14
+}

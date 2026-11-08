@@ -1,0 +1,55 @@
+# ================= 云媒中心 · 版本管理忽略规则 =================
+# 原则：只纳入「源码 + 静态资源 + 打包配置 + 配置模板 + 部署说明 + 交付 exe」；
+#       排除运行时数据、登录会话、真实配置（含账号密码）、构建中间物与大体积工具链。
+
+# ---- 本机工具链 / 编辑器缓存（非项目源码，约 500MB） ----
+.toolchain/
+.devproxy/
+.workbuddy/
+.q*.html
+.qm.js
+_music_test.py
+
+# ---- Python 缓存 ----
+__pycache__/
+*.pyc
+*.pyo
+
+# ---- PyInstaller 构建中间产物（保留 .pyi/*.spec 打包配置） ----
+**/build/
+**/dist/
+**/*.toc
+**/.pyi/build/
+**/.pyi/*.toc
+
+# ---- 运行时数据 / 日志 / 会话（含登录态，禁止入库） ----
+**/data/
+**/logs/
+**/*.log
+**/sessions.json
+**/items.json
+**/tracks.json
+**/playlists.json
+
+# ---- 实际部署配置（可能含账号密码），只保留 example 模板 ----
+music-app/config.json
+radio-app/config.json
+tv-app/config.json
+work-app/config.json
+portal/auth-service/config.json
+# deploy/*/config.json 是脱敏模板，保留入库
+
+# ---- 超过 GitHub 单文件 100MB 上限 / 第三方二进制 ----
+# ffmpeg.exe 约 166MB，无法入库；部署时按 部署说明.md 从官方 zip 解压
+**/ffmpeg.exe
+**/ffprobe.exe
+**/*.zip
+# 4 个应用 exe 属构建产物，改用 GitHub Releases 分发，不纳入 Git 历史
+*.exe
+
+# ---- 临时文件 ----
+*.tmp
+*.bak
+*~
+.DS_Store
+Thumbs.db

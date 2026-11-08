@@ -1,0 +1,11 @@
+{
+  "host": "127.0.0.1",
+  "port": 8091,
+  "probe_on_start": true,
+  "direct_play": true,
+  "log_dir": "logs",
+  "log_days": 14,
+  "portal_auth_url": "http://127.0.0.1:8092/auth/check",
+  "portal_home": "",
+  "portal_status": ""
+}

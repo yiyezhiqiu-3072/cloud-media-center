@@ -1,0 +1,5833 @@
+{
+ "version": 2,
+ "updated_at": "2026-11-04T17:07:19+08:00",
+ "total": 238,
+ "raw_total": 800,
+ "categories": {
+  "音乐": 92,
+  "综合": 54,
+  "新闻": 47,
+  "曲艺": 19,
+  "交通": 12,
+  "财经": 9,
+  "体育": 3,
+  "民族": 2
+ },
+ "regions": {
+  "全国": 173,
+  "上海": 12,
+  "北京": 10,
+  "广东": 6,
+  "四川": 4,
+  "湖北": 3,
+  "河北": 3,
+  "河南": 3,
+  "安徽": 3,
+  "山东": 3,
+  "吉林": 3,
+  "云南": 2,
+  "天津": 2,
+  "陕西": 2,
+  "江西": 2,
+  "辽宁": 2,
+  "广西": 2,
+  "江苏": 1,
+  "内蒙古": 1,
+  "福建": 1
+ },
+ "stations": [
+  {
+   "id": "r0001",
+   "name": "中国之声",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news 中国之声 information news information news public radio",
+   "homepage": "http://www.cnr.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 10212,
+   "boost": 0,
+   "streams": [
+    {
+     "url": "https://ngcdn001.cnr.cn/live/zgzs/index.m3u8",
+     "latency": 672,
+     "hls": true
+    },
+    {
+     "url": "https://lhttp.qtfm.cn/live/15318317/64k.mp3",
+     "latency": 1440,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://ngcdn002.cnr.cn/live/zgzs/index.m3u8",
+     "latency": 363
+    }
+   ],
+   "latency": 672,
+   "online": true
+  },
+  {
+   "id": "r0002",
+   "name": "怀集音乐之声",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.hj0758.cn/",
+   "favicon": "http://www.hj0758.cn/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 10652,
+   "boost": 1,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/4804/64k.mp3",
+     "latency": 1559,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1559,
+   "online": true
+  },
+  {
+   "id": "r0003",
+   "name": "经济之声",
+   "category": "财经",
+   "region": "全国",
+   "tags": "economic news economics",
+   "homepage": "http://www.cnr.cn/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 8467,
+   "boost": 1,
+   "streams": [
+    {
+     "url": "https://ngcdn002.cnr.cn/live/jjzs/index.m3u8",
+     "latency": 859,
+     "hls": true
+    },
+    {
+     "url": "https://satellitepull.cnr.cn/live/wxjjzs/playlist.m3u8?wsSession=5849bb6c90cf7fc1a7e3eae9-174908108209742&wsIPSercert=f7b6cfa8467acd0836b62cf14aa786d3",
+     "latency": 3218,
+     "hls": true
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://ngcdn002.cnr.cn/live/jjzs/index.m3u8",
+     "latency": 262
+    }
+   ],
+   "latency": 859,
+   "online": true
+  },
+  {
+   "id": "r0004",
+   "name": "广东音乐之声",
+   "category": "音乐",
+   "region": "广东",
+   "tags": "music",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "https://img.gdtv.cn/image/202109/0.070466864478565984968adb1bd6e36150OSS1630576772.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1286,
+   "boost": 1,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1260/64k.mp3",
+     "latency": 950,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 950,
+   "online": true
+  },
+  {
+   "id": "r0005",
+   "name": "音乐之声",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.cnr.cn/",
+   "favicon": "https://cnvod.cnr.cn/audio2017/ondemand/img/1100/20191224/1577155745280.png",
+   "bitrate": 128,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 713,
+   "boost": 1,
+   "streams": [
+    {
+     "url": "https://ngcdn001.cnr.cn/live/yyzs/index.m3u8",
+     "latency": 687,
+     "hls": true
+    },
+    {
+     "url": "https://satellitepull.cnr.cn/live/wxyyzs/playlist.m3u8?wsSession=28e11e3debee46427a9d53dc-174908117055114&wsIPSercert=f7b6cfa8467acd0836b62cf14aa786d3",
+     "latency": 3027,
+     "hls": true
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://antiserver.kuwo.cn/anti.s?rid=MUSIC_190038250&response=res&format=mp3|aac&type=convert_url&br=128kmp3&agent=iPhone&callback=getlink&jpcallback=getlink.mp3",
+     "latency": 312
+    }
+   ],
+   "latency": 687,
+   "online": true
+  },
+  {
+   "id": "r0006",
+   "name": "顺德音乐之声",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "culture music oldies",
+   "homepage": "https://www.fstv.com.cn/shundepindao/index.html",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 615,
+   "boost": 1,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500150/64k.mp3",
+     "latency": 1249,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1249,
+   "online": true
+  },
+  {
+   "id": "r0007",
+   "name": "温州音乐之声",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.wztv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 114,
+   "boost": 1,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1149/64k.mp3",
+     "latency": 2642,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2642,
+   "online": true
+  },
+  {
+   "id": "r0008",
+   "name": "环球资讯广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "905fm china information news",
+   "homepage": "https://newsradio.cri.cn/",
+   "favicon": "https://newsradio.cri.cn/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 531,
+   "boost": 2,
+   "streams": [
+    {
+     "url": "https://sk.cri.cn/905.m3u8",
+     "latency": 989,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 989,
+   "online": true
+  },
+  {
+   "id": "r0009",
+   "name": "上海经典音乐广播 FM94.7",
+   "category": "音乐",
+   "region": "上海",
+   "tags": "classical",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qingting.fm/sso/48/1641437907698_k0NNOUP54.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 327,
+   "boost": 2,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/267/64k.mp3",
+     "latency": 2648,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2648,
+   "online": true
+  },
+  {
+   "id": "r0010",
+   "name": "湖北经典音乐广播",
+   "category": "音乐",
+   "region": "湖北",
+   "tags": "oldies",
+   "homepage": "http://m.hbgbdst.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 185,
+   "boost": 2,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1296/64k.mp3",
+     "latency": 2116,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2116,
+   "online": true
+  },
+  {
+   "id": "r0011",
+   "name": "怀旧音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "89.5 895 music 地方台 怀旧 音乐",
+   "homepage": "https://superradio.cc/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1483,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://live.ximalaya.com/radio-first-page-app/live/2629/64.m3u8",
+     "latency": 1565,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1565,
+   "online": true
+  },
+  {
+   "id": "r0012",
+   "name": "广东新闻广播",
+   "category": "新闻",
+   "region": "广东",
+   "tags": "news",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "https://img.gdtv.cn/image/202109/0.03748908070393519628f4c932fb282e942OSS1630576729.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1245,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1254/64k.mp3",
+     "latency": 1822,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1822,
+   "online": true
+  },
+  {
+   "id": "r0013",
+   "name": "北京新闻广播",
+   "category": "新闻",
+   "region": "北京",
+   "tags": "94.5 94.5 fm am828 news",
+   "homepage": "https://www.rbc.cn/",
+   "favicon": "https://pic.qtfm.cn/2015/0514/2015051417385422.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1234,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/339/64k.mp3",
+     "latency": 3712,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3712,
+   "online": true
+  },
+  {
+   "id": "r0014",
+   "name": "广东交通之声",
+   "category": "交通",
+   "region": "广东",
+   "tags": "traffic 羊城交通广播",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1009,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1262/64k.mp3",
+     "latency": 2919,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2919,
+   "online": true
+  },
+  {
+   "id": "r0015",
+   "name": "江苏经典流行音乐广播",
+   "category": "音乐",
+   "region": "江苏",
+   "tags": "chinese pop music oldies",
+   "homepage": "https://www.vojs.cn/2014new/c/g/",
+   "favicon": "https://www.vojs.cn/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 693,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/4938/64k.mp3",
+     "latency": 4058,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://lzlive.vojs.cn/2wtSfrS/92/live.m3u8?",
+     "latency": 329
+    }
+   ],
+   "latency": 4058,
+   "online": true
+  },
+  {
+   "id": "r0016",
+   "name": "北京交通广播",
+   "category": "音乐",
+   "region": "北京",
+   "tags": "103.9 103.9 fm entertainment music traffic radio broadcast",
+   "homepage": "https://www.rbc.cn/index.shtml",
+   "favicon": "http://pic.qingting.fm/2019/0227/20190227023249.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 660,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/336/64k.mp3",
+     "latency": 2246,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2246,
+   "online": true
+  },
+  {
+   "id": "r0017",
+   "name": "四川新闻广播",
+   "category": "新闻",
+   "region": "四川",
+   "tags": "information news",
+   "homepage": "http://www.sctv.com/",
+   "favicon": "https://scgcscreen.sctv-tf.com/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 431,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/4906/64k.mp3",
+     "latency": 3054,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3054,
+   "online": true
+  },
+  {
+   "id": "r0018",
+   "name": "北京音乐广播",
+   "category": "音乐",
+   "region": "北京",
+   "tags": "97.4 97.4 fm music pop",
+   "homepage": "https://www.rbc.cn/",
+   "favicon": "https://pic.qtfm.cn/2017/0424/20170424025444.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 374,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/332/64k.mp3",
+     "latency": 2808,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2808,
+   "online": true
+  },
+  {
+   "id": "r0019",
+   "name": "深圳音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.feiyang971.com/",
+   "favicon": "https://www.feiyang971.com/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 339,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1271/64k.mp3",
+     "latency": 1603,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1603,
+   "online": true
+  },
+  {
+   "id": "r0020",
+   "name": "河北音乐广播",
+   "category": "音乐",
+   "region": "河北",
+   "tags": "music oldies",
+   "homepage": "https://www.hebtv.com/",
+   "favicon": "https://www.hebtv.com/public/img/icon_ie.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 319,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://radio.pull.hebtv.com/live/hebyy.m3u8",
+     "latency": 1180,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1180,
+   "online": true
+  },
+  {
+   "id": "r0021",
+   "name": "上海流行音乐广播 动感101 FM101.7",
+   "category": "音乐",
+   "region": "上海",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qingting.fm/2014/0909/20140909123511693.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 318,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/274/64k.mp3",
+     "latency": 3230,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3230,
+   "online": true
+  },
+  {
+   "id": "r0022",
+   "name": "BRTV北京音乐广播",
+   "category": "音乐",
+   "region": "北京",
+   "tags": "music",
+   "homepage": "https://www.brtv.org.cn/",
+   "favicon": "https://pic.qtfm.cn/2017/0424/20170424025444.jpeg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 236,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://brtv-radiolive.rbc.cn/alive/fm974.m3u8",
+     "latency": 1066,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1066,
+   "online": true
+  },
+  {
+   "id": "r0023",
+   "name": "河南交通广播",
+   "category": "交通",
+   "region": "河南",
+   "tags": "traffic",
+   "homepage": "http://www.hndt.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 230,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://stream.hndt.com/live/jiaotong/playlist.m3u8",
+     "latency": 1133,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1133,
+   "online": true
+  },
+  {
+   "id": "r0024",
+   "name": "BRTV北京新闻广播",
+   "category": "新闻",
+   "region": "北京",
+   "tags": "news",
+   "homepage": "https://www.brtv.org.cn/",
+   "favicon": "https://pic.qtfm.cn/2015/0514/2015051417385422.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 195,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://brtv-radiolive.rbc.cn/alive/fm945.m3u8",
+     "latency": 686,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 686,
+   "online": true
+  },
+  {
+   "id": "r0025",
+   "name": "河北经济广播(故事广播)",
+   "category": "财经",
+   "region": "河北",
+   "tags": "culture storytelling",
+   "homepage": "https://www.hebtv.com/",
+   "favicon": "https://www.hebtv.com/public/img/icon_ie.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 181,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://radio.pull.hebtv.com/live/hebjj.m3u8",
+     "latency": 892,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 892,
+   "online": true
+  },
+  {
+   "id": "r0026",
+   "name": "安徽音乐广播",
+   "category": "音乐",
+   "region": "安徽",
+   "tags": "music",
+   "homepage": "http://www.ahrtv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 167,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1947/64k.mp3",
+     "latency": 2092,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2092,
+   "online": true
+  },
+  {
+   "id": "r0027",
+   "name": "上海新闻广播 FM93.4 AM990",
+   "category": "新闻",
+   "region": "上海",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qingting.fm/2015/0202/20150202170847551.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 161,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/270/64k.mp3",
+     "latency": 2574,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2574,
+   "online": true
+  },
+  {
+   "id": "r0028",
+   "name": "济南音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "hits indie music pop rock",
+   "homepage": "http://www.music887.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 159,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1671/64k.mp3",
+     "latency": 1742,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1742,
+   "online": true
+  },
+  {
+   "id": "r0029",
+   "name": "长沙音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "88.6 88.6 fm folk hits music pop",
+   "homepage": "https://www.csbtv.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 157,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20847/64k.mp3",
+     "latency": 1684,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1684,
+   "online": true
+  },
+  {
+   "id": "r0030",
+   "name": "CNR-15 中国交通广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "entertainment information lifestyle music traffic information",
+   "homepage": "https://www.cnr.cn/",
+   "favicon": "https://ytmedia.radio.cn/CCYT/202505/19/18/8jLzVYGQuoQrHLIljfYQxUeOssaU12f5xAiFGZr2025051918831.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 145,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://ngcdn002.cnr.cn/live/gsgljtgb/index.m3u8",
+     "latency": 1153,
+     "hls": true
+    },
+    {
+     "url": "https://satellitepull.cnr.cn/live/wxzgjtgb/playlist.m3u8?wsSession=28e11e3debee46427a9d53dc-174908170190549&wsIPSercert=f7b6cfa8467acd0836b62cf14aa786d3",
+     "latency": 4078,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1153,
+   "online": true
+  },
+  {
+   "id": "r0031",
+   "name": "BRTV北京交通广播",
+   "category": "交通",
+   "region": "北京",
+   "tags": "traffic radio broadcast",
+   "homepage": "https://www.brtv.org.cn/",
+   "favicon": "https://pic.qtfm.cn/2019/0227/20190227023249.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 128,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://brtv-radiolive.rbc.cn/alive/fm1039.m3u8",
+     "latency": 1291,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1291,
+   "online": true
+  },
+  {
+   "id": "r0032",
+   "name": "Heart FM冰城102.6·哈尔滨古典音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "classical music pop",
+   "homepage": "https://www.hrbtv.net/",
+   "favicon": "",
+   "bitrate": 48,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 107,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://stream.hrbtv.net/gdpl/playlist.m3u8",
+     "latency": 1052,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1052,
+   "online": true
+  },
+  {
+   "id": "r0033",
+   "name": "泉州交通广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.qztv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 105,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/15318189/64k.mp3",
+     "latency": 2174,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2174,
+   "online": true
+  },
+  {
+   "id": "r0034",
+   "name": "哈尔滨音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music pop",
+   "homepage": "https://www.hrbtv.net/",
+   "favicon": "http://pic.qingting.fm/2015/1210/20151210172937967.jpg",
+   "bitrate": 50,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 94,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://stream.hrbtv.net/yypl/playlist.m3u8",
+     "latency": 1410,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1410,
+   "online": true
+  },
+  {
+   "id": "r0035",
+   "name": "上海交通广播 FM105.7",
+   "category": "交通",
+   "region": "上海",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qingting.fm/sso/48/1641437453117_JxQnTn1vv.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 81,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/266/64k.mp3",
+     "latency": 1065,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1065,
+   "online": true
+  },
+  {
+   "id": "r0036",
+   "name": "云南新闻广播",
+   "category": "新闻",
+   "region": "云南",
+   "tags": "news",
+   "homepage": "http://www.ynradio.com/v2/",
+   "favicon": "https://pic.qtfm.cn/2020/0404/20200404114731.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 79,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1926/64k.mp3",
+     "latency": 2692,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2692,
+   "online": true
+  },
+  {
+   "id": "r0037",
+   "name": "天津新闻广播",
+   "category": "新闻",
+   "region": "天津",
+   "tags": "",
+   "homepage": "http://tjtv.enorth.com.cn/",
+   "favicon": "http://tjtv.enorth.com.cn/gb/xwgb/images/xwzx201812_02.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 73,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5022134/64k.mp3",
+     "latency": 1838,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1838,
+   "online": true
+  },
+  {
+   "id": "r0038",
+   "name": "安徽交通广播",
+   "category": "交通",
+   "region": "安徽",
+   "tags": "traffic",
+   "homepage": "http://www.ahrtv.cn/",
+   "favicon": "https://pic.qtfm.cn/2020/0311/20200311053004.png",
+   "bitrate": 231,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 39,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://satellitepull.cnr.cn/live/wxahjtgb/playlist.m3u8",
+     "latency": 835,
+     "hls": true
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://satellitepull.cnr.cn/live/wxahjtgb/playlist.m3u8",
+     "latency": 602
+    }
+   ],
+   "latency": 835,
+   "online": true
+  },
+  {
+   "id": "r0039",
+   "name": "海口音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music 91.6 91.6 fm music",
+   "homepage": "https://www.hkbtv.cn/#/",
+   "favicon": "http://pic.qtfm.cn/2018/0102/20180102115350.jpeg!200",
+   "bitrate": 64,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 38,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://ls.qingting.fm/live/20010/64k.m3u8",
+     "latency": 847,
+     "hls": true
+    },
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20010/64k.mp3",
+     "latency": 1651,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 847,
+   "online": true
+  },
+  {
+   "id": "r0040",
+   "name": "湾区音乐台_鹤山音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music oldies",
+   "homepage": "http://www.heshan.gov.cn/",
+   "favicon": "https://pic.qtfm.cn/2023/0710/20230710050911.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 38,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20500163/64k.mp3",
+     "latency": 2306,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2306,
+   "online": true
+  },
+  {
+   "id": "r0041",
+   "name": "内蒙古交通之声",
+   "category": "交通",
+   "region": "内蒙古",
+   "tags": "traffic radio broadcast",
+   "homepage": "https://www.nmtv.cn/",
+   "favicon": "https://pic.qtfm.cn/2020/0305/20200305053951.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 36,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/1884/64k.mp3",
+     "latency": 1702,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1702,
+   "online": true
+  },
+  {
+   "id": "r0042",
+   "name": "大庆音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "easy listening entertainment",
+   "homepage": "http://www.dqrtv.cn/",
+   "favicon": "http://www.dqrtv.cn/images/xz_48.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 32,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500212/64k.mp3",
+     "latency": 2801,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2801,
+   "online": true
+  },
+  {
+   "id": "r0043",
+   "name": "咸阳音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.xybtv.com/",
+   "favicon": "http://5b0988e595225.cdn.sohucs.com/images/20180613/7c19011295464d24b8fc1caffa6a593e.jpeg",
+   "bitrate": 2560,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 21,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://hplayer1.juyun.tv/camera/63973146.m3u8",
+     "latency": 977,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 977,
+   "online": true
+  },
+  {
+   "id": "r0044",
+   "name": "潮州交通音乐广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "lifestyle music traffic information",
+   "homepage": "https://www.czbtv.com/",
+   "favicon": "https://ytmedia.radio.cn/CCYT%2F202412%2F06%2F19%2FetuOE8yV6vpldA2024120619172.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 20,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/4594/64k.mp3",
+     "latency": 1646,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1646,
+   "online": true
+  },
+  {
+   "id": "r0045",
+   "name": "佛山电台FM92.4交通广播",
+   "category": "交通",
+   "region": "全国",
+   "tags": "traffic radio broadcast",
+   "homepage": "https://www.fscmjt.com/",
+   "favicon": "https://radio5.cn/file/2023/05/2023051008220764.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 10,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://radiopull.radiofoshan.com.cn/live/1400389414_BSID_42_audio.m3u8",
+     "latency": 873,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 873,
+   "online": true
+  },
+  {
+   "id": "r0046",
+   "name": "嘉兴交通经济广播 FM92.2",
+   "category": "交通",
+   "region": "全国",
+   "tags": "china zhejiang",
+   "homepage": "https://www.cnjxol.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 9,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/1135/64k.mp3",
+     "latency": 1892,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1892,
+   "online": true
+  },
+  {
+   "id": "r0047",
+   "name": "陕西交通广播",
+   "category": "交通",
+   "region": "陕西",
+   "tags": "",
+   "homepage": "http://www.sxtvs.com/sxtvs_jtgb/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 8,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1601/64k.mp3",
+     "latency": 2714,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2714,
+   "online": true
+  },
+  {
+   "id": "r0048",
+   "name": "江西文艺音乐广播",
+   "category": "音乐",
+   "region": "江西",
+   "tags": "",
+   "homepage": "https://www.jxntv.cn/",
+   "favicon": "https://ytmedia.radio.cn/CCYT%2F202409%2F10%2F21%2FogSm1qM26eOwA04oLjkyZZvTlZtB3ioJ6ucDLEhE2024091021222.JPG",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 6,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://fm-live-pull.jxtvcn.com.cn/live-jxrtv/fm1034.m3u8",
+     "latency": 1356,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1356,
+   "online": true
+  },
+  {
+   "id": "r0049",
+   "name": "深圳交通广播 FM106.2",
+   "category": "交通",
+   "region": "全国",
+   "tags": "china guangdong shenzhen traffic",
+   "homepage": "https://m.qtfm.cn/channels/1286",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 4,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1286/64k.mp3",
+     "latency": 2736,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2736,
+   "online": true
+  },
+  {
+   "id": "r0050",
+   "name": "宜春交通音乐广播 FM87.9",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.newsyc.com/",
+   "favicon": "http://pic.qingting.fm/2018/1128/20181128155326321.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 2,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://liveds-yc.newsyc.com/fmb/sd/live.m3u8",
+     "latency": 1000,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1000,
+   "online": true
+  },
+  {
+   "id": "r0051",
+   "name": "海口音乐广播 WHIZRADIO",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.hkbtv.cn/#/",
+   "favicon": "http://pic.qtfm.cn/2018/0102/20180102115350.jpeg!200",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 2,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://live2.hkbtv.cn/live/fm916.m3u8",
+     "latency": 1309,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1309,
+   "online": true
+  },
+  {
+   "id": "r0052",
+   "name": "连云港交通广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.lyg1.com/index.html",
+   "favicon": "https://img-ossimg-qn.ajmide.com/program/1KtiEo.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1,
+   "boost": 3,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_2481/nglive_2481.m3u8",
+     "latency": 593,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 593,
+   "online": true
+  },
+  {
+   "id": "r0053",
+   "name": "CCTV-13新闻伴音",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "tv cctv 国家台 新闻 电视伴音 综合",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 15017,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv13_2.m3u8",
+     "latency": 891,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 891,
+   "online": true
+  },
+  {
+   "id": "r0054",
+   "name": "国际新闻",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "information news",
+   "homepage": "http://www.ajmide.com/",
+   "favicon": "https://pic.qtfm.cn/sso/48/1678171152584_a6BwhQSVz.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 7346,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500172/64k.mp3",
+     "latency": 2206,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2206,
+   "online": true
+  },
+  {
+   "id": "r0055",
+   "name": "500首华语经典",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music oldies",
+   "homepage": "https://www.qingting.fm/radios/5022308",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 4472,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/5022308/64k.mp3",
+     "latency": 3216,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3216,
+   "online": true
+  },
+  {
+   "id": "r0056",
+   "name": "AsiaFM高清音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "192kbps hd music",
+   "homepage": "http://www.asiafm.net/index.php#page1",
+   "favicon": "",
+   "bitrate": 96,
+   "codec": "AAC+",
+   "hls": false,
+   "votes": 3072,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/15318341/64k.mp3",
+     "latency": 2390,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://asiafm.hk:8000/asiahd",
+     "latency": 1094
+    }
+   ],
+   "latency": 2390,
+   "online": true
+  },
+  {
+   "id": "r0057",
+   "name": "CCTV-4中文国际伴音",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 2976,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv4_2.m3u8",
+     "latency": 1364,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1364,
+   "online": true
+  },
+  {
+   "id": "r0058",
+   "name": "两广之声音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "internet radio oldies",
+   "homepage": "https://www.qingting.fm/radios/20500149/",
+   "favicon": "https://pic.qtfm.cn/2022/0619/20220619063631.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 2731,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500149/64k.mp3",
+     "latency": 2967,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2967,
+   "online": true
+  },
+  {
+   "id": "r0059",
+   "name": "AsiaFM亚洲经典台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "classic hits hd music oldies",
+   "homepage": "http://www.asiafm.net/index.php#page1",
+   "favicon": "http://pic.qtfm.cn/2022/0712/20220712122112.jpeg!200",
+   "bitrate": 128,
+   "codec": "AAC+",
+   "hls": false,
+   "votes": 2309,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/5021912/64k.mp3",
+     "latency": 2327,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://goldfm.cn:8000/goldfm",
+     "latency": 1034
+    }
+   ],
+   "latency": 2327,
+   "online": true
+  },
+  {
+   "id": "r0060",
+   "name": "AisaFM亚洲粤语台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.asiafm.hk/",
+   "favicon": "https://imagev2.xmcdn.com/storages/20ef-audiofreehighqps/00/CA/GMCoOR8HJFh9AAMCbwGzjNlB.jpg!strip=1&quality=7&magick=jpg&op_type=5&upload_type=cover&name=web_large&device_type=ios",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 2238,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.ximalaya.com/radio-first-page-app/live/999/64.m3u8?transcode=ts",
+     "latency": 1216,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1216,
+   "online": true
+  },
+  {
+   "id": "r0061",
+   "name": "新闻联播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://www.rfi.fr/cn/",
+   "favicon": "https://www.rfi.fr/apple-touch-icon.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 2085,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rfienchinois64k.ice.infomaniak.ch//rfienchinois-64.mp3",
+     "latency": 4643,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 4643,
+   "online": true
+  },
+  {
+   "id": "r0062",
+   "name": "AsiaFM 亚洲粤语台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "地方台 粤语 音乐",
+   "homepage": "https://superradio.cc/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 2071,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/15318569/64k.mp3",
+     "latency": 1782,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1782,
+   "online": true
+  },
+  {
+   "id": "r0063",
+   "name": "广东珠江经济台",
+   "category": "财经",
+   "region": "广东",
+   "tags": "economics economics economy",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "https://m.gdtv.cn/statics/images/logo.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1919,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1259/64k.mp3",
+     "latency": 2807,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2807,
+   "online": true
+  },
+  {
+   "id": "r0064",
+   "name": "CCTV-2财经伴音",
+   "category": "财经",
+   "region": "全国",
+   "tags": "tv",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1870,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv2_2.m3u8",
+     "latency": 1080,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1080,
+   "online": true
+  },
+  {
+   "id": "r0065",
+   "name": "Chinese Music World",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "folk chinese classical folk teaditional chinese classical traditional",
+   "homepage": "https://chinesemusicworld.com/",
+   "favicon": "https://i.imgur.com/z9wfFZW.png",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1792,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radio.chinesemusicworld.com/chinesemusic.mp3",
+     "latency": 2646,
+     "hls": false
+    },
+    {
+     "url": "https://radio.chinesemusicworld.com/chinesemusic.ogg",
+     "latency": 3534,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://radio.chinesemusicworld.com/chinesemusic.ogg",
+     "latency": 609
+    }
+   ],
+   "latency": 2646,
+   "online": true
+  },
+  {
+   "id": "r0066",
+   "name": "安徽小说评书广播",
+   "category": "曲艺",
+   "region": "安徽",
+   "tags": "storytelling",
+   "homepage": "http://www.ahrtv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1728,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1951/64k.mp3",
+     "latency": 2242,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2242,
+   "online": true
+  },
+  {
+   "id": "r0067",
+   "name": "CCTV-15音乐伴音",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1385,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv15_2.m3u8",
+     "latency": 687,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 687,
+   "online": true
+  },
+  {
+   "id": "r0068",
+   "name": "CCTV-5体育伴音",
+   "category": "体育",
+   "region": "全国",
+   "tags": "sports tv",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1116,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv5_2.m3u8",
+     "latency": 629,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 629,
+   "online": true
+  },
+  {
+   "id": "r0069",
+   "name": "故事广播-阿基米德故事会",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "storytelling",
+   "homepage": "http://www.ajmide.com/",
+   "favicon": "https://pic.qtfm.cn/sso/48/1681194685101_C-GRakvDz.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 1002,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500182/64k.mp3",
+     "latency": 785,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 785,
+   "online": true
+  },
+  {
+   "id": "r0070",
+   "name": "CCTV-12社会与法伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "tv",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 986,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv12_2.m3u8",
+     "latency": 620,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 620,
+   "online": true
+  },
+  {
+   "id": "r0071",
+   "name": "CCTV-4中文国际美洲伴音",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "http://tv.cctv.com/cctv4america/",
+   "favicon": "http://p2.img.cctvpic.com/photoAlbum/page/performance/img/2022/3/18/1647595459147_432.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 920,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctvamerica_2.m3u8",
+     "latency": 661,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 661,
+   "online": true
+  },
+  {
+   "id": "r0072",
+   "name": "广东股市广播",
+   "category": "财经",
+   "region": "广东",
+   "tags": "economics",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 920,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/4847/64k.mp3",
+     "latency": 3921,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3921,
+   "online": true
+  },
+  {
+   "id": "r0073",
+   "name": "CGTN Radio",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news propaganda talks",
+   "homepage": "https://radio.cgtn.com/",
+   "favicon": "https://radio-res.cgtn.com/image/2112/1639986367791.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 907,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://sk.cri.cn/am846.m3u8",
+     "latency": 749,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 749,
+   "online": true
+  },
+  {
+   "id": "r0074",
+   "name": "90.7mixfm",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://tingfm.com/radio/976",
+   "favicon": "https://tingfm.com/wp-content/themes/radio-hub/static/images/favicon-64.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 906,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/15318146/64k.mp3",
+     "latency": 1498,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1498,
+   "online": true
+  },
+  {
+   "id": "r0075",
+   "name": "CCTV-3综艺伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "entertainment",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 892,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv3_2.m3u8",
+     "latency": 1279,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1279,
+   "online": true
+  },
+  {
+   "id": "r0076",
+   "name": "CCTV-10科教伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "education educational tv",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 891,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv10_2.m3u8",
+     "latency": 1107,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1107,
+   "online": true
+  },
+  {
+   "id": "r0077",
+   "name": "AsiaFM亚洲音乐台(新)",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music pop",
+   "homepage": "https://www.radiotaiwan.tw/asia-fm-ya-zhou-dian-tai-wei-xing-liu-xing-yin-le-tai",
+   "favicon": "https://www.radiotaiwan.tw/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 860,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.xmcdn.com/live/764/64.m3u8",
+     "latency": 1404,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1404,
+   "online": true
+  },
+  {
+   "id": "r0078",
+   "name": "Shanghai FM 101 上海动感101",
+   "category": "综合",
+   "region": "上海",
+   "tags": "",
+   "homepage": "http://www.fm101.cn/",
+   "favicon": "http://www.fm101.cn/template/conch/asset/img/ico.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 804,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/274/64k.mp3",
+     "latency": 3153,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3153,
+   "online": true
+  },
+  {
+   "id": "r0079",
+   "name": "AsiaFM亚洲音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.asiafm.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 773,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/4581/64k.mp3",
+     "latency": 2422,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2422,
+   "online": true
+  },
+  {
+   "id": "r0080",
+   "name": "济南故事广播",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "culture educational science storytelling talk",
+   "homepage": "http://jnradio.ijntv.cn/fm1043/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 713,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1672/64k.mp3",
+     "latency": 2172,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2172,
+   "online": true
+  },
+  {
+   "id": "r0081",
+   "name": "AsiaFM亚洲天空台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music hd music",
+   "homepage": "http://www.asiafm.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 702,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/20071/64k.mp3",
+     "latency": 2512,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "http://funradio.cn:8000/funradio",
+     "latency": 724
+    }
+   ],
+   "latency": 2512,
+   "online": true
+  },
+  {
+   "id": "r0082",
+   "name": "CCTV-5+体育赛事伴音",
+   "category": "体育",
+   "region": "全国",
+   "tags": "sport sports",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 628,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv5plus_2.m3u8",
+     "latency": 1273,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1273,
+   "online": true
+  },
+  {
+   "id": "r0083",
+   "name": "星空电台 STAR RADIO",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.douyin.com/hashtag/1601349392489475",
+   "favicon": "https://so1.360tres.com/t017f7678dc1805885e.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 592,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5022379/64k.mp3",
+     "latency": 1838,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1838,
+   "online": true
+  },
+  {
+   "id": "r0084",
+   "name": "东方卫视伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "https://www.smg.cn/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 590,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/dongfang_2.m3u8",
+     "latency": 1099,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1099,
+   "online": true
+  },
+  {
+   "id": "r0085",
+   "name": "北京BTV新闻伴音",
+   "category": "新闻",
+   "region": "北京",
+   "tags": "tv",
+   "homepage": "https://www.brtv.org.cn/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 584,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://wstvcpudali.v.myalicdn.com/wstvcpud/udrmbtv9_1/index.m3u8?adapt=0&BR=audio",
+     "latency": 813,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 813,
+   "online": true
+  },
+  {
+   "id": "r0086",
+   "name": "CityFM城市音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "internet radio music",
+   "homepage": "https://www.qingting.fm/radios/20500153",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 580,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500153/64k.mp3",
+     "latency": 1700,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1700,
+   "online": true
+  },
+  {
+   "id": "r0087",
+   "name": "北京文艺广播",
+   "category": "曲艺",
+   "region": "北京",
+   "tags": "87.6 87.6 fm entertainment",
+   "homepage": "https://www.rbc.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 565,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/333/64k.mp3",
+     "latency": 1095,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1095,
+   "online": true
+  },
+  {
+   "id": "r0088",
+   "name": "CCTV-4中文国际欧洲伴音",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "http://tv.cctv.com/cctv4europe/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 553,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctveurope_2.m3u8",
+     "latency": 957,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 957,
+   "online": true
+  },
+  {
+   "id": "r0089",
+   "name": "CCTV-11戏曲伴音",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "opera",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 540,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv11_2.m3u8",
+     "latency": 1365,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1365,
+   "online": true
+  },
+  {
+   "id": "r0090",
+   "name": "动听音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.qtfm.cn/radios/5022107",
+   "favicon": "https://pic.qtfm.cn/2021/0411/20210411040015.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 483,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5022107/64k.mp3",
+     "latency": 1478,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1478,
+   "online": true
+  },
+  {
+   "id": "r0091",
+   "name": "河南戏曲广播",
+   "category": "曲艺",
+   "region": "河南",
+   "tags": "entertainment",
+   "homepage": "http://www.hndt.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 441,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://stream.hndt.com/live/yule/playlist.m3u8",
+     "latency": 1289,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1289,
+   "online": true
+  },
+  {
+   "id": "r0092",
+   "name": "Fred Film Radio(中文)",
+   "category": "综合",
+   "region": "全国",
+   "tags": "culture film movie",
+   "homepage": "http://www.fred.fm/",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 426,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://s10.webradio-hosting.com/proxy/fredradiocn/stream",
+     "latency": 2044,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2044,
+   "online": true
+  },
+  {
+   "id": "r0093",
+   "name": "CCTV农业节目伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "culture",
+   "homepage": "https://www.cctv.com/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 410,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv17_2.m3u8",
+     "latency": 887,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 887,
+   "online": true
+  },
+  {
+   "id": "r0094",
+   "name": "Big B Radio亚洲音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music pop rock",
+   "homepage": "https://bigbradio.net/",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 393,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://antares.dribbcast.com/proxy/apop?mp=/s",
+     "latency": 2767,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2767,
+   "online": true
+  },
+  {
+   "id": "r0095",
+   "name": "Radio Maria Chinese",
+   "category": "综合",
+   "region": "全国",
+   "tags": "catholic christian",
+   "homepage": "https://voiceofourmother.cn/",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 390,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://onair7.xdevel.com/proxy/xautocloud_nwct_1310?mp=/;stream/",
+     "latency": 2430,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2430,
+   "online": true
+  },
+  {
+   "id": "r0096",
+   "name": "上海经典金曲广播 FM103.7",
+   "category": "音乐",
+   "region": "上海",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qingting.fm/2014/0909/20140909125130474.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 385,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/273/64k.mp3",
+     "latency": 2553,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2553,
+   "online": true
+  },
+  {
+   "id": "r0097",
+   "name": "云梦音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "internet radio music",
+   "homepage": "http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XaH2pt6TEUo8nb1a3WgZyZZNWZeJxG3D&authKey=D1dLycK1I%2BUvgnHTbwUl7%2FJJgSBC01xPZgMX13Nph2VdWTze9X7xE9y7%2BPPe%2B65P&noverify=0&group_code=849566628",
+   "favicon": "https://pic.qtfm.cn/2023/0717/20230717031145.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 385,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500187/64k.mp3",
+     "latency": 2998,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2998,
+   "online": true
+  },
+  {
+   "id": "r0098",
+   "name": "50首经典古典音乐",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "classic classical classical music instrumental",
+   "homepage": "https://www.qtfm.cn/",
+   "favicon": "http://pic.qtfm.cn/2015/0206/20150206120225287.jpg!200",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 338,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5022308/64k.mp3",
+     "latency": 2547,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2547,
+   "online": true
+  },
+  {
+   "id": "r0099",
+   "name": "南方生活广播",
+   "category": "综合",
+   "region": "全国",
+   "tags": "lifestyle",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "https://m.gdtv.cn/statics/images/logo.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 334,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/468/64k.mp3",
+     "latency": 1763,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1763,
+   "online": true
+  },
+  {
+   "id": "r0100",
+   "name": "REPLAY NEWS - 中文 每5分钟播报一次新闻的电台",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://www.replaynews.net/",
+   "favicon": "https://www.publicsante.com/BIENVENU/LOGO REPLAY NEWS-ZH.png",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 329,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://replaynewszh.ice.infomaniak.ch/replaynewszh-128.mp3",
+     "latency": 3551,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3551,
+   "online": true
+  },
+  {
+   "id": "r0101",
+   "name": "CGTN - English",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "documentaries news variety",
+   "homepage": "https://www.cgtn.com/",
+   "favicon": "https://i.imgur.com/rn2H3o8.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 322,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://english-livetx.cgtn.com/hls/yypdyyctzb_sd.m3u8",
+     "latency": 945,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 945,
+   "online": true
+  },
+  {
+   "id": "r0102",
+   "name": "北京卫视伴音",
+   "category": "综合",
+   "region": "北京",
+   "tags": "",
+   "homepage": "https://www.brtv.org.cn/",
+   "favicon": "https://www.brtv.org.cn/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 317,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/btv1_2.m3u8",
+     "latency": 837,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 837,
+   "online": true
+  },
+  {
+   "id": "r0103",
+   "name": "辽宁卫视伴音",
+   "category": "综合",
+   "region": "辽宁",
+   "tags": "",
+   "homepage": "https://www.weibo.com/wangluods?sudaref=www.baidu.com",
+   "favicon": "https://www.weibo.com/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 305,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/liaoning_2.m3u8",
+     "latency": 552,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 552,
+   "online": true
+  },
+  {
+   "id": "r0104",
+   "name": "CCTV-1综合伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "full service tv",
+   "homepage": "https://tv.cctv.com/cctv1/index.shtml",
+   "favicon": "https://pic.baike.soso.com/ugc/baikepic2/0/20220901170948-721334708_jpeg_536_536_33977.jpg/800",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 289,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv1_2.m3u8",
+     "latency": 490,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 490,
+   "online": true
+  },
+  {
+   "id": "r0105",
+   "name": "休息音乐🎶",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://mediacp.eu/",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 278,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://az1.mediacp.eu/listen/airport-lounge-radio/radio.mp3",
+     "latency": 4887,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 4887,
+   "online": true
+  },
+  {
+   "id": "r0106",
+   "name": "第一财经(一财官网线路)",
+   "category": "财经",
+   "region": "全国",
+   "tags": "economics",
+   "homepage": "https://www.yicai.com/",
+   "favicon": "https://www.yicai.com/img/logo.66870cb6.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 276,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://a1live.livecdn.yicai.com/live/yicai_radio.m3u8",
+     "latency": 476,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 476,
+   "online": true
+  },
+  {
+   "id": "r0107",
+   "name": "恐怖在線(周一至周五23:11)",
+   "category": "综合",
+   "region": "全国",
+   "tags": "storytelling",
+   "homepage": "https://www.edmondpoon.com/",
+   "favicon": "https://www.edmondpoon.com/img/edmondpoon_favicon.png",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 275,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://acast01.kolorboxlab.com/radio/8010/radio.mp3",
+     "latency": 11977,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 11977,
+   "online": true
+  },
+  {
+   "id": "r0108",
+   "name": "Big B Radio - Cpop",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music pop",
+   "homepage": "https://bigbradio.net/cpop",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "AAC+",
+   "hls": false,
+   "votes": 261,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://antares.dribbcast.com/proxy/cpop?mp=/s",
+     "latency": 1554,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1554,
+   "online": true
+  },
+  {
+   "id": "r0109",
+   "name": "BTV文艺伴音",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "entertainment",
+   "homepage": "https://www.brtv.org.cn/mobile/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 248,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://wstvcpudali.v.myalicdn.com/wstvcpud/udrmbtv2_1/index.m3u8?adapt=0&BR=audio",
+     "latency": 487,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 487,
+   "online": true
+  },
+  {
+   "id": "r0110",
+   "name": "BRTV北京文艺广播",
+   "category": "曲艺",
+   "region": "北京",
+   "tags": "crosstalk easy listening entertainment",
+   "homepage": "https://www.brtv.org.cn/",
+   "favicon": "https://pic.qtfm.cn/sso/198/1631520087008_cMpTFBNNx.jpeg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 242,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://brtv-radiolive.rbc.cn/alive/fm876.m3u8",
+     "latency": 414,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 414,
+   "online": true
+  },
+  {
+   "id": "r0111",
+   "name": "KBS韩国国际广播电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "international",
+   "homepage": "https://kbsworld.kbs.co.kr/program/list.php",
+   "favicon": "https://media2.fishtank.my/stations/astro-kbs-world/updated/square_md.png",
+   "bitrate": 127,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 242,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://api.xmgspace.me/api/kbs-stream/",
+     "latency": 4712,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 4712,
+   "online": true
+  },
+  {
+   "id": "r0112",
+   "name": "上海第一财经广播 FM90.9",
+   "category": "财经",
+   "region": "上海",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qtfm.cn/sso/48/1641438475219_mv9SoJP78.jpeg!200",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 242,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/276/64k.mp3",
+     "latency": 7577,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 7577,
+   "online": true
+  },
+  {
+   "id": "r0113",
+   "name": "BTV财经伴音",
+   "category": "财经",
+   "region": "全国",
+   "tags": "economics",
+   "homepage": "https://www.brtv.org.cn/mobile/",
+   "favicon": "https://www.brtv.org.cn/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 237,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://wstvcpudali.v.myalicdn.com/wstvcpud/udrmbtv5_1/index.m3u8?adapt=0&BR=audio",
+     "latency": 346,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 346,
+   "online": true
+  },
+  {
+   "id": "r0114",
+   "name": "听·越剧",
+   "category": "综合",
+   "region": "全国",
+   "tags": "opera traditional opera",
+   "homepage": "http://www.ajmide.com/home/contact.html",
+   "favicon": "https://pic.qtfm.cn/sso/48/1680485022212_lNhTeE2C0.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 236,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500178/64k.mp3",
+     "latency": 1607,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1607,
+   "online": true
+  },
+  {
+   "id": "r0115",
+   "name": "山东卫视伴音",
+   "category": "综合",
+   "region": "山东",
+   "tags": "",
+   "homepage": "http://www.iqilu.com/",
+   "favicon": "http://www.iqilu.com/favicon.ico",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 230,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/shandong_2.m3u8",
+     "latency": 422,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 422,
+   "online": true
+  },
+  {
+   "id": "r0116",
+   "name": "中山环保旅游之声·快乐888",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "entertainment",
+   "homepage": "http://www.zsbtv.com.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 226,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/1278/64k.mp3",
+     "latency": 1788,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1788,
+   "online": true
+  },
+  {
+   "id": "r0117",
+   "name": "天津卫视伴音",
+   "category": "综合",
+   "region": "天津",
+   "tags": "",
+   "homepage": "http://tjtv.enorth.com.cn/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 221,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/tianjin_2.m3u8",
+     "latency": 418,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 418,
+   "online": true
+  },
+  {
+   "id": "r0118",
+   "name": "上海戏剧曲艺广播",
+   "category": "曲艺",
+   "region": "上海",
+   "tags": "literature opera traditional opera",
+   "homepage": "https://www.smg.cn/review/channel/channel_26/index.html",
+   "favicon": "https://www.smg.cn/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 218,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/269/64k.mp3",
+     "latency": 2385,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2385,
+   "online": true
+  },
+  {
+   "id": "r0119",
+   "name": "湖北之声(调频版)(2)",
+   "category": "新闻",
+   "region": "湖北",
+   "tags": "news",
+   "homepage": "http://news.hbtv.com.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 206,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/1303/64k.mp3",
+     "latency": 2782,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2782,
+   "online": true
+  },
+  {
+   "id": "r0120",
+   "name": "四川卫视伴音",
+   "category": "综合",
+   "region": "四川",
+   "tags": "",
+   "homepage": "https://www.sctv.com/live/list",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 199,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/sichuan_2.m3u8",
+     "latency": 236,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 236,
+   "online": true
+  },
+  {
+   "id": "r0121",
+   "name": "幻想乡电台Gensokyo Radio",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "anime anime radio music touhou 辽宁广播电视台",
+   "homepage": "https://gensokyoradio.net/",
+   "favicon": "https://gensokyoradio.net/images/gr8_logo.png",
+   "bitrate": 256,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 193,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://stream.gensokyoradio.net/1",
+     "latency": 4480,
+     "hls": false
+    }
+   ],
+   "bad_streams": [
+    {
+     "url": "https://stream.gensokyoradio.net/3",
+     "latency": 10353
+    }
+   ],
+   "latency": 4480,
+   "online": true
+  },
+  {
+   "id": "r0122",
+   "name": "海上财经",
+   "category": "财经",
+   "region": "全国",
+   "tags": "economic economics",
+   "homepage": "http://www.ajmide.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 188,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500170/64k.mp3",
+     "latency": 1790,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1790,
+   "online": true
+  },
+  {
+   "id": "r0123",
+   "name": "CCTV-6电影频道伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "film movie tv",
+   "homepage": "https://www.1905.com/",
+   "favicon": "https://so1.360tres.com/t01ad075de98c89d27d.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 185,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv6_2.m3u8",
+     "latency": 238,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 238,
+   "online": true
+  },
+  {
+   "id": "r0124",
+   "name": "湖北卫视伴音",
+   "category": "综合",
+   "region": "湖北",
+   "tags": "",
+   "homepage": "https://news.hbtv.com.cn/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 184,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/hubei_2.m3u8",
+     "latency": 196,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 196,
+   "online": true
+  },
+  {
+   "id": "r0125",
+   "name": "Fm891线上音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "internet radio music pop music",
+   "homepage": "https://www.fm891.net/",
+   "favicon": "https://fm891.net/891logo.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 181,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500215/64k.mp3",
+     "latency": 905,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 905,
+   "online": true
+  },
+  {
+   "id": "r0126",
+   "name": "沧州长书文艺广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music 沧州音乐广播",
+   "homepage": "http://www.czgd.tv/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 169,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/5021902/64k.mp3",
+     "latency": 980,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 980,
+   "online": true
+  },
+  {
+   "id": "r0127",
+   "name": "健康广播",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://www.jkwshk.tv/",
+   "favicon": "https://so1.360tres.com/t018e72dcf2a6ed78da.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 159,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20470/64k.mp3",
+     "latency": 465,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 465,
+   "online": true
+  },
+  {
+   "id": "r0128",
+   "name": "아리랑모바일방송",
+   "category": "综合",
+   "region": "全国",
+   "tags": "lifestyle",
+   "homepage": "http://www.yanji.tv/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 159,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/5022144/64k.mp3",
+     "latency": 1603,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1603,
+   "online": true
+  },
+  {
+   "id": "r0129",
+   "name": "_Wawa Radio 101.2 FM",
+   "category": "综合",
+   "region": "全国",
+   "tags": "dance hardcore mixed",
+   "homepage": "https://xn--tmz.xn--6frz82g/",
+   "favicon": "",
+   "bitrate": 256,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 156,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://xn--tmz.xn--6frz82g/streams",
+     "latency": 11512,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 11512,
+   "online": true
+  },
+  {
+   "id": "r0130",
+   "name": "Fred Film Radio - 普通话",
+   "category": "综合",
+   "region": "全国",
+   "tags": "电影",
+   "homepage": "https://global.superradio.cc/",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 152,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://s10.webradio-hosting.com/proxy/fredradiocn/stream/;",
+     "latency": 7049,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 7049,
+   "online": true
+  },
+  {
+   "id": "r0131",
+   "name": "山东综合广播",
+   "category": "新闻",
+   "region": "山东",
+   "tags": "full service information news public radio talk",
+   "homepage": "http://v.iqilu.com/radio/",
+   "favicon": "http://pic.qtfm.cn/2015/1104/20151104112112387.jpg!200",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 150,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20234/64k.mp3",
+     "latency": 2220,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2220,
+   "online": true
+  },
+  {
+   "id": "r0132",
+   "name": "CCTV-9纪录伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "culture documentary science tv",
+   "homepage": "https://tv.cctv.com/cctv9/",
+   "favicon": "https://bkimg.cdn.bcebos.com/pic/f703738da9773912b31be570624b9118367adab444dd?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 131,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv9_2.m3u8",
+     "latency": 332,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 332,
+   "online": true
+  },
+  {
+   "id": "r0133",
+   "name": "Bridge Radio - 华语 HITS",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music oldies",
+   "homepage": "https://new.brg-radio.com/",
+   "favicon": "https://new.brg-radio.com/wp-content/uploads/2022/10/cropped-65-1.png",
+   "bitrate": 320,
+   "codec": "AAC+",
+   "hls": false,
+   "votes": 130,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://das-edge11-live365-dal03.cdnstream.com/a57743_2",
+     "latency": 1228,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1228,
+   "online": true
+  },
+  {
+   "id": "r0134",
+   "name": "河北文艺广播",
+   "category": "曲艺",
+   "region": "河北",
+   "tags": "literature",
+   "homepage": "https://www.hebtv.com/",
+   "favicon": "http://pic.qingting.fm/2018/1031/20181031103406.jpeg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 130,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radio.pull.hebtv.com/live/hebwy.m3u8",
+     "latency": 271,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 271,
+   "online": true
+  },
+  {
+   "id": "r0135",
+   "name": "Sichuan News 四川综合广播FM98.1",
+   "category": "新闻",
+   "region": "四川",
+   "tags": "",
+   "homepage": "http://www.sctv.com/",
+   "favicon": "https://scgcscreen.sctv-tf.com/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 122,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/4906/64k.mp3",
+     "latency": 1205,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1205,
+   "online": true
+  },
+  {
+   "id": "r0136",
+   "name": "全国党员干部现代远程教育",
+   "category": "综合",
+   "region": "全国",
+   "tags": "public radio",
+   "homepage": "https://dygbjy.12371.cn/",
+   "favicon": "",
+   "bitrate": 900,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 121,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://12371wbndks.v.kcdnvip.com/12371wbnd/dangyuanwang_2/index.m3u8",
+     "latency": 546,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 546,
+   "online": true
+  },
+  {
+   "id": "r0137",
+   "name": "测试3",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://www.fqxww.cn/",
+   "favicon": "",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 113,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/xianggangweishi_2.m3u8",
+     "latency": 202,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 202,
+   "online": true
+  },
+  {
+   "id": "r0138",
+   "name": "四川城市之音",
+   "category": "音乐",
+   "region": "四川",
+   "tags": "music",
+   "homepage": "http://www.sctv.com/",
+   "favicon": "https://scgcscreen.sctv-tf.com/favicon.ico",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 111,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1111/64k.mp3",
+     "latency": 4275,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 4275,
+   "online": true
+  },
+  {
+   "id": "r0139",
+   "name": "昆明汽车广播",
+   "category": "交通",
+   "region": "全国",
+   "tags": "",
+   "homepage": "http://www.kunmingbc.com/",
+   "favicon": "https://pic.qtfm.cn/2020/0405/20200405095837.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 109,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1936/64k.mp3",
+     "latency": 1275,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1275,
+   "online": true
+  },
+  {
+   "id": "r0140",
+   "name": "江西故事广播",
+   "category": "音乐",
+   "region": "江西",
+   "tags": "electronic hits music pop 潮台969",
+   "homepage": "https://www.jxntv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 105,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20500092/64k.mp3",
+     "latency": 1050,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1050,
+   "online": true
+  },
+  {
+   "id": "r0141",
+   "name": "Phate Radio 飛特電台 - anime, games and pop",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "anime music",
+   "homepage": "https://phate.io/",
+   "favicon": "https://myradio.com.tw/_next/image?url=https://image.myradio.com.tw/A3301.jpg&w=256&q=75",
+   "bitrate": 192,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 104,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://phate.io/listen",
+     "latency": 7909,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 7909,
+   "online": true
+  },
+  {
+   "id": "r0142",
+   "name": "Bridge Radio - 华语 HITS (2)",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music oldies",
+   "homepage": "https://new.brg-radio.com/",
+   "favicon": "https://new.brg-radio.com/wp-content/uploads/2022/10/cropped-65-1.png",
+   "bitrate": 320,
+   "codec": "AAC+",
+   "hls": false,
+   "votes": 100,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://das-edge14-live365-dal02.cdnstream.com/a57743_2",
+     "latency": 3013,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3013,
+   "online": true
+  },
+  {
+   "id": "r0143",
+   "name": "佛山南海广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.radiofoshan.com.cn/",
+   "favicon": "https://upload.radiofoshan.com.cn/1/2024/0930/1727662347554420_360x360.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 100,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radiopull.radiofoshan.com.cn/live/1400820947_BSID_42_audio.m3u8",
+     "latency": 104,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 104,
+   "online": true
+  },
+  {
+   "id": "r0144",
+   "name": "上海长三角之声广播 FM89.9",
+   "category": "新闻",
+   "region": "上海",
+   "tags": "",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qtfm.cn/sso/198/1606449636209_K8-0Zavn2.png!200",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 99,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/275/64k.mp3",
+     "latency": 3755,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3755,
+   "online": true
+  },
+  {
+   "id": "r0145",
+   "name": "CCTV-7国防军事伴音",
+   "category": "综合",
+   "region": "全国",
+   "tags": "information military tv",
+   "homepage": "https://tv.cctv.com/cctv7/index.shtml",
+   "favicon": "https://so1.360tres.com/t012431846557889e55.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 97,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/cctv7_2.m3u8",
+     "latency": 144,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 144,
+   "online": true
+  },
+  {
+   "id": "r0146",
+   "name": "河南影视广播",
+   "category": "音乐",
+   "region": "河南",
+   "tags": "90.0 90.0 fm music myradio myradio 90.0 oldies pop",
+   "homepage": "http://www.hndt.com/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 94,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://stream.hndt.com/live/yingshi/playlist.m3u8",
+     "latency": 520,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 520,
+   "online": true
+  },
+  {
+   "id": "r0147",
+   "name": "千里之外",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "http://www.ocj.com.cn/",
+   "favicon": "",
+   "bitrate": 400,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 91,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL1.smil/playlist.m3u8",
+     "latency": 279,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 279,
+   "online": true
+  },
+  {
+   "id": "r0148",
+   "name": "黄岛综合广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.qwmedia.cn/web/index.html",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 86,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/20176/64k.mp3",
+     "latency": 5238,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 5238,
+   "online": true
+  },
+  {
+   "id": "r0149",
+   "name": "福建东南卫视伴音",
+   "category": "综合",
+   "region": "福建",
+   "tags": "tv",
+   "homepage": "https://www.fjtv.net/",
+   "favicon": "https://so1.360tres.com/t01d5fa9f952f1bddbd.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 80,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/dongnan_2.m3u8",
+     "latency": 432,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 432,
+   "online": true
+  },
+  {
+   "id": "r0150",
+   "name": "SDBA Classics 94.7 Shanghai",
+   "category": "综合",
+   "region": "全国",
+   "tags": "classical",
+   "homepage": "https://www.smgradio.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 78,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/267/64k.mp3?listening-from-radio-garden=1696445196",
+     "latency": 1844,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1844,
+   "online": true
+  },
+  {
+   "id": "r0151",
+   "name": "上海戏剧曲艺广播 AM1197 FM97.2",
+   "category": "曲艺",
+   "region": "上海",
+   "tags": "culture opera",
+   "homepage": "https://www.smg.cn/review/index.html",
+   "favicon": "http://pic.qingting.fm/sso/48/1641437758835_67As1roa7.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 78,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/269/64k.mp3",
+     "latency": 1202,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1202,
+   "online": true
+  },
+  {
+   "id": "r0152",
+   "name": "佛山综合广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "full service music",
+   "homepage": "https://www.radiofoshan.com.cn/",
+   "favicon": "https://upload.radiofoshan.com.cn/1/2025/0102/1735783303695764_360x360.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 77,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radiopull.radiofoshan.com.cn/live/1400820947_BSID_46_audio.m3u8",
+     "latency": 156,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 156,
+   "online": true
+  },
+  {
+   "id": "r0153",
+   "name": "哈尔滨文艺广播",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "culture entertainment",
+   "homepage": "https://www.hrbtv.net/",
+   "favicon": "",
+   "bitrate": 55,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 77,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://stream.hrbtv.net/wypl/playlist.m3u8",
+     "latency": 341,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 341,
+   "online": true
+  },
+  {
+   "id": "r0154",
+   "name": "广西文艺广播 FM950广西音乐台",
+   "category": "音乐",
+   "region": "广西",
+   "tags": "music pop",
+   "homepage": "https://www.gxtv.cn/",
+   "favicon": "https://pic.qtfm.cn/2015/0225/20150225111148873.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 75,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/4875/64k.mp3",
+     "latency": 2334,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2334,
+   "online": true
+  },
+  {
+   "id": "r0155",
+   "name": "海口综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "101.8",
+   "homepage": "http://www.hkbtv.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 75,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/5022015/64k.mp3",
+     "latency": 2073,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2073,
+   "online": true
+  },
+  {
+   "id": "r0156",
+   "name": "80后音悦台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://www.hndt.com/",
+   "favicon": "https://radio5.cn/file/2023/04/2023051012135064.jpeg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 68,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.ximalaya.com/radio-first-page-app/live/2684/64.m3u8?transcode=ts",
+     "latency": 165,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 165,
+   "online": true
+  },
+  {
+   "id": "r0157",
+   "name": "南宁故事广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "culture entertainment music",
+   "homepage": "http://www.nntv.cn/",
+   "favicon": "https://www.mlzhongguo.com/uploads/image/08/15669638846523.png",
+   "bitrate": 2560,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 68,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://hls.nntv.cn/nnradio/895_24.m3u8",
+     "latency": 279,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 279,
+   "online": true
+  },
+  {
+   "id": "r0158",
+   "name": "安庆农村广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "entertainment music",
+   "homepage": "http://tv.aqnews.com.cn/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 63,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/1966/64k.mp3",
+     "latency": 3976,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3976,
+   "online": true
+  },
+  {
+   "id": "r0159",
+   "name": "阿基米德-健康电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "health lifestyle",
+   "homepage": "http://www.ajmide.com/",
+   "favicon": "https://pic.qtfm.cn/sso/48/1749008771452_GBktxdSG5.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 58,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20500232/64k.mp3",
+     "latency": 2621,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2621,
+   "online": true
+  },
+  {
+   "id": "r0160",
+   "name": "山东文艺广播",
+   "category": "曲艺",
+   "region": "山东",
+   "tags": "entertainment",
+   "homepage": "http://v.iqilu.com/radio/",
+   "favicon": "http://pic.qingting.fm/2021/0817/20210817030731.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 54,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/20238/64k.mp3",
+     "latency": 3053,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3053,
+   "online": true
+  },
+  {
+   "id": "r0161",
+   "name": "广西综合广播 新闻910",
+   "category": "音乐",
+   "region": "广西",
+   "tags": "music news",
+   "homepage": "https://www.gxtv.cn/",
+   "favicon": "https://pic.qtfm.cn/2013/channel_logo/1753.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 50,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/1753/64k.mp3",
+     "latency": 994,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 994,
+   "online": true
+  },
+  {
+   "id": "r0162",
+   "name": "上海麗都廣播電台 1940's Shanghai Vintage Jazz Shidaiqu Radio",
+   "category": "音乐",
+   "region": "上海",
+   "tags": "1940 1940's 1940s jazz smooth jazz vintage music vintage records",
+   "homepage": "https://radio.nitro-server.uk/public/1940sshanghaioldtimesmusicradio",
+   "favicon": "",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 49,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radio.nitro-server.uk/listen/1940sshanghaioldtimesmusicradio/radio.mp3",
+     "latency": 3018,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3018,
+   "online": true
+  },
+  {
+   "id": "r0163",
+   "name": "杭州城市资讯广播 FM90.7杭州潮流音乐电台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "electronic hits music pop rock",
+   "homepage": "https://www.hoolo.tv/",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 45,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/15318146/64k.mp3",
+     "latency": 1098,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1098,
+   "online": true
+  },
+  {
+   "id": "r0164",
+   "name": "听云相声台",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "crosstalk entertainment",
+   "homepage": "https://m.tyradio.uk/",
+   "favicon": "http://pic.qtfm.cn/2015/1009/20151009094853845.jpg!200",
+   "bitrate": 0,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 42,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://m.tyradio.uk/tyxs.mp3",
+     "latency": 7648,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 7648,
+   "online": true
+  },
+  {
+   "id": "r0165",
+   "name": "陕西卫视伴音",
+   "category": "综合",
+   "region": "陕西",
+   "tags": "tv",
+   "homepage": "http://www.snrtv.com/index.html",
+   "favicon": "https://so1.360tres.com/t010769cdae76586460.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 41,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/shan3xi_2.m3u8",
+     "latency": 314,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 314,
+   "online": true
+  },
+  {
+   "id": "r0166",
+   "name": "云南国际广播 Yunnan International Radio",
+   "category": "综合",
+   "region": "云南",
+   "tags": "international",
+   "homepage": "https://www.ynradio.cn/",
+   "favicon": "https://ww4.sinaimg.cn/mw2000/005INdtBgw1elbs5fnf8gj30x30ne76v.jpg",
+   "bitrate": 128,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 40,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://gbw.ynradio.cn/radio/gjgb.stream/playlist.m3u8",
+     "latency": 428,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 428,
+   "online": true
+  },
+  {
+   "id": "r0167",
+   "name": "891线上音乐台 高清",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "internet radio music",
+   "homepage": "https://www.fm891.net/",
+   "favicon": "https://pic.qtfm.cn/2025/1001/20251001070637.png",
+   "bitrate": 128,
+   "codec": "AAC+",
+   "hls": false,
+   "votes": 38,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.fm891.net/192k.aac",
+     "latency": 730,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 730,
+   "online": true
+  },
+  {
+   "id": "r0168",
+   "name": "听云评书台",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "storytelling",
+   "homepage": "https://m.tyradio.uk/",
+   "favicon": "http://pic.qtfm.cn/2021/0111/upload_a4542a554db7e6d24ee477b93ebb10a7.4017072-1F1D2289-A720-442C-84B2-25A04EB61FBC!200",
+   "bitrate": 0,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 38,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://m.tyradio.uk/typs.mp3",
+     "latency": 2946,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2946,
+   "online": true
+  },
+  {
+   "id": "r0169",
+   "name": "衡阳综合广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music news public radio",
+   "homepage": "http://www.hydst.com/hygdindex.html",
+   "favicon": "http://pic.qtfm.cn/2016/0429/20160429165153303.jpg!200",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 36,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/15318386/64k.mp3",
+     "latency": 968,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 968,
+   "online": true
+  },
+  {
+   "id": "r0170",
+   "name": "军事新闻",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "internet radio",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1342&ajmdShareChannel=8",
+   "favicon": "http://pic.qtfm.cn/device/0321e4beb0974428a6014337d5b4f422/1586016753554_BvKdeBko-.png!200",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 34,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3124/nglive_3124.m3u8",
+     "latency": 167,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 167,
+   "online": true
+  },
+  {
+   "id": "r0171",
+   "name": "南通生活广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music pop rock",
+   "homepage": "https://www.ntjoy.com/",
+   "favicon": "http://pic.qingting.fm/2015/0325/20150325173305589.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 34,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/21275/64k.mp3",
+     "latency": 953,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 953,
+   "online": true
+  },
+  {
+   "id": "r0172",
+   "name": "深圳宝安湾区之声",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service local",
+   "homepage": "https://ibaoan.sznews.com/",
+   "favicon": "https://imagev2.xmcdn.com/storages/6d23-audiofreehighqps/F7/F3/GAqh4zIL84VjAABh6AOqZvAy.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 32,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.ximalaya.com/radio-first-page-app/live/2912/64.m3u8?transcode=ts",
+     "latency": 229,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 229,
+   "online": true
+  },
+  {
+   "id": "r0173",
+   "name": "洛阳文艺广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music oldies storytelling",
+   "homepage": "https://www.qtfm.cn/radios/20211321",
+   "favicon": "https://pic.qtfm.cn/2022/0223/20220223115521.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 31,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20211321/64k.mp3",
+     "latency": 1200,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1200,
+   "online": true
+  },
+  {
+   "id": "r0174",
+   "name": "悬疑电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "storytelling",
+   "homepage": "https://m.ajmide.com/m/hotradio/player?id=1348",
+   "favicon": "http://pic.qtfm.cn/device/77b53413f0cb42388b7b90ffc8b48acb/1600852100658_5--ln3qaH.jpeg!200",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 30,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3143/nglive_3143.m3u8",
+     "latency": 248,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 248,
+   "online": true
+  },
+  {
+   "id": "r0175",
+   "name": "昆山人民广播电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "http://www.ks.gov.cn/kss/ttxw/common_list_45.shtml",
+   "favicon": "https://pic.qtfm.cn/sso/48/1642040563066_dcbC_Vi1R.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 30,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20500128/64k.mp3",
+     "latency": 2197,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2197,
+   "online": true
+  },
+  {
+   "id": "r0176",
+   "name": "CNR-8 民族之声 조선어방송  ",
+   "category": "民族",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "https://www.cnr.cn/2010zhuanti/bsfb/logo/201004/t20100427_506347430.html",
+   "favicon": "https://www.cnr.cn/2010zhuanti/bsfb/logo/201004/W020100427774004800567.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 29,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://satellitepull.cnr.cn/live/wxmzzs/playlist.m3u8?wsSession=a919bd0baf31a1a6f3966f08-174761703245334&wsIPSercert=270c8446fe14303f2433a2f164ccd9e5",
+     "latency": 3198,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3198,
+   "online": true
+  },
+  {
+   "id": "r0177",
+   "name": "吉林卫视伴音",
+   "category": "新闻",
+   "region": "吉林",
+   "tags": "culture news tv",
+   "homepage": "https://vod-jlr.jlntv.cn/index.do",
+   "favicon": "https://so1.360tres.com/t01779ca292935c2fd1.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 29,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://piccpndali.v.myalicdn.com/audio/jilin_2.m3u8",
+     "latency": 207,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 207,
+   "online": true
+  },
+  {
+   "id": "r0178",
+   "name": "历史档案",
+   "category": "综合",
+   "region": "全国",
+   "tags": "history",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1378&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/10/23/6434dabb63ec631a5008a697918171b4.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 28,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3179/nglive_3179.m3u8",
+     "latency": 413,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 413,
+   "online": true
+  },
+  {
+   "id": "r0179",
+   "name": "台海新闻",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1340&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/05/23/00a4a976b3cc1f6b9fde2927f65eacac.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 28,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3133/nglive_3133.m3u8",
+     "latency": 828,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 828,
+   "online": true
+  },
+  {
+   "id": "r0180",
+   "name": "固安综合广播 1079音乐有话说",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "107.9 107.9 fm music",
+   "homepage": "https://www.guan.gov.cn/",
+   "favicon": "https://pic.qtfm.cn/2024/1230/20241230035451.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 28,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20211619/64k.mp3",
+     "latency": 1057,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1057,
+   "online": true
+  },
+  {
+   "id": "r0181",
+   "name": "吉林新闻综合广播",
+   "category": "新闻",
+   "region": "吉林",
+   "tags": "information news",
+   "homepage": "https://www.jlntv.cn/index",
+   "favicon": "https://attachments.jlntv.cn/saas/image/2023-01/59bb3b15-6c99-441b-ad1b-4aed9888753c.png?k=c8e48050598ff77fd429e0168d802476&t=1730776517",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 27,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live-jlr.jlntv.cn//live/am738.m3u8",
+     "latency": 543,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 543,
+   "online": true
+  },
+  {
+   "id": "r0182",
+   "name": "贵港综合广播/贵港金曲1019/FM101.9",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music oldies",
+   "homepage": "https://www.qtfm.cn/radiopage/239/2",
+   "favicon": "https://pic.qtfm.cn/2017/0123/20170123055120.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 27,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20697/64k.mp3",
+     "latency": 1286,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1286,
+   "online": true
+  },
+  {
+   "id": "r0183",
+   "name": "新闻听天下",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://m.ajmide.com/m/hotradio/player?id=1319",
+   "favicon": "https://upload-qn.ajmide.com/p/image/202302/10/320-GZQP572dRS1676001441671_796x796.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 25,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3067/nglive_3067.m3u8",
+     "latency": 490,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 490,
+   "online": true
+  },
+  {
+   "id": "r0184",
+   "name": "听云音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://m.tyradio.uk/",
+   "favicon": "http://pic.qtfm.cn/device/3cf081e3ac9d4d379619837c028b43bf/1698026321500_OjBqkGwMS.jpg!200",
+   "bitrate": 0,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 24,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://m.tyradio.uk/radio.mp3",
+     "latency": 2588,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2588,
+   "online": true
+  },
+  {
+   "id": "r0185",
+   "name": "潮州综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "https://www.czbtv.com/",
+   "favicon": "https://ytmedia.radio.cn/CCYT%2F202412%2F06%2F19%2FFSWE1HaubEMU1jQezOWcvODhKz31tO2024120619140.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 24,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qingting.fm/live/4596/64k.mp3",
+     "latency": 4205,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 4205,
+   "online": true
+  },
+  {
+   "id": "r0186",
+   "name": "社会新闻",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1324&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/04/24/2c824b1a27659dc421e7b3fce2956706.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 21,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3098/nglive_3098.m3u8",
+     "latency": 311,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 311,
+   "online": true
+  },
+  {
+   "id": "r0187",
+   "name": "馒头说·历史的温度",
+   "category": "综合",
+   "region": "全国",
+   "tags": "history",
+   "homepage": "https://www.storymedia.com.cn/",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/30/98afadba52ba3a9911f0ce4a53c6bdc7.jpeg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 21,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3172/nglive_3172.m3u8",
+     "latency": 711,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 711,
+   "online": true
+  },
+  {
+   "id": "r0188",
+   "name": "主播读经典",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1344&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/30/c32098b7e10790c265e637c43677b8d2.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 20,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3169/nglive_3169.m3u8",
+     "latency": 548,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 548,
+   "online": true
+  },
+  {
+   "id": "r0189",
+   "name": "Universal Health Radio (中文)",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "cdc chinese education fda health news public health who",
+   "homepage": "https://universalhealthradio.org/",
+   "favicon": "https://universalhealthradio.org/favicon.png",
+   "bitrate": 0,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 19,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radio.universalhealthradio.org/uhr-zh.mp3",
+     "latency": 2691,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2691,
+   "online": true
+  },
+  {
+   "id": "r0190",
+   "name": "美以袭击伊朗最新资讯",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1339&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2026/03/02/cbc9b695b4ba40198bc19e9d64b6f68f.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 19,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3848/nglive_3848.m3u8",
+     "latency": 517,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 517,
+   "online": true
+  },
+  {
+   "id": "r0191",
+   "name": "情感电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1344&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/04/e4cb2f99d964b31802c13e6e3d9d7284.jpg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 18,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3131/nglive_3131.m3u8",
+     "latency": 478,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 478,
+   "online": true
+  },
+  {
+   "id": "r0192",
+   "name": "梅州综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "https://www.meizhou.cn/",
+   "favicon": "https://pic.qtfm.cn/2022/1016/20221016105318.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 18,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/1257/64k.mp3",
+     "latency": 1231,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1231,
+   "online": true
+  },
+  {
+   "id": "r0193",
+   "name": "HardBestFM",
+   "category": "综合",
+   "region": "全国",
+   "tags": "hardcore hardstyle",
+   "homepage": "https://www.hardbest.cn/",
+   "favicon": "https://fm.hardbest.cn/static/uploads/browser_icon/original.1790605035.png",
+   "bitrate": 192,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 17,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://fm.hardbest.cn/listen/hardstyle/radio.mp3",
+     "latency": 1265,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1265,
+   "online": true
+  },
+  {
+   "id": "r0194",
+   "name": "佛山顺德广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "information music",
+   "homepage": "https://a.app.qq.com/o/simple.jsp?pkgname=com.juntian.radiopeanut",
+   "favicon": "http://tv.haoqu99.com/d/file/2017/0108/4c67659c94c6a229c78a56c3fcbefd43.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 17,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radiopull.radiofoshan.com.cn/live/1400820947_BSID_44_audio.m3u8",
+     "latency": 435,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 435,
+   "online": true
+  },
+  {
+   "id": "r0195",
+   "name": "成都交通文艺广播",
+   "category": "交通",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://www.cditv.cn/",
+   "favicon": "http://pic.qingting.fm/2018/0313/20180313120303.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 17,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/4891/64k.mp3",
+     "latency": 748,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 748,
+   "online": true
+  },
+  {
+   "id": "r0196",
+   "name": "东海综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "traffic radio broadcast",
+   "homepage": "http://www.jsdh.gov.cn/slhzt/slhzt.htm",
+   "favicon": "https://pic.qtfm.cn/sso/48/1726648982820_PhoFlXq8I.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 16,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20500220/64k.mp3",
+     "latency": 3288,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 3288,
+   "online": true
+  },
+  {
+   "id": "r0197",
+   "name": "听云戏曲台",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "opera",
+   "homepage": "https://m.tyradio.uk/",
+   "favicon": "http://pic.qtfm.cn/2014/1216/20141216053044567.jpg!200",
+   "bitrate": 0,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 16,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://m.tyradio.uk/tyxq.mp3",
+     "latency": 2846,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2846,
+   "online": true
+  },
+  {
+   "id": "r0198",
+   "name": "听梦想FM",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "internet radio music",
+   "homepage": "http://imx.fm/",
+   "favicon": "https://pic.qtfm.cn/2022/0824/20220824093601.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 16,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/4917/64k.mp3",
+     "latency": 2174,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2174,
+   "online": true
+  },
+  {
+   "id": "r0199",
+   "name": "自强之声",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "internet radio",
+   "homepage": "http://www.fsaxgb.com/",
+   "favicon": "https://pic.qtfm.cn/2015/0818/20150818110223254.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 16,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5021905/64k.mp3",
+     "latency": 871,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 871,
+   "online": true
+  },
+  {
+   "id": "r0200",
+   "name": "佛山电台真爱946",
+   "category": "综合",
+   "region": "全国",
+   "tags": "information",
+   "homepage": "https://www.fscmjt.com/",
+   "favicon": "https://radio5.cn/file/2023/04/2023051007522824.jpg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 15,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radiopull.radiofoshan.com.cn/live/1400389414_BSID_46_audio.m3u8",
+     "latency": 138,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 138,
+   "online": true
+  },
+  {
+   "id": "r0201",
+   "name": "刑警803",
+   "category": "综合",
+   "region": "全国",
+   "tags": "radio drama",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1339&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/05/29/25232834a33d297bd05000947a306b07.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 15,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3827/ng3827.m3u8",
+     "latency": 136,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 136,
+   "online": true
+  },
+  {
+   "id": "r0202",
+   "name": "巴赫电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "classical",
+   "homepage": "https://m.ajmide.com/m/hotradio/player?id=1354",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/25/1c766ebbb3858c74659e2b04a0426033.jpg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 13,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3146/nglive_3146.m3u8",
+     "latency": 183,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 183,
+   "online": true
+  },
+  {
+   "id": "r0203",
+   "name": "广东文体广播",
+   "category": "体育",
+   "region": "广东",
+   "tags": "culture sport sports",
+   "homepage": "https://m.gdtv.cn/",
+   "favicon": "https://img.gdtv.cn/image/202201/0.4995974945324668277b68d27b6fdba30OSS1641366683.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 13,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/471/64k.mp3",
+     "latency": 1184,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1184,
+   "online": true
+  },
+  {
+   "id": "r0204",
+   "name": "延边朝鲜语新闻综合广播 뉴스종합방송",
+   "category": "民族",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "https://www.iybtv.cn/",
+   "favicon": "http://pic.qtfm.cn/2025/0806/20250806094845.png!200",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 13,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://srs.iybtv.cn/audio/AM1206/index.m3u8",
+     "latency": 513,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 513,
+   "online": true
+  },
+  {
+   "id": "r0205",
+   "name": "赣榆综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "http://www.gyxw.com/",
+   "favicon": "https://pic.qtfm.cn/sso/48/1716368234341__vnusXqXQ.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 13,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20500216/64k.mp3",
+     "latency": 1332,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1332,
+   "online": true
+  },
+  {
+   "id": "r0206",
+   "name": "1分钟推理",
+   "category": "综合",
+   "region": "全国",
+   "tags": "culture entertainment",
+   "homepage": "https://m.ajmide.com/m/hotradio/player?id=1380",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/11/22/ee7b4d14ad2a8c0ea79e5c3f8319b04e.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 12,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3183/nglive_3183.m3u8",
+     "latency": 185,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 185,
+   "online": true
+  },
+  {
+   "id": "r0207",
+   "name": "吉林资讯广播",
+   "category": "新闻",
+   "region": "吉林",
+   "tags": "information",
+   "homepage": "https://www.jlntv.cn/index",
+   "favicon": "http://pic.qingting.fm/2017/0419/20170419085948.png",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 12,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live-jlr.jlntv.cn/live/fm1001.m3u8",
+     "latency": 396,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 396,
+   "online": true
+  },
+  {
+   "id": "r0208",
+   "name": "947爱乐厅·中国现场",
+   "category": "综合",
+   "region": "全国",
+   "tags": "classical",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1344&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2025/10/14/37d45f025264f912e9dfb1b863286f47.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 11,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3829/nglive_3829.m3u8",
+     "latency": 284,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 284,
+   "online": true
+  },
+  {
+   "id": "r0209",
+   "name": "HardBestFM-Hardcore",
+   "category": "综合",
+   "region": "全国",
+   "tags": "hardcore hardstyle",
+   "homepage": "https://www.hardbest.cn/",
+   "favicon": "https://fm.hardbest.cn/static/uploads/browser_icon/original.1790605035.png",
+   "bitrate": 192,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 11,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://fm.hardbest.cn/listen/hardcore/radio.mp3",
+     "latency": 784,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 784,
+   "online": true
+  },
+  {
+   "id": "r0210",
+   "name": "万宁综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "https://m.hinews.cn/column/d3f48c84f8f547b7ac1a09e0c12798bb?city=7",
+   "favicon": "http://pic.qtfm.cn/sso/48/1769740260557_b6QSqi3QN.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 11,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/20500237/64k.mp3",
+     "latency": 2204,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2204,
+   "online": true
+  },
+  {
+   "id": "r0211",
+   "name": "891线上音乐台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://www.fm891.net/",
+   "favicon": "https://cdn.onlineradiobox.com/img/l/2/147542.v9.png",
+   "bitrate": 96,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 10,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.fm891.net/96k.aac",
+     "latency": 541,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 541,
+   "online": true
+  },
+  {
+   "id": "r0212",
+   "name": "上海纪实频道《文化中国》广播版",
+   "category": "曲艺",
+   "region": "上海",
+   "tags": "culture history",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1396&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/30/907a2950076ede67771b6d6d017ab13e.jpeg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 10,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3171/nglive_3171.m3u8",
+     "latency": 227,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 227,
+   "online": true
+  },
+  {
+   "id": "r0213",
+   "name": "听·京剧",
+   "category": "综合",
+   "region": "全国",
+   "tags": "traditional opera",
+   "homepage": "https://m.ajmide.com/m/hotradio/player?id=1354",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/04/13/3abed6d930a8be8824bb513f90740b3e.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 10,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3106/nglive_3106.m3u8",
+     "latency": 359,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 359,
+   "online": true
+  },
+  {
+   "id": "r0214",
+   "name": "延边朝鲜语文艺生活广播 문예생활방송",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "culture",
+   "homepage": "https://www.iybtv.cn/",
+   "favicon": "http://pic.qtfm.cn/2025/0806/20250806094845.png!200",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 10,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://srs.iybtv.cn/audio/FM1023/index.m3u8",
+     "latency": 353,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 353,
+   "online": true
+  },
+  {
+   "id": "r0215",
+   "name": "听·黄梅戏",
+   "category": "综合",
+   "region": "全国",
+   "tags": "opera",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1337&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/05/20/85c0c431f517a5766f9d91f2c7ee5461.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 9,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3114/nglive_3114.m3u8",
+     "latency": 714,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 714,
+   "online": true
+  },
+  {
+   "id": "r0216",
+   "name": "OnFM 最舒服歌曲",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "",
+   "homepage": "https://onfm.org/",
+   "favicon": "https://cdn.onlineradiobox.com/img/l/9/126799.v85.png",
+   "bitrate": 128,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 8,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://cn.onfm.org/audio/stream",
+     "latency": 2907,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 2907,
+   "online": true
+  },
+  {
+   "id": "r0217",
+   "name": "四平综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "http://evfh-www.plus.jlntv.cn/",
+   "favicon": "http://img.plus.jlntv.cn/202604025549ebac8932b434fc4096745b8eb9d5.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 8,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/15318197/64k.mp3",
+     "latency": 1254,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1254,
+   "online": true
+  },
+  {
+   "id": "r0218",
+   "name": "怀远人民广播电台 FM95.1",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music news",
+   "homepage": "https://www.ahhy.cn/news/huaiyuan/index.php?page=194",
+   "favicon": "http://pic.qtfm.cn/2018/0410/20180410095357.jpeg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 8,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5021993/64k.mp3",
+     "latency": 1225,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1225,
+   "online": true
+  },
+  {
+   "id": "r0219",
+   "name": "莫扎特电台",
+   "category": "综合",
+   "region": "全国",
+   "tags": "classical classical mozart mozart",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1339&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/25/59bdf552a78be6e7bd04b1ce8792ada7.jpg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 8,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3147/nglive_3147.m3u8",
+     "latency": 491,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 491,
+   "online": true
+  },
+  {
+   "id": "r0220",
+   "name": "蛤蜊讲故事",
+   "category": "曲艺",
+   "region": "全国",
+   "tags": "children",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1269&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2025/04/07/179075ed0d91731118a2745994df85a8.jpg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 8,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_2951/nglive_2951.m3u8",
+     "latency": 568,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 568,
+   "online": true
+  },
+  {
+   "id": "r0221",
+   "name": "衡阳县综合广播 FM105.6汽车音乐电台",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "http://www.e0734.com/",
+   "favicon": "https://imagev2.xmcdn.com/storages/767b-audiofreehighqps/15/C0/GKwRIDoGGDJIAADK2AExVJei.jpg!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 8,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.ximalaya.com/radio-first-page-app/live/1182/64.m3u8?transcode=ts",
+     "latency": 339,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 339,
+   "online": true
+  },
+  {
+   "id": "r0222",
+   "name": "江门新会电台 mp3",
+   "category": "综合",
+   "region": "全国",
+   "tags": "oldies",
+   "homepage": "https://www.jmnews.com.cn/index.htm",
+   "favicon": "http://pic.qingting.fm/2025/0722/20250722115635.png",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 6,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5061/64k.mp3",
+     "latency": 1036,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1036,
+   "online": true
+  },
+  {
+   "id": "r0223",
+   "name": "深圳私家车广播 FM94.2",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "china guangdong music shenzhen traffic",
+   "homepage": "https://m.qtfm.cn/channels/1273",
+   "favicon": "",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 6,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp.qtfm.cn/live/1273/64k.mp3",
+     "latency": 1818,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1818,
+   "online": true
+  },
+  {
+   "id": "r0224",
+   "name": "鄂尔多斯汉语综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service information news",
+   "homepage": "https://www.nxw.org.cn/",
+   "favicon": "http://pic.qingting.fm/2017/0413/20170413110818.jpeg",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 6,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live.nxw.org.cn/lsdream/oRu0aoe/4096/live.m3u8",
+     "latency": 936,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 936,
+   "online": true
+  },
+  {
+   "id": "r0225",
+   "name": "东方音乐电台 THMR",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "japanese",
+   "homepage": "https://radio.yunmoan.cn/radio/touhou/320k",
+   "favicon": "https://thmr.yunmoan.cn/././icons/icon-512.png",
+   "bitrate": 320,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 5,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://radio.yunmoan.cn/radio/touhou/320k",
+     "latency": 1184,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1184,
+   "online": true
+  },
+  {
+   "id": "r0226",
+   "name": "听·昆曲",
+   "category": "综合",
+   "region": "全国",
+   "tags": "opera",
+   "homepage": "https://m.ajmide.com/m/hotradio/player?id=1349",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/05/20/fb1de468e6fa86f603177aa8ca2e374c.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 5,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3115/nglive_3115.m3u8",
+     "latency": 428,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 428,
+   "online": true
+  },
+  {
+   "id": "r0227",
+   "name": "音乐剧剧场",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "classical music drama opera",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1352&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/08/25/8d812f878e23f597833bb8a89033a20b.jpg@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 5,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3148/nglive_3148.m3u8",
+     "latency": 544,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 544,
+   "online": true
+  },
+  {
+   "id": "r0228",
+   "name": "白银新闻综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "news",
+   "homepage": "https://nginx-bys.xgsyun.com/bys/site1/resource/app/template/router/index.html?data=eyJyb290VXJsIjoiaHR0cHM6Ly93YW4tYnlzLnhnc3l1bi5jb20vYXBwLyIsInR5cGUiOjAsImNoYW5uZWwiOjIsInR2U3R5bGUiOjIsImNvbElkIjoxOSwiaXNTaGFyZSI6MSwiYXBwSWQiOjEsInNpdGVJRCI6MSwic2l0ZUlkIjoxLCJzeXN0ZW1UeXBlIjowLCJhcHBWZXJzaW9uIjoiMy4yLjEiLCJ3eEFwcElkIjoid3gwZmNhYTMxMWRlNTZiZDJkIn0=",
+   "favicon": "https://nginx-bys.xgsyun.com/bys/site1/resource/tv/bys/202310/17/2bb160c8-01c6-4cc7-82c8-f4bc23e5432b.png",
+   "bitrate": 2560,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 3,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://play.kankanlive.com/live/1720516773210367.m3u8",
+     "latency": 391,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 391,
+   "online": true
+  },
+  {
+   "id": "r0229",
+   "name": "辽宁之声",
+   "category": "新闻",
+   "region": "辽宁",
+   "tags": "news",
+   "homepage": "https://m.ajmide.com/m/brand?id=10608353&ajmdShareChannel=8",
+   "favicon": "https://bkimg.cdn.bcebos.com/pic/35a85edf8db1cb13495476a1da19414e9258d109dd66?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 3,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_1118/nglive_1118.m3u8",
+     "latency": 470,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 470,
+   "online": true
+  },
+  {
+   "id": "r0230",
+   "name": "听·沪剧",
+   "category": "综合",
+   "region": "全国",
+   "tags": "opera",
+   "homepage": "https://m.ajmide.com/m/hotradio?id=1327&ajmdShareChannel=8",
+   "favicon": "https://upload-qn.ajmide.com/image/2023/04/06/cec308ea8095eb7adbcb45833fcef3f6.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 2,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_3103/nglive_3103.m3u8",
+     "latency": 382,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 382,
+   "online": true
+  },
+  {
+   "id": "r0231",
+   "name": "宿州文艺广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "entertainment music",
+   "homepage": "http://www.ahsz.tv/",
+   "favicon": "http://pic.qingting.fm/2015/0611/20150611083613330.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 2,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5022400/64k.mp3",
+     "latency": 791,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 791,
+   "online": true
+  },
+  {
+   "id": "r0232",
+   "name": "敦煌之声",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "arts culture information music news",
+   "homepage": "https://nginx-dhs.xgsyun.com/dhs/site1/resource/app/template/router/index.html?data=eyJyb290VXJsIjoiaHR0cHM6Ly93YW4tZGhzLnhnc3l1bi5jb20vYXBwLyIsInR5cGUiOjAsImNoYW5uZWwiOjcsInR2U3R5bGUiOjIsImNvbElkIjo3MjIsImlzU2hhcmUiOjEsImFwcElkIjoxLCJzaXRlSUQiOjEsInNpdGVJZCI6MSwic3lzdGVtVHlwZSI6MCwiYXBwVmVyc2lvbiI6IjMuMi4xIiwid3hBcHBJZCI6Ind4ODI5ODgzODA4YzU0YmY0NiJ9",
+   "favicon": "https://nginx-dhs.xgsyun.com/dhs/site1/resource/tv/dhs/202310/27/3892bc2d-afe0-4c1a-b4e2-3a14103a6425.jpg",
+   "bitrate": 2560,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 2,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://play.kankanlive.com/live/1698383289889932.m3u8",
+     "latency": 232,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 232,
+   "online": true
+  },
+  {
+   "id": "r0233",
+   "name": "708090 Music",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "golden oldies pop music",
+   "homepage": "https://myradio.023520.xyz:4443/public/pop7890",
+   "favicon": "",
+   "bitrate": 70,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://myradio.023520.xyz:4443/hls/pop7890/live.m3u8",
+     "latency": 982,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 982,
+   "online": true
+  },
+  {
+   "id": "r0234",
+   "name": "Shenzhen Music Radio 深圳飞扬971",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "chinese music guangzhou info",
+   "homepage": "https://www.feiyang971.com/",
+   "favicon": "https://sao.fm/wp-content/uploads/20220725223526776-300x300.jpg",
+   "bitrate": 227,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://satellitepull.cnr.cn/live/wxszfy971/playlist.m3u8",
+     "latency": 748,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 748,
+   "online": true
+  },
+  {
+   "id": "r0235",
+   "name": "海口生活广播 FM104.4",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "information music",
+   "homepage": "https://www.hkbtv.cn/#/",
+   "favicon": "http://pic.qtfm.cn/sso/48/1750988323778_kYAImyfh7.png!200",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live2.hkbtv.cn/live/fm1044.m3u8",
+     "latency": 467,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 467,
+   "online": true
+  },
+  {
+   "id": "r0236",
+   "name": "连云港新农村广播",
+   "category": "音乐",
+   "region": "全国",
+   "tags": "music",
+   "homepage": "https://www.lyg1.com/index.html",
+   "favicon": "https://img-ossimg-qn.ajmide.com/program/1KtiF2.png@350w_1l",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 1,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://rscdn.ajmide.com/r_2482/nglive_2482.m3u8",
+     "latency": 272,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 272,
+   "online": true
+  },
+  {
+   "id": "r0237",
+   "name": "宿州综合广播",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "http://www.ahsz.tv/",
+   "favicon": "https://pic.qtfm.cn/2015/0409/20150409103501988.jpg",
+   "bitrate": 64,
+   "codec": "MP3",
+   "hls": false,
+   "votes": 0,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://lhttp-hw.qtfm.cn/live/5022399/64k.mp3",
+     "latency": 1084,
+     "hls": false
+    }
+   ],
+   "bad_streams": [],
+   "latency": 1084,
+   "online": true
+  },
+  {
+   "id": "r0238",
+   "name": "海口综合广播 FM101.8",
+   "category": "新闻",
+   "region": "全国",
+   "tags": "full service",
+   "homepage": "https://www.hkbtv.cn/#/",
+   "favicon": "https://zos.hkbtv.cn/hgw-static/harmonyos/79dcaa12-d6c0-4952-8436-cbb658ca2beb.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260606T071832Z&X-Amz-SignedHeaders=host&X-Amz-Expires=518400&X-Amz-Credential=7NNOZ3KF7E624SU2WF7E%2F20260606%2F%2Fs3%2Faws4_request&X-Amz-Signature=e3f70c51e87d5bc6dce84b442a11dbfff0a9c3ad1b02b3464f24483dbe4c9d95",
+   "bitrate": 0,
+   "codec": "HLS",
+   "hls": true,
+   "votes": 0,
+   "boost": 50,
+   "streams": [
+    {
+     "url": "https://live2.hkbtv.cn/live/fm1018.m3u8",
+     "latency": 378,
+     "hls": true
+    }
+   ],
+   "bad_streams": [],
+   "latency": 378,
+   "online": true
+  }
+ ],
+ "stale": false
+}

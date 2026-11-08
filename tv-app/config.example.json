@@ -1,0 +1,9 @@
+{
+  "host": "0.0.0.0",
+  "port": 8081,
+  "admin_token": "",
+  "probe_on_start": true,
+  "direct_play": true,
+  "log_dir": "logs",
+  "log_days": 14
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15110d">
+<title>云音乐 · 在线音乐播放器</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V6l10-2v12"/>
+          <circle cx="6.5" cy="18" r="2.6"/><circle cx="16.5" cy="16" r="2.6"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>云音乐</h1>
+        <p>上传你的音乐，随处播放</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="weather-chip" id="weatherChip" title="天气加载中…">
+        <span class="w-ico" id="wIcon"></span>
+        <span class="w-temp" id="wTemp">--°</span>
+        <span class="w-city" id="wCity">天气</span>
+      </div>
+      <a class="home-link" href="../" title="返回门户">← 门户</a>
+      <span class="ver-chip" id="appVersion" data-version-url="api/meta" data-assets-url="api/assets" data-version-label="云音乐" data-app-key="music" hidden></span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- 音乐库 + 上传 -->
+    <section class="panel library">
+      <div class="panel-head">
+        <h2>音乐库</h2>
+        <span class="count" id="libCount">0 首</span>
+        <span class="lib-ops">
+          <button class="mini-btn up-toggle" id="uploadToggleBtn" type="button" aria-expanded="false" aria-controls="dropzone" title="展开 / 收起上传区域">＋ 上传音乐</button>
+          <button class="mini-btn" id="resortBtn" type="button" title="随机重排全部歌曲，并把每首的上传时间随机重写一遍（每次点击顺序都不一样）">🔀 随机重排</button>
+          <button class="mini-btn" id="refreshBtn" type="button" title="重新读取服务器上的曲库">↻ 刷新</button>
+        </span>
+      </div>
+      <!-- 默认收缩：点击面板头「＋ 上传音乐」才展开；上传开始时自动收起，只留下方进度面板 -->
+      <div class="dropzone" id="dropzone" hidden>
+        <input type="file" id="fileInput" accept="audio/*" multiple hidden>
+        <div class="dz-inner">
+          <span class="dz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/>
+            </svg>
+          </span>
+          <p>把音乐拖到这里，或 <button id="pickBtn" type="button">选择文件</button></p>
+          <small id="dzHint">支持 mp3 / flac / wav / m4a / ogg 等，单首最大 200MB</small>
+          <div class="dz-store" id="dzStore" hidden>服务器保存位置：<code id="storePath"></code></div>
+        </div>
+      </div>
+      <div class="upload-panel" id="uploadPanel" hidden>
+        <div class="up-head">
+          <span class="up-label" id="upLabel">准备上传…</span>
+          <button class="mini-btn" id="upCancelBtn" type="button">取消</button>
+        </div>
+        <div class="up-bar"><div class="up-fill" id="upFill"></div></div>
+        <div class="up-foot">
+          <span id="upDetail">—</span>
+          <span id="upPct">0%</span>
+        </div>
+      </div>
+      <div class="track-list" id="trackList"></div>
+    </section>
+
+    <!-- 播放台：桌面端与歌曲列表并排；移动端落在最下方（见 styles.css 响应式） -->
+    <aside class="stage" id="player">
+      <div class="now">
+        <div class="cover" id="cover" aria-hidden="true">♪</div>
+        <div class="meta" title="点击查看播放页">
+          <div class="title" id="npTitle">未在播放</div>
+          <div class="artist" id="npArtist">选择一首歌曲开始</div>
+        </div>
+        <button class="now-expand" id="expandBtn" title="打开播放页（Esc 收起）" aria-label="打开播放页">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="controls">
+        <button id="prevBtn" title="上一首" aria-label="上一首">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+        </button>
+        <button id="playBtn" class="play" title="播放/暂停" aria-label="播放/暂停">
+          <svg id="playIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button id="nextBtn" title="下一首" aria-label="下一首">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6-9-6z"/></svg>
+        </button>
+        <div class="seek">
+          <span id="curTime">0:00</span>
+          <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="进度">
+          <span id="durTime">0:00</span>
+        </div>
+      </div>
+      <div class="extras">
+        <button class="icon-btn" id="keepAwakeBtn" data-keepawake title="保持屏幕常亮" aria-label="保持屏幕常亮">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="repeatBtn" title="循环：关" aria-label="循环">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="shuffleBtn" title="随机播放" aria-label="随机">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/>
+          </svg>
+        </button>
+        <div class="vol">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M4 9v6h4l5 5V4L8 9H4z"/></svg>
+          <input type="range" id="vol" min="0" max="1" step="0.01" value="1" aria-label="音量">
+        </div>
+      </div>
+      <div class="stage-lyrics">
+        <div class="np-lyhead">
+          <strong>歌词</strong>
+          <div class="np-lyops">
+            <button class="mini-btn ly-add" type="button">添加 / 编辑</button>
+            <button class="mini-btn ly-clear" type="button">清除</button>
+          </div>
+        </div>
+        <div class="np-lyrics js-lyrics" id="stageLyrics"></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 沉浸式播放页：点击歌曲名 / 底栏展开按钮进入 -->
+  <div class="np-view" id="npView" hidden>
+    <div class="np-glow" id="npGlow"></div>
+    <div class="np-topbar">
+      <button class="np-ib" id="npClose" title="收起播放页 (Esc)" aria-label="收起播放页">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <span class="np-toptitle">正在播放</span>
+      <button class="np-ib" id="npQueueBtn" title="播放队列" aria-label="播放队列">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <div class="np-grid">
+      <section class="np-left">
+        <div class="np-cover" id="npCover" aria-hidden="true">♪</div>
+        <h2 class="np-title" id="npvTitle">未在播放</h2>
+        <p class="np-artist" id="npvArtist">—</p>
+        <div class="np-tags">
+          <span id="npvBitrate">— kbps</span>
+          <span id="npvFormat">—</span>
+          <span id="npvMode">顺序播放</span>
+        </div>
+
+        <div class="np-seek">
+          <span id="npvCur">0:00</span>
+          <input type="range" id="npvSeek" min="0" max="1000" value="0" step="1" aria-label="播放进度">
+          <span id="npvDur">0:00</span>
+        </div>
+
+        <div class="np-controls">
+          <button class="np-ib" id="npvRepeat" title="循环：关" aria-label="循环">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+            </svg><span class="np-one" id="npvRepeatOne" hidden>1</span>
+          </button>
+          <button class="np-ib" id="npvPrev" title="上一首" aria-label="上一首">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+          </button>
+          <button class="np-ib np-play" id="npvPlay" title="播放/暂停" aria-label="播放/暂停">
+            <svg id="npvPlayIcon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="np-ib" id="npvNext" title="下一首" aria-label="下一首">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17 6v12h2V6h-2zM5 6v12l9-6-9-6z"/></svg>
+          </button>
+          <button class="np-ib" id="npvShuffle" title="随机播放：关" aria-label="随机播放">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="np-quality">
+          <label for="npvQualitySel">音质 / 码率</label>
+          <select id="npvQualitySel" aria-label="选择码率"></select>
+          <small id="npvQualityHint"></small>
+        </div>
+      </section>
+
+      <section class="np-right">
+        <div class="np-lyhead">
+          <strong id="npvPanelTitle">歌词</strong>
+          <div class="np-lyops">
+            <button class="mini-btn" id="npvLyricEdit">添加 / 编辑</button>
+            <button class="mini-btn" id="npvLyricClear">清除</button>
+          </div>
+        </div>
+        <div class="np-lyrics js-lyrics" id="npvLyrics"></div>
+        <div class="np-queue" id="npvQueue" hidden></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 歌词编辑 -->
+  <div class="modal" id="lyricModal">
+    <div class="lyric-card">
+      <h2>编辑歌词</h2>
+      <p>标准 LRC 格式，例如 <code>[00:12.30]第一句歌词</code>；一行可带多个时间标签。</p>
+      <textarea id="lyricText" spellcheck="false" placeholder="[00:00.00]前奏&#10;[00:12.30]第一句歌词"></textarea>
+      <div class="lyric-ops">
+        <input type="file" id="lyricFile" accept=".lrc,.txt,text/plain" hidden>
+        <button class="mini-btn" id="lyricPick">选择 .lrc 文件</button>
+        <span class="lyric-err" id="lyricErr"></span>
+      </div>
+      <div class="lyric-ops">
+        <button class="mini-btn primary" id="lyricSave">保存</button>
+        <button class="mini-btn" id="lyricCancel">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <audio id="audio"></audio>
+
+  <!-- 独立运行时的登录遮罩 -->
+  <div class="modal" id="loginModal">
+    <div class="login-card">
+      <h2>云音乐登录</h2>
+      <p>请输入账号密码以访问音乐库</p>
+      <div class="err" id="loginErr"></div>
+      <input id="lu" type="text" placeholder="用户名" autocomplete="username">
+      <input id="lp" type="password" placeholder="密码" autocomplete="current-password">
+      <button id="loginBtn">登录</button>
+    </div>
+  </div>
+
+  <script src="version.js"></script>
+  <script src="switcher.js"></script>
+  <script src="weather.js"></script>
+  <script src="wakelock.js"></script>
+  <script src="player.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

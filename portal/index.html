@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4efe6">
+<title>云媒 · 媒体中心</title>
+<style>
+  :root {
+    --bg: #f4efe6; --surface: #fffcf7; --ink: #1f1b18; --ink-2: #4a423a;
+    --muted: #8b8177; --line: #e6dccc; --accent: #b65c33; --accent-2: #d98b4a;
+    --good: #3f8f5f;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 32px 20px; gap: 26px;
+    background:
+      radial-gradient(900px 520px at 85% -10%, #fdf6ea 0%, rgba(253,246,234,0) 60%),
+      radial-gradient(800px 480px at 5% 105%, #efe4d2 0%, rgba(239,228,210,0) 55%),
+      var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header { text-align: center; }
+  .mark { color: var(--accent); display: flex; justify-content: center; margin-bottom: 10px; }
+  h1 {
+    margin: 0; font-size: 24px; font-weight: 600; letter-spacing: .1em;
+    font-family: "Songti SC", "STSong", Georgia, serif;
+  }
+  .sub { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); letter-spacing: .02em; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; width: min(1080px, 100%); }
+  .card {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    padding: 24px 24px 20px; position: relative; overflow: hidden; min-height: 158px; display: flex; flex-direction: column;
+    box-shadow: 0 10px 30px rgba(60, 44, 28, .06);
+    transition: transform .18s cubic-bezier(.3,.7,.3,1), box-shadow .18s, border-color .18s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(60, 44, 28, .13); border-color: #dccdb8; }
+  .card .ico { color: var(--accent); margin-bottom: 14px; opacity: .92; }
+  .card h2 { margin: 0 0 7px; font-size: 18px; letter-spacing: .05em; }
+  .card p { margin: 0; font-size: 12.5px; color: var(--ink-2); opacity: .78; line-height: 1.8; }
+  .card .go {
+    margin-top: auto; padding-top: 16px; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--accent);
+  }
+  .card:hover .go { gap: 10px; }
+  .status {
+    position: absolute; top: 18px; right: 18px;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10.5px; color: var(--muted);
+  }
+  .status i { width: 6px; height: 6px; border-radius: 50%; background: #c9bfae; display: inline-block; }
+  .status.up i { background: var(--good); box-shadow: 0 0 0 0 rgba(63,143,95,.5); animation: pulse 2.2s infinite; }
+  .status.down i { background: #c0563c; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(63,143,95,.45); }
+    70% { box-shadow: 0 0 0 6px rgba(63,143,95,0); }
+    100% { box-shadow: 0 0 0 0 rgba(63,143,95,0); }
+  }
+
+  footer { text-align: center; font-size: 11.5px; color: #8b8177; line-height: 1.9; }
+  footer a.status-link {
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px dotted rgba(182,92,51,.5); padding-bottom: 1px;
+    background: none; font: inherit; cursor: pointer;
+  }
+  footer a.status-link:hover { border-bottom-style: solid; }
+  footer .sep { color: #c3b8aa; }
+
+  /* ---------- 登录弹层 ---------- */
+  .modal {
+    position: fixed; inset: 0; z-index: 50; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+    background: rgba(28, 23, 18, .52); backdrop-filter: blur(4px);
+  }
+  .modal.show { display: flex; }
+  .modal-card {
+    position: relative; width: min(940px, 100%); height: min(560px, calc(100vh - 40px));
+    border-radius: 18px; overflow: hidden; background: var(--surface);
+    box-shadow: 0 30px 80px rgba(20, 14, 8, .38);
+    animation: pop .2s cubic-bezier(.2,.8,.3,1);
+  }
+  @keyframes pop { from { transform: scale(.96) translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal-card iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .modal-close {
+    position: absolute; top: 10px; right: 12px; z-index: 3;
+    width: 30px; height: 30px; border: 0; border-radius: 50%; cursor: pointer;
+    background: rgba(255,255,255,.82); color: #4a423a; font-size: 19px; line-height: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  }
+  .modal-close:hover { background: #fff; color: var(--accent); }
+
+  @media (max-width: 620px) {
+    .cards { grid-template-columns: 1fr; }
+    h1 { font-size: 21px; }
+    body { justify-content: flex-start; padding-top: 48px; }
+    .modal { padding: 8px; }
+    .modal-card { width: 100%; height: calc(100vh - 16px); border-radius: 14px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48" width="46" height="46">
+        <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/>
+        <circle cx="24" cy="24" r="3.2" fill="currentColor"/>
+        <path d="M24 12a12 12 0 0 1 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M24 36a12 12 0 0 1-12-12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1>云媒中心</h1>
+    <p class="sub">选一个开始 · 登录后即可收听与观看</p>
+  </header>
+
+  <main class="cards">
+    <a class="card" href="radio/" data-app="radio">
+      <span class="status" data-status><i></i><span>检测中</span></span>
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+          <rect x="7" y="16" width="34" height="24" rx="4"/>
+          <path d="M15 16 33 7"/><circle cx="34.5" cy="6.4" r="2.2" fill="currentColor" stroke="none"/>
+          <circle cx="16" cy="28" r="3.4"/>
+          <path d="M25 24h10M25 30h7M25 36h10"/>
+        </svg>
+      </div>
+      <h2>在线收音机</h2>
+      <p>全国广播电台直播，带节目表、收藏与备用线路自动切换。</p>
+      <span class="go">进入收听
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <a class="card" href="tv/" data-app="tv">
+      <span class="status" data-status><i></i><span>检测中</span></span>
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+          <rect x="6" y="14" width="36" height="24" rx="4"/>
+          <path d="M17 14 31 5"/><circle cx="32.4" cy="4.4" r="2.2" fill="currentColor" stroke="none"/>
+          <path d="M22 32V22l9 5z" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <h2>在线电视</h2>
+      <p>电视台公开直播源，支持多线路切换与频道自管理。</p>
+      <span class="go">进入观看
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <a class="card" href="music/" data-app="music">
+      <span class="status" data-status><i></i><span>检测中</span></span>
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 31V13l16-3v15"/>
+          <circle cx="14" cy="31" r="4.4"/><circle cx="30" cy="28" r="4.4"/>
+          <path d="M22 14v14M34 11v13"/>
+        </svg>
+      </div>
+      <h2>在线音乐</h2>
+      <p>上传本地音乐，生成播放列表，浏览器内随时播放。</p>
+      <span class="go">进入聆听
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <a class="card" href="work/" data-app="work">
+      <span class="status" data-status><i></i><span>检测中</span></span>
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="10" width="34" height="30" rx="4"/>
+          <path d="M7 19h34M16 6v8M32 6v8"/>
+          <path d="M13 27h10M13 33h16"/>
+          <circle cx="34" cy="27" r="3.2" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <h2>工作日志</h2>
+      <p>记录将办、在办与待跟踪结果的事，用甘特图看一天的时间分布。</p>
+      <span class="go">进入记录
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+  </main>
+
+  <footer>
+    <a class="status-link" href="status">运行状态</a>
+    <span class="sep">&nbsp;·&nbsp;</span>
+    <a class="status-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">苏ICP备2022007414号</a>
+    <span id="logoutWrap" hidden>
+      <span class="sep">&nbsp;·&nbsp;</span>
+      <a class="status-link" id="logoutLink" href="auth/logout">退出登录</a>
+    </span>
+    <span class="ver-chip" id="appVersion" data-version-url="auth/health" data-version-label="登录服务" data-app-key="auth" hidden></span>
+  </footer>
+
+  <div class="modal" id="loginModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="loginClose" aria-label="关闭登录">×</button>
+      <iframe id="loginFrame" title="登录" src="about:blank"></iframe>
+    </div>
+  </div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const modal = $('#loginModal'), frame = $('#loginFrame');
+  let loggedIn = false;
+
+  /* ---------- 服务状态：由登录服务统一探测后端端口 ---------- */
+  fetch('auth/health', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => {
+      document.querySelectorAll('.card').forEach((card) => {
+        const box = card.querySelector('[data-status]');
+        const up = !!d[card.dataset.app];
+        box.classList.add(up ? 'up' : 'down');
+        box.querySelector('span').textContent = up ? '在线' : '未响应';
+      });
+    })
+    .catch(() => {
+      document.querySelectorAll('.card').forEach((card) => {
+        const box = card.querySelector('[data-status]');
+        box.classList.add('down');
+        box.querySelector('span').textContent = '未响应';
+      });
+    });
+
+  /* ---------- 已登录：直接放行；未登录：点卡片弹登录页 ---------- */
+  fetch('auth/session', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => {
+      loggedIn = !!(d && d.ok);
+      if (loggedIn) $('#logoutWrap').hidden = false;
+    })
+    .catch(() => {});
+
+  document.querySelectorAll('.card').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (loggedIn || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      const href = card.getAttribute('href');
+      frame.src = 'login.html?next=' + encodeURIComponent('/' + href.replace(/^\/+/, ''));
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLogin() {
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    frame.src = 'about:blank';
+    document.body.style.overflow = '';
+  }
+  $('#loginClose').addEventListener('click', closeLogin);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeLogin(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeLogin(); });
+  window.addEventListener('message', (e) => {
+    if (e.origin === location.origin && e.data === 'cm-login-cancel') closeLogin();
+  });
+
+  /* ---------- 退出登录 ---------- */
+  $('#logoutLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    try { await fetch('auth/logout', { method: 'POST' }); } catch {}
+    location.reload();
+  });
+})();
+</script>
+<script src="version.js"></script>
+</body>
+</html>

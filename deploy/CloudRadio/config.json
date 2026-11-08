@@ -1,0 +1,15 @@
+{
+  "host": "127.0.0.1",
+  "port": 8090,
+  "refresh_hours": 6,
+  "crawl_on_start": true,
+  "username": "admin",
+  "password": "",
+  "session_days": 30,
+  "log_dir": "logs",
+  "log_days": 14,
+  "trust_proxy_auth": true,
+  "portal_auth_url": "http://127.0.0.1:8092/auth/check",
+  "portal_home": "",
+  "portal_status": ""
+}

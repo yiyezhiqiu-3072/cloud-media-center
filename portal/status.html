@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4efe6">
+<link rel="icon" href="data:,">
+<title>运行状态 · 云媒中心</title>
+<style>
+  :root {
+    --bg: #f4efe6; --surface: #fffcf7; --ink: #1f1b18; --ink-2: #4a423a;
+    --muted: #8b8177; --line: #e6dccc; --accent: #b65c33; --accent-2: #d98b4a;
+    --good: #3f8f5f; --bad: #c0563c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 30px 18px 46px; min-height: 100vh;
+    background:
+      radial-gradient(900px 520px at 85% -10%, #fdf6ea 0%, rgba(253,246,234,0) 60%),
+      radial-gradient(800px 480px at 5% 105%, #efe4d2 0%, rgba(239,228,210,0) 55%),
+      var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: min(880px, 100%); margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 24px; position: relative; }
+  .mark { color: var(--accent); display: flex; justify-content: center; margin-bottom: 8px; }
+  h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: .1em;
+       font-family: "Songti SC", "STSong", Georgia, serif; }
+  .sub { margin: 7px 0 0; font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+  .back {
+    position: absolute; left: 0; top: 6px; font-size: 12px; color: var(--muted);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+  }
+  .back:hover { color: var(--accent); }
+
+  .banner {
+    background: #fdf2e6; border: 1px solid #f0d9c2; color: #8c4423;
+    border-radius: 12px; padding: 12px 14px; font-size: 12.5px; line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .banner b { font-weight: 600; }
+  .banner code { background: #f7e6d2; padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+
+  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .m {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 15px 13px; box-shadow: 0 8px 22px rgba(60,44,28,.05);
+  }
+  .m .k { display: block; font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+  .m b {
+    display: inline-block; margin-top: 6px; font-size: 24px; font-weight: 600;
+    font-variant-numeric: tabular-nums; letter-spacing: -.01em;
+  }
+  .m .u { font-size: 11px; color: var(--muted); margin-left: 3px; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 16px 18px 14px; margin-bottom: 14px; box-shadow: 0 8px 22px rgba(60,44,28,.05);
+  }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .panel-head h2 { margin: 0; font-size: 13.5px; font-weight: 600; letter-spacing: .04em; color: var(--ink-2); }
+  .legend { display: flex; gap: 14px; font-size: 11px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .legend i { width: 10px; height: 2px; border-radius: 2px; display: inline-block; }
+
+  canvas { width: 100%; height: 144px; display: block; }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .kv {
+    background: #fbf6ee; border: 1px solid #efe4d3; border-radius: 10px; padding: 10px 12px;
+  }
+  .kv span { display: block; font-size: 10.5px; color: var(--muted); letter-spacing: .03em; }
+  .kv b { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .tag {
+    font-size: 10.5px; color: var(--muted); background: #f7f0e4;
+    border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px;
+  }
+
+  .services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .svc {
+    display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 16px; box-shadow: 0 8px 22px rgba(60,44,28,.05);
+    transition: transform .16s, box-shadow .16s, border-color .16s;
+  }
+  .svc:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(60,44,28,.1); border-color: #dccdb8; }
+  .svc .dot { width: 8px; height: 8px; border-radius: 50%; background: #c9bfae; flex: none; }
+  .svc.up .dot { background: var(--good); box-shadow: 0 0 0 0 rgba(63,143,95,.45); animation: pulse 2.2s infinite; }
+  .svc.down .dot { background: var(--bad); }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(63,143,95,.45); }
+    70% { box-shadow: 0 0 0 7px rgba(63,143,95,0); }
+    100% { box-shadow: 0 0 0 0 rgba(63,143,95,0); }
+  }
+  .svc .txt { min-width: 0; flex: 1; }
+  .svc .name { font-size: 13.5px; letter-spacing: .02em; }
+  .svc .meta { font-size: 11px; color: var(--muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .svc .go { color: var(--accent); font-size: 12px; flex: none; }
+
+  footer {
+    margin-top: 20px; display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; font-size: 11px; color: #9d9285;
+  }
+  footer button {
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+    border-radius: 8px; padding: 5px 11px; font-size: 11.5px; cursor: pointer;
+    font-family: inherit;
+  }
+  footer button:hover { border-color: #dccdb8; color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .services { grid-template-columns: 1fr; }
+    .back { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 6l-6 6 6 6"/></svg>
+      返回门户
+    </a>
+    <div class="mark">
+      <svg viewBox="0 0 48 48" width="34" height="34">
+        <circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".5"/>
+        <circle cx="24" cy="24" r="3" fill="currentColor"/>
+        <path d="M24 24 L34 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M12 30a13 13 0 0 1 5-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+        <path d="M36 30a13 13 0 0 0-5-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+      </svg>
+    </div>
+    <h1>运行状态</h1>
+    <p class="sub">nginx 与后端服务实时指标 · 每 2 秒刷新</p>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <section class="metrics">
+    <div class="m"><span class="k">活跃连接</span><b id="mActive">—</b><span class="u">个</span></div>
+    <div class="m"><span class="k">每秒请求</span><b id="mRps">—</b><span class="u">req/s</span></div>
+    <div class="m"><span class="k">累计请求</span><b id="mReq">—</b></div>
+    <div class="m"><span class="k">累计连接</span><b id="mAcc">—</b></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>近 2 分钟趋势</h2>
+      <div class="legend">
+        <span><i style="background:#b65c33"></i>每秒请求</span>
+        <span><i style="background:#3f8f5f"></i>活跃连接</span>
+      </div>
+    </div>
+    <canvas id="chart"></canvas>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>nginx</h2>
+      <span class="tag" id="ngVersion">—</span>
+    </div>
+    <div class="grid3" style="margin-bottom:10px">
+      <div class="kv" title="正在读取请求头的连接数"><span>Reading 读取</span><b id="ngReading">—</b></div>
+      <div class="kv" title="正在向客户端写响应的连接数"><span>Writing 写入</span><b id="ngWriting">—</b></div>
+      <div class="kv" title="已建立但空闲等待的连接数"><span>Waiting 空闲</span><b id="ngWaiting">—</b></div>
+    </div>
+    <div class="grid3">
+      <div class="kv"><span>已接受连接</span><b id="ngAccepts">—</b></div>
+      <div class="kv"><span>已处理连接</span><b id="ngHandled">—</b></div>
+      <div class="kv"><span>处理成功率</span><b id="ngRate">—</b></div>
+    </div>
+  </section>
+
+  <section class="services">
+    <a class="svc" id="svcRadio" href="radio/">
+      <i class="dot"></i>
+      <div class="txt">
+        <div class="name">云收音机</div>
+        <div class="meta" id="radioMeta">检测中…</div>
+      </div>
+      <span class="go">进入 ›</span>
+    </a>
+    <a class="svc" id="svcTv" href="tv/">
+      <i class="dot"></i>
+      <div class="txt">
+        <div class="name">云电视</div>
+        <div class="meta" id="tvMeta">检测中…</div>
+      </div>
+      <span class="go">进入 ›</span>
+    </a>
+    <a class="svc" id="svcMusic" href="music/">
+      <i class="dot"></i>
+      <div class="txt">
+        <div class="name">云音乐</div>
+        <div class="meta" id="musicMeta">检测中…</div>
+      </div>
+      <span class="go">进入 ›</span>
+    </a>
+    <a class="svc" id="svcWork" href="work/">
+      <i class="dot"></i>
+      <div class="txt">
+        <div class="name">工作日志</div>
+        <div class="meta" id="workMeta">检测中…</div>
+      </div>
+      <span class="go">进入 ›</span>
+    </a>
+  </section>
+
+  <footer>
+    <span id="stamp">等待首次采集…</span>
+    <span class="ver-chip" id="appVersion" data-version-url="auth/health" data-version-label="登录服务" hidden></span>
+    <button id="refreshBtn" type="button">立即刷新</button>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var POLL = 2000;           // 采样间隔（毫秒）
+  var MAX = 60;              // 保留多少个点 → 60 × 2s = 2 分钟
+  var HIST = { rps: [], conn: [] };
+  var last = null;           // { requests, t }
+  var timer = null;
+  var chart = document.getElementById('chart');
+  var ctx = chart.getContext('2d');
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function fmt(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    if (n >= 100000000) return (n / 100000000).toFixed(2) + ' 亿';
+    if (n >= 10000) return (n / 10000).toFixed(1) + ' 万';
+    return String(Math.round(n));
+  }
+
+  function dur(sec) {
+    sec = Math.max(0, Math.floor(sec || 0));
+    var d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
+    if (d) return d + ' 天 ' + h + ' 小时';
+    if (h) return h + ' 小时 ' + m + ' 分';
+    if (m) return m + ' 分钟';
+    return sec + ' 秒';
+  }
+
+  function parseStub(text) {
+    var out = {}, lines = String(text || '').split(/\r?\n/);
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i].trim(), m;
+      if (!l) continue;
+      if ((m = /^Active connections:\s*(\d+)/i.exec(l))) { out.active = +m[1]; }
+      else if ((m = /^(\d+)\s+(\d+)\s+(\d+)$/.exec(l))) {
+        out.accepts = +m[1]; out.handled = +m[2]; out.requests = +m[3];
+      } else if ((m = /^Reading:\s*(\d+)\s+Writing:\s*(\d+)\s+Waiting:\s*(\d+)/i.exec(l))) {
+        out.reading = +m[1]; out.writing = +m[2]; out.waiting = +m[3];
+      }
+    }
+    return out;
+  }
+
+  function showBanner(html) {
+    var el = $('banner');
+    if (!html) { el.hidden = true; el.innerHTML = ''; return; }
+    el.hidden = false; el.innerHTML = html;
+  }
+
+  function setText(id, v) { var el = $(id); if (el) el.textContent = v; }
+
+  async function getStatus() {
+    var res = await fetch('nginx_status', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var text = await res.text();
+    var data = parseStub(text);
+    // 响应头里取版本号，兼容中间层塞了别的 Server 值的情况
+    var srv = res.headers.get('server') || '';
+    var m = /nginx\/[\d.]+/i.exec(srv);
+    data.server = m ? m[0] : (srv.split(',')[0].trim() || 'nginx');
+    if (data.active === undefined || data.requests === undefined) throw new Error('返回内容无法解析');
+    return data;
+  }
+
+  function pushSample(d) {
+    var now = Date.now(), rps = 0;
+    if (last && d.requests >= last.requests) {
+      var dt = (now - last.t) / 1000;
+      if (dt > 0.2) rps = (d.requests - last.requests) / dt;
+    }
+    last = { requests: d.requests, t: now };
+    HIST.rps.push(rps);
+    HIST.conn.push(d.active);
+    while (HIST.rps.length > MAX) { HIST.rps.shift(); HIST.conn.shift(); }
+    return rps;
+  }
+
+  async function probe(url) {
+    var t0 = performance.now();
+    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    var to = setTimeout(function () { if (ctrl) ctrl.abort(); }, 3000);
+    try {
+      var r = await fetch(url, { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined });
+      var ms = Math.round(performance.now() - t0);
+      if (!r.ok) return { ok: false, ms: ms, code: r.status };
+      var j = {};
+      try { j = await r.json(); } catch (e) { j = {}; }
+      return { ok: true, ms: ms, data: j };
+    } catch (e) {
+      return { ok: false, ms: Math.round(performance.now() - t0), err: '无响应' };
+    } finally {
+      clearTimeout(to);
+    }
+  }
+
+  function paintService(el, metaEl, res, label) {
+    el.classList.remove('up', 'down');
+    el.classList.add(res.ok ? 'up' : 'down');
+    if (!res.ok) {
+      metaEl.textContent = (res.code ? 'HTTP ' + res.code : res.err || '无法连接') + ' · ' + res.ms + 'ms';
+      return;
+    }
+    var d = res.data || {};
+    var bits = [];
+    if (d.version) bits.push('v' + d.version);
+    if (typeof d.uptime_seconds === 'number') bits.push('已运行 ' + dur(d.uptime_seconds));
+    if (typeof d.stations === 'number') bits.push(d.stations + ' 个电台');
+    if (typeof d.channels === 'number') bits.push(d.channels + ' 个频道' + (typeof d.online === 'number' ? '（在线 ' + d.online + '）' : ''));
+    bits.push(res.ms + 'ms');
+    metaEl.textContent = bits.join(' · ');
+  }
+
+  function draw() {
+    var dpr = window.devicePixelRatio || 1;
+    var w = chart.clientWidth || 600, h = chart.clientHeight || 128;
+    if (chart.width !== Math.round(w * dpr) || chart.height !== Math.round(h * dpr)) {
+      chart.width = Math.round(w * dpr);
+      chart.height = Math.round(h * dpr);
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    var padL = 6, padR = 6, padT = 10, padB = 16;
+    var iw = w - padL - padR, ih = h - padT - padB;
+
+    // 网格
+    ctx.strokeStyle = 'rgba(230,220,204,.85)';
+    ctx.lineWidth = 1;
+    for (var g = 0; g <= 3; g++) {
+      var y = padT + (ih / 3) * g + 0.5;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + iw, y); ctx.stroke();
+    }
+
+    var n = HIST.rps.length;
+    if (n < 2) {
+      ctx.fillStyle = '#b3a899';
+      ctx.font = '11px -apple-system, "Microsoft YaHei", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('正在采集数据…', w / 2, h / 2);
+      return;
+    }
+
+    var maxRps = Math.max.apply(null, HIST.rps.concat([1]));
+    var maxConn = Math.max.apply(null, HIST.conn.concat([1]));
+
+    function yAt(v, max) { return padT + ih - (ih * Math.min(v, max)) / max; }
+
+    function line(arr, max, color, fill) {
+      ctx.beginPath();
+      for (var i = 0; i < n; i++) {
+        // 样本按已有数量铺满宽度；满 60 个后自然就是「近 2 分钟」
+        var x = padL + (MAX > 1 ? (iw * i) / (n > 1 ? n - 1 : 1) : 0);
+        var y = yAt(arr[i], max);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.8;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      if (fill) {
+        ctx.lineTo(padL + iw, padT + ih);
+        ctx.lineTo(padL, padT + ih);
+        ctx.closePath();
+        var grad = ctx.createLinearGradient(0, padT, 0, padT + ih);
+        grad.addColorStop(0, 'rgba(182,92,51,.16)');
+        grad.addColorStop(1, 'rgba(182,92,51,0)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+    }
+
+    line(HIST.conn, maxConn, 'rgba(63,143,95,.9)', false);
+    line(HIST.rps, maxRps, '#b65c33', true);
+
+    // 峰值标注放左上角，避免压住右侧的曲线
+    ctx.font = '10px -apple-system, "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#a99e92';
+    ctx.fillText('峰值 ' + maxRps.toFixed(1) + ' req/s', padL + 2, padT + 8);
+  }
+
+  function stamp() {
+    var d = new Date();
+    var p = function (v) { return String(v).padStart(2, '0'); };
+    setText('stamp', '最近更新 ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds()));
+  }
+
+  async function tick() {
+    // nginx 指标
+    try {
+      var d = await getStatus();
+      showBanner('');
+      var rps = pushSample(d);
+      setText('mActive', fmt(d.active));
+      setText('mRps', rps.toFixed(rps >= 10 ? 0 : 1));
+      setText('mReq', fmt(d.requests));
+      setText('mAcc', fmt(d.accepts));
+      setText('ngReading', d.reading === undefined ? '—' : d.reading);
+      setText('ngWriting', d.writing === undefined ? '—' : d.writing);
+      setText('ngWaiting', d.waiting === undefined ? '—' : d.waiting);
+      setText('ngAccepts', fmt(d.accepts));
+      setText('ngHandled', fmt(d.handled));
+      setText('ngRate', d.accepts ? (d.handled / d.accepts * 100).toFixed(2) + ' %' : '—');
+      setText('ngVersion', d.server || 'nginx');
+      draw();
+    } catch (e) {
+      showBanner('<b>读不到 nginx 指标</b>（' + String(e.message || e) + '）<br>' +
+        '说明当前 nginx 没有启用 <code>stub_status</code>，或 <code>/nginx_status</code> 被拦了。<br>' +
+        '检查 nginx.conf 里是否有 <code>location = /nginx_status { stub_status; }</code>，' +
+        '并确认编译时带了 <code>--with-http_stub_status_module</code>（官网 Windows 版默认就带）。');
+    }
+
+    // 四个应用后端
+    var pair = await Promise.all([
+      probe('radio/api/health'), probe('tv/api/health'),
+      probe('music/api/health'), probe('work/api/health')
+    ]);
+    paintService($('svcRadio'), $('radioMeta'), pair[0]);
+    paintService($('svcTv'), $('tvMeta'), pair[1]);
+    paintService($('svcMusic'), $('musicMeta'), pair[2]);
+    paintService($('svcWork'), $('workMeta'), pair[3]);
+
+    stamp();
+  }
+
+  function start() {
+    stop();
+    tick();
+    timer = setInterval(tick, POLL);
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop(); else start();
+  });
+  $('refreshBtn').addEventListener('click', function () {
+    HIST.rps = []; HIST.conn = []; last = null;
+    start();
+  });
+  window.addEventListener('resize', draw);
+
+  start();
+})();
+</script>
+<script src="version.js"></script>
+</body>
+</html>

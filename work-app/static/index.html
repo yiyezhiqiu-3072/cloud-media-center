@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4efe6">
+<title>工作日志 · 云媒中心</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="8" y="10" width="32" height="32" rx="5"/>
+          <path d="M8 19h32M16 6v8M32 6v8"/>
+          <path d="M14 27h9M14 33h15" stroke-width="2.2"/>
+          <circle cx="33" cy="27" r="3.2" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>工作日志</h1>
+        <p>记录要做、在做、待跟踪结果的事</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="day-picker">
+        <button type="button" id="prevDay" title="前一天" aria-label="前一天">‹</button>
+        <input type="date" id="dayInput" aria-label="选择日期">
+        <button type="button" id="nextDay" title="后一天" aria-label="后一天">›</button>
+        <button type="button" id="todayBtn" class="mini-btn">今天</button>
+      </div>
+      <button type="button" class="view-btn" id="viewToggle">查看甘特图 →</button>
+      <span class="ver-chip" id="appVersion" data-version-url="api/meta" data-assets-url="api/assets" data-version-label="工作日志" data-app-key="work" hidden></span>
+      <a class="home-link" href="../" title="返回门户">← 门户</a>
+    </div>
+  </header>
+
+  <!-- ============ 记录视图 ============ -->
+  <main class="layout" id="recordView">
+    <section class="panel form-panel">
+      <div class="panel-head">
+        <h2 id="formTitle">记录一件事</h2>
+        <button type="button" class="mini-btn" id="formReset" hidden>取消编辑</button>
+      </div>
+      <form id="itemForm" autocomplete="off">
+        <label class="field">
+          <span>标题 <i>*</i> <em>写短一点，详细内容直接写在下面</em></span>
+          <input id="fTitle" maxlength="60" placeholder="如：审阅季报" required>
+        </label>
+        <label class="field">
+          <span>记录内容</span>
+          <textarea id="fNote" rows="4" placeholder="直接写内容：背景、参与人、经过、地点…"></textarea>
+        </label>
+        <div class="row">
+          <label class="field"><span>日期</span><input type="date" id="fDay"></label>
+          <label class="field"><span>开始 <i>*</i></span><input type="time" id="fStart" required></label>
+          <label class="field"><span>结束</span><input type="time" id="fEnd" placeholder="留空默认 1 小时"></label>
+        </div>
+        <div class="field">
+          <span>状态</span>
+          <div class="status-picker" id="fStatus">
+            <button type="button" data-status="planned" class="on">将要发生</button>
+            <button type="button" data-status="doing">正在发生</button>
+            <button type="button" data-status="followup">待跟踪结果</button>
+            <button type="button" data-status="done">已闭环</button>
+          </div>
+        </div>
+        <div class="field photo-field">
+          <span>现场照片 <em>自动叠加「时间 + 地点」水印</em></span>
+          <div class="photo-ops">
+            <button type="button" class="mini-btn" id="photoBtn">📷 拍照</button>
+            <button type="button" class="mini-btn" id="albumBtn">🖼 从相册选</button>
+            <button type="button" class="mini-btn" id="locBtn">📍 定位</button>
+            <input type="file" id="fPhotoCam" accept="image/*" capture="environment" hidden>
+            <input type="file" id="fPhotoLib" accept="image/*" hidden>
+          </div>
+          <input type="text" id="fPlace" class="place-input" maxlength="120" placeholder="地点（可手填；定位成功自动带入坐标）">
+          <div class="photo-preview" id="photoPreview"></div>
+          <div class="photo-status" id="photoStatus"></div>
+        </div>
+        <label class="field" id="fResultWrap"><span>结果 / 跟踪结论</span><textarea id="fResult" rows="2" placeholder="事情发生后，把结果或待跟进的结论记在这里"></textarea></label>
+        <div class="form-ops">
+          <button type="submit" class="primary" id="fSubmit">添加记录</button>
+          <span class="form-err" id="fErr"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel list-panel">
+      <div class="panel-head">
+        <h2>当日事项</h2>
+        <div class="stats" id="statsBar"></div>
+      </div>
+      <div class="filters" id="filters">
+        <button type="button" data-filter="all" class="on">全部</button>
+        <button type="button" data-filter="planned">将要发生</button>
+        <button type="button" data-filter="doing">正在发生</button>
+        <button type="button" data-filter="followup">待跟踪</button>
+        <button type="button" data-filter="done">已闭环</button>
+      </div>
+      <div class="item-list" id="itemList"></div>
+      <div class="list-foot">
+        <button type="button" class="mini-btn" id="exportCsv">导出 CSV</button>
+        <button type="button" class="mini-btn" id="exportJson">导出 JSON</button>
+        <span class="list-hint">数据保存在服务器 data/items.json</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 甘特图视图 ============ -->
+  <main class="gantt-view" id="ganttView" hidden>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>日程甘特图 <small id="ganttDayLabel"></small></h2>
+        <div class="legend" id="legend">
+          <span data-s="planned"><i></i>将要发生</span>
+          <span data-s="doing"><i></i>正在发生</span>
+          <span data-s="followup"><i></i>待跟踪结果</span>
+          <span data-s="done"><i></i>已闭环</span>
+        </div>
+      </div>
+      <div class="gantt-summary" id="ganttSummary"></div>
+      <div class="gantt-mode-bar" id="ganttModeBar">
+        <button type="button" class="mini-btn on" id="ganttModeCards">时间条</button>
+        <button type="button" class="mini-btn" id="ganttModeTable">表格</button>
+        <span>手机端按时间条展示，无需左右拖动</span>
+      </div>
+      <div class="gantt-mobile" id="ganttMobile"></div>
+      <div class="gantt-scroll" id="ganttScroll">
+        <div class="gantt" id="gantt">
+          <div class="gantt-head">
+            <div class="gantt-label-head">事项</div>
+            <div class="gantt-axis" id="ganttAxis"></div>
+          </div>
+          <div id="ganttRows"></div>
+        </div>
+      </div>
+      <div class="gantt-empty" id="ganttEmpty" hidden>
+        这一天还没有记录。<button type="button" class="mini-btn" id="emptyGoRecord">去记录几件事</button>
+      </div>
+      <p class="gantt-tip">点击色块可编辑该事项 · 虚线为当前时间 · 时间轴会按当天事项自动扩展</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 现场照片大图 -->
+  <div class="lightbox" id="photoLightbox" hidden>
+    <img id="lightboxImg" alt="现场照片大图">
+    <button type="button" id="lightboxClose" aria-label="关闭">×</button>
+  </div>
+
+  <!-- 独立运行时的登录遮罩（挂在 nginx 下由门户统一登录，不会出现） -->
+  <div class="modal" id="loginModal">
+    <div class="login-card">
+      <h2>工作日志登录</h2>
+      <p>请输入账号密码以访问工作记录</p>
+      <div class="err" id="loginErr"></div>
+      <input id="lu" type="text" placeholder="用户名" autocomplete="username">
+      <input id="lp" type="password" placeholder="密码" autocomplete="current-password">
+      <button id="loginBtn">登录</button>
+    </div>
+  </div>
+
+  <script src="version.js"></script>
+  <script src="switcher.js"></script>
+  <script src="player.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
