@@ -33,7 +33,7 @@ import hot_reload
 import logger
 import portal_auth
 
-VERSION = "1.3.9"
+VERSION = "1.3.10"
 IS_FROZEN = getattr(sys, "frozen", False)
 BUNDLE_DIR = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 APP_DIR = os.path.dirname(os.path.abspath(sys.executable)) if IS_FROZEN else os.path.dirname(os.path.abspath(__file__))

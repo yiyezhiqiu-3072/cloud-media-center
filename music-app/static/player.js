@@ -23,8 +23,8 @@
   'use strict';
 
   var KEY = 'cm.player.v1';
-  var APP_URL = { radio: '/radio/', tv: '/tv/', music: '/music/', work: '/work/' };
-  var m = location.pathname.match(/\/(radio|tv|music|work)\//);
+  var APP_URL = { radio: '/radio/', tv: '/tv/', music: '/music/', work: '/work/', device: '/device/' };
+  var m = location.pathname.match(/\/(radio|tv|music|work|device)\//);
   if (!m) return;                       // 独立运行（非门户子路径）不启用，避免绝对 URL 失效
   var here = m[1];
 
@@ -41,6 +41,16 @@
     list: [], index: -1, url: '', q: 0, streamIdx: 0, hls: false,
     position: 0, duration: 0, playing: false, ts: 0
   };
+
+  // ---------------- 服务端电台（全站同步） ----------------
+  // 音乐后端维护一条按真实时间推进的时间轴；任意应用页打开时按 server_time 接入
+  // 当前曲目与秒数。手动暂停/切歌/拖进度会转入「个人模式」，播放条上可一键回到电台。
+  var RADIO_URL = APP_URL.music + 'api/radio';
+  var RADIO_MODE_KEY = 'cm.radio.mode';        // 'radio' | 'personal'
+  var radioMode = true;
+  try { radioMode = localStorage.getItem(RADIO_MODE_KEY) !== 'personal'; } catch (_) {}
+  var radioBusy = false;
+  var radioBooted = false;
 
   // ---------------- 唯一音源 ----------------
   // 云音乐页面已有 <audio id="audio">；其它页面新建一个。两者都作为全站共享音源。
@@ -101,7 +111,9 @@
     '#cmPBar .cm-sub{font-size:11px;line-height:1.4;color:' + barSub +
       ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
     '#cmPBar .cm-tag{flex:0 0 auto;font-size:10px;padding:2px 7px;border-radius:99px;' +
-      'border:1px solid ' + barLine + ';color:' + barSub + ';white-space:nowrap}' +
+      'border:1px solid ' + barLine + ';color:' + barSub + ';white-space:nowrap;cursor:pointer}' +
+    '#cmPBar .cm-tag.cm-personal{border-color:' + accent + ';color:' + accent +
+      ';font-weight:700;cursor:pointer}' +
     '#cmPBar .cm-btns{flex:0 0 auto;display:flex;align-items:center;gap:4px}' +
     '#cmPBar button{flex:0 0 auto;width:36px;height:36px;border:none;border-radius:50%;cursor:pointer;' +
       'background:transparent;color:inherit;display:flex;align-items:center;justify-content:center;padding:0}' +
@@ -151,7 +163,8 @@
     (here === 'music'
       ? 'body.cm-player-on .layout{grid-template-columns:minmax(0,1fr) !important;' +
           'max-width:920px}' : '') +
-    '@media(max-width:380px){#cmPBar .cm-tag{display:none}}';
+    /* 个人模式下「↻ 回到电台」是唯一恢复入口，窄屏也必须保留 */
+    '@media(max-width:380px){#cmPBar .cm-tag:not(.cm-personal){display:none}}';
   document.head.appendChild(css);
   document.body.classList.add('cm-player-on');
 
@@ -242,11 +255,26 @@
     else elLeft.textContent = '-' + fmtClock(dur - cur, long);
   }
 
+  // 播放条右上角标签同时承担「电台状态 / 回到电台」入口
+  function renderTagText() {
+    if (!radioMode) {
+      elTag.classList.add('cm-personal');
+      elTag.textContent = '↻ 回到电台';
+      elTag.title = '当前为个人播放，点此回到服务端电台进度';
+      elTag.style.display = '';
+      return;
+    }
+    elTag.classList.remove('cm-personal');
+    elTag.textContent = st.type === 'radio' ? '电台' : (st.type === 'music' ? '📻 电台' : '');
+    elTag.title = '正在同步服务端电台，所有页面同一进度';
+    elTag.style.display = st.type ? '' : 'none';
+  }
+  function updateRadioUI() { renderTagText(); }
+
   function render() {
     elTitle.textContent = st.title || '未在播放';
     elSub.textContent = st.sub || (st.type ? '来自云媒中心' : '选择一首歌曲开始');
-    elTag.textContent = st.type === 'radio' ? '电台' : (st.type === 'music' ? '音乐' : '');
-    elTag.style.display = st.type ? '' : 'none';
+    renderTagText();
     elCov.textContent = st.type === 'radio' ? '📻' : '♪';
     btnPlay.innerHTML = st.playing ? ICO_PAUSE : ICO_PLAY;
     var dis = !st.type || !st.id;
@@ -284,14 +312,100 @@
     if (!unloading && !switching && Date.now() > reportGrace) persist({ playing: false });
   });
   audio.addEventListener('ended', function () {
+    // 电台模式：服务端时间轴此时已推进到下一首，重新接入即可（不本地切歌）
+    if (radioMode) { joinRadio(true); return; }
     // 原生页（音乐/收音机）自己的 app.js 已监听 ended 并切下一首，这里不能重复触发；
     // 只有工作日志 / 电视这类没有原生播放器的页面，才由共享条按列表快照自动接下一首。
     if (!app && st.type === 'music') step(1);
   });
 
+  // ---------------- 服务端电台：接入 / 校准 / 个人模式 ----------------
+  /** 用户手动干预播放 → 转入个人模式，定时校准不再把进度拉回电台。 */
+  function setPersonal() {
+    if (!radioMode) return;
+    radioMode = false;
+    try { localStorage.setItem(RADIO_MODE_KEY, 'personal'); } catch (_) {}
+    updateRadioUI();
+  }
+  /** 点「↻ 回到电台」：重新按服务端当前曲目与秒数接入。 */
+  function rejoinRadio() {
+    radioMode = true;
+    radioBooted = false;
+    try { localStorage.setItem(RADIO_MODE_KEY, 'radio'); } catch (_) {}
+    updateRadioUI();
+    joinRadio(true);
+  }
+  function notifyRadio(d) {
+    try {
+      if (typeof CustomEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('cm:radio', { detail: d }));
+      }
+    } catch (_) {}
+  }
+
+  /** 拉取 /music/api/radio；force=换源并强制 seek，普通调用只做对表校准。 */
+  function joinRadio(force, cb) {
+    if ((!radioMode && !force) || radioBusy) { if (cb) cb(false); return; }
+    radioBusy = true;
+    var done = function (ok) { radioBusy = false; if (cb) cb(ok); };
+    try {
+      fetch(RADIO_URL, { cache: 'no-store', credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.ok || d.empty || !d.track) { done(false); return; }
+          applyRadio(d, !!force);
+          done(true);
+        })
+        .catch(function () { done(false); });
+    } catch (_) { done(false); }
+  }
+
+  function applyRadio(d, force) {
+    var t = d.track || {};
+    var id = String(t.id || '');
+    if (!id) return;
+    var item = { id: id, title: t.title || t.name || '', sub: t.artist || '' };
+    var queue = Array.isArray(d.queue) ? d.queue.map(function (x) {
+      return { id: String(x.id || ''), title: x.title || '', sub: x.sub || '' };
+    }) : [];
+    var patch = {
+      type: 'music', id: id, title: item.title, sub: item.sub,
+      list: queue, index: (typeof d.index === 'number' ? d.index : -1),
+      url: APP_URL.music + 'api/track/' + encodeURIComponent(id),
+      duration: Number(d.duration) || 0,
+      position: Number(d.position) || 0, playing: true
+    };
+    // playOwn 用 audio.src 赋值，必须把它也算进「已有音源」，否则每次定时校准
+    // 都会误判成换源并重新加载音频（约每 25 秒卡一下）
+    var sameTrack = (st.type === 'music' && st.id === id &&
+                     !!(audio.currentSrc || audio.src || audio.getAttribute('src')));
+    if (!sameTrack || force) {
+      // 换源：playOwn 会把 position 写入 seekPending，loadedmetadata 后自动跳到该秒数
+      persist(patch);
+      playOwn(st, item);
+      notifyRadio(d);
+    } else {
+      // 同曲：只校正漂移；超过 3 秒才 seek，避免频繁打断播放
+      var expected = Number(d.position) || 0;
+      if (Math.abs((audio.currentTime || 0) - expected) > 3) {
+        try { audio.currentTime = expected; } catch (_) {}
+      }
+      if (audio.paused) {
+        var pr = audio.play();
+        if (pr && pr.catch) pr.catch(function () { elResume.style.display = 'block'; });
+      }
+      persist({ list: patch.list, index: patch.index,
+                duration: patch.duration, playing: true });
+    }
+    radioBooted = true;
+    updateRadioUI();
+  }
+
   // ---------------- 对外 API ----------------
   /** 应用上报当前音源。p: {type,id,title,sub,list,index,url,q,streamIdx,hls,playing} */
   function report(p) {
+    // 应用主动切到非音曲源（例如收音机直播）属于个人操作，不能被电台校准拉回
+    if (p.type && p.type !== 'music') setPersonal();
     var next = {
       type: p.type || st.type, id: p.id || '', title: p.title || '', sub: p.sub || '',
       url: p.url || ''
@@ -320,7 +434,10 @@
     save: save,
     state: function () { return st; },
     here: here,
-    resume: tryResume       // 原生页数据加载完后主动调用，避免过早占用共享音源
+    resume: tryResume,     // 原生页数据加载完后主动调用，避免过早占用共享音源
+    personal: setPersonal, // 用户点歌 / 暂停 / 拖进度 → 脱离电台同步
+    joinRadio: function (force) { joinRadio(!!force); },
+    radioMode: function () { return radioMode; }
   };
 
   // ---------------- HLS（非原生页播放电台用） ----------------
@@ -384,6 +501,8 @@
   // ---------------- 自动续播 ----------------
   function tryResume() {
     if (resumed) return;
+    // 电台已接管共享音源时，原生页 init 末尾的 CMPlayer.resume() 不能覆盖它
+    if (radioMode && radioBooted) { resumed = true; return; }
     resumed = true;
     var s = load();
     if (!s || !s.playing || !s.url || !s.type) return;
@@ -408,6 +527,7 @@
       return;
     }
     if (!st.type || !st.id) return;
+    setPersonal();                 // 手动播放/暂停 → 临时脱离电台同步
     if (delegate('onToggle')) return;
     // 状态接力过来的页面（如工作日志/电视）音源还没建立：按保存的 URL 重建后再播
     if (!audio.getAttribute('src') && !audio.currentSrc) { playOwn(st, null); return; }
@@ -429,8 +549,8 @@
     });
     playOwn(st, item);
   }
-  btnNext.addEventListener('click', function () { step(1); });
-  btnPrev.addEventListener('click', function () { step(-1); });
+  btnNext.addEventListener('click', function () { setPersonal(); step(1); });
+  btnPrev.addEventListener('click', function () { setPersonal(); step(-1); });
   var btnMore = bar.querySelector('.cm-more');
   if (btnMore) btnMore.addEventListener('click', function () {
     document.body.classList.toggle('cm-native-open');
@@ -439,6 +559,10 @@
   elResume.addEventListener('click', function () {
     var p = audio.play(); if (p && p.catch) p.catch(function () {});
     elResume.style.display = 'none';
+  });
+  // 右上角标签：个人模式下点它一键回到服务端电台当前进度
+  elTag.addEventListener('click', function () {
+    if (!radioMode) rejoinRadio();
   });
   // 点曲名 / 封面：音乐 → 展开沉浸式播放页（本页直接开，跨页带 #np 自动开）；
   // 电台等其它类型仍跳回对应应用。打开前收起「⚙」浮出的原生面板，避免与播放页重叠。
@@ -467,20 +591,23 @@
   window.addEventListener('beforeunload', leaving);
   window.addEventListener('pageshow', function () { unloading = false; });
 
-  // 工作日志页没有原生播放器：自动接力续播。
-  // 在线音乐 / 收音机页：等 app.js 数据加载完并 attach 后主动调 CMPlayer.tryResume()，
-  // 这样能优先走原生播放逻辑（歌词 / EPG / 队列），不会过早占用共享音源。
-  // 在线电视页有视频音轨，不自动抢声音，只显示暂停态，点播放键才恢复。
-  if (here === 'tv') {
-    // 只把按钮显示成「播放」，不改动持久化的 playing 状态（保证切走后仍能接力）
-    btnPlay.innerHTML = ICO_PLAY;
-  } else if (here === 'work') {
-    var kick = function () { setTimeout(tryResume, 250); };
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', kick);
-    else kick();
-  } else {
-    // 原生页兜底：若 app.js 未接入或数据加载失败，仍保证能续播不静音
-    setTimeout(function () { if (!resumed && !app) tryResume(); }, 2000);
+  // ---------------- 启动：全站接入服务端电台 ----------------
+  // 任意应用页打开都按服务端时间轴接入同一首、同一进度；接口不可用（未登录 /
+  // 曲库为空 / 网络异常）时回退到原来的 localStorage 状态接力，老行为不丢。
+  function boot() {
+    updateRadioUI();
+    if (!radioMode) { tryResume(); return; }
+    joinRadio(true, function (ok) { if (!ok) tryResume(); });
+    // 原生页数据加载较慢或接口瞬时失败时的补偿接入
+    setTimeout(function () { if (radioMode && !radioBooted) joinRadio(true); }, 1800);
   }
-  window.CMPlayer.resume = window.CMPlayer.resume || tryResume;
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 200); });
+  } else setTimeout(boot, 200);
+
+  // 定时与服务端对表：曲目切换、进度漂移、页面从后台恢复时自动拉回
+  setInterval(function () { if (radioMode) joinRadio(false); }, 25000);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && radioMode) joinRadio(false);
+  });
 })();

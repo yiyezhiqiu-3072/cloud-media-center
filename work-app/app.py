@@ -41,7 +41,7 @@ import hot_reload
 import logger
 import portal_auth
 
-VERSION = "1.1.4"
+VERSION = "1.1.7"
 IS_FROZEN = getattr(sys, "frozen", False)
 BUNDLE_DIR = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 APP_DIR = os.path.dirname(os.path.abspath(sys.executable)) if IS_FROZEN else os.path.dirname(os.path.abspath(__file__))
@@ -348,6 +348,28 @@ def build_item(payload: dict, base: dict | None = None) -> dict:
     return item
 
 
+_DAY_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def clean_day(v: str) -> str:
+    """只接受严格的 YYYY-MM-DD，避免非法/注入参数被拿去比较。"""
+    v = (v or "").strip()
+    return v if _DAY_RE.match(v) else ""
+
+
+def items_in_range(items: list, day: str = "", dfrom: str = "", dto: str = "") -> list:
+    """单日优先；否则按 [from, to] 闭区间过滤；两者都为空则返回全部（历史行为）。"""
+    day = clean_day(day)
+    dfrom, dto = clean_day(dfrom), clean_day(dto)
+    if day:
+        return [x for x in items if x.get("day") == day]
+    if dfrom or dto:
+        return [x for x in items
+                if (not dfrom or x.get("day", "") >= dfrom)
+                and (not dto or x.get("day", "") <= dto)]
+    return list(items)
+
+
 def sorted_items(items: list) -> list:
     return sorted(items, key=lambda x: (x.get("day", ""), x.get("start", ""), x.get("created_at", 0)))
 
@@ -572,8 +594,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"days": days})
         if path == "/api/export":
             day = (query.get("day") or [""])[0]
+            dfrom = (query.get("from") or [""])[0]
+            dto = (query.get("to") or [""])[0]
             with STATE_LOCK:
-                items = [dict(x) for x in STATE["items"] if not day or x.get("day") == day]
+                items = items_in_range([dict(x) for x in STATE["items"]], day, dfrom, dto)
             items = sorted_items(items)
             fmt = (query.get("fmt") or ["json"])[0]
             if fmt == "csv":
@@ -588,16 +612,23 @@ class Handler(BaseHTTPRequestHandler):
                                 x.get("title", ""), x.get("start", ""), x.get("end", ""),
                                 x.get("note", ""), x.get("result", ""), marks])
                 body = "\ufeff" + buf.getvalue()
-                fname = day or "all"
+                fname = clean_day(day) or (
+                    (clean_day(dfrom) or "all") + "-" + (clean_day(dto) or "all"))
                 return self._send(200, body.encode("utf-8"), MIME[".csv"], {
                     "Content-Disposition": f'attachment; filename="work-{fname}.csv"'})
             return self._json({"ok": True, "items": items})
         if path == "/api/items":
             day = (query.get("day") or [""])[0]
+            dfrom = (query.get("from") or [""])[0]
+            dto = (query.get("to") or [""])[0]
             with STATE_LOCK:
-                items = [dict(x) for x in STATE["items"] if not day or x.get("day") == day]
+                items = items_in_range([dict(x) for x in STATE["items"]], day, dfrom, dto)
             items = sorted_items(items)
-            return self._json({"total": len(items), "items": items, "stats": day_stats(items)})
+            days = sorted({x.get("day", "") for x in items if x.get("day")})
+            return self._json({
+                "total": len(items), "items": items, "stats": day_stats(items),
+                "range": {"from": clean_day(dfrom), "to": clean_day(dto), "days": days},
+            })
         return self.static(path)
 
     # ---------- 写路由 ----------

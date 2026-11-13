@@ -51,6 +51,13 @@ a { color: inherit; }
   background: var(--surface); color: var(--ink-2); font-size: 12px; cursor: pointer;
 }
 .mini-btn:hover { background: var(--surface-2); border-color: var(--accent); color: var(--accent); }
+/* 「新增一条」主入口：与统计条并排，编辑态下也能一键回到新增表单 */
+.list-head-left { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.add-item-btn {
+  border-color: var(--accent); color: var(--accent); background: var(--surface);
+  font-weight: 600; white-space: nowrap;
+}
+.add-item-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 .view-btn {
   padding: 8px 15px; border: none; border-radius: 9px; cursor: pointer;
   background: var(--accent); color: #fff; font-size: 12.5px; font-weight: 600;
@@ -66,7 +73,50 @@ a { color: inherit; }
   width: min(1240px, 100%); margin: 0 auto; padding: 22px 26px 40px; flex: 1;
   align-items: start;
 }
-.gantt-view { width: min(1240px, 100%); margin: 0 auto; padding: 22px 26px 40px; flex: 1; }
+/* ---------------- 甘特图：全屏独立层 ----------------
+   不依赖 [hidden] 隐藏记录页：整屏覆盖、自带滚动，点开即在最顶部显示甘特图。 */
+.gantt-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9000;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: var(--bg);
+  padding-bottom: calc(var(--cm-bar-h, 104px) + 28px + env(safe-area-inset-bottom));
+}
+body.cm-gantt-open { overflow: hidden; }
+body.cm-gantt-open .gantt-overlay { display: block; }
+.gantt-top {
+  position: sticky; top: 0; z-index: 3;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 12px 26px; border-bottom: 1px solid var(--line);
+  background: rgba(255,252,247,.96); backdrop-filter: blur(10px);
+}
+.gantt-top-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.gantt-top-left h2 { margin: 0; font-size: 15.5px; font-weight: 600; }
+.gantt-top-left h2 small { font-size: 11.5px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.range-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.range-presets, .range-custom { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.range-custom span { font-size: 11px; color: var(--muted); }
+.range-custom input[type="date"] {
+  padding: 5px 7px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--surface); color: var(--ink); font-size: 12px;
+}
+.mini-btn.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.gantt-body { width: min(1240px, 100%); margin: 0 auto; padding: 18px 26px 30px; }
+.gantt-tables { display: block; }
+.gantt-day, .gm-day {
+  border: 1px solid var(--line); border-radius: 14px;
+  background: var(--surface); margin-bottom: 16px; overflow: hidden;
+}
+.gantt-day-head, .gm-day-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2);
+}
+.gantt-day-head b, .gm-day-head b { font-size: 14px; font-variant-numeric: tabular-nums; }
+.gantt-day-head span, .gm-day-head span { font-size: 11.5px; color: var(--muted); }
+.gantt-day .gantt-scroll { border: none; border-radius: 0; }
+.gm-day { padding: 10px; }
+.gm-day-head { margin: -10px -10px 10px; border-radius: 14px 14px 0 0; }
+.gm-day-body { display: flex; flex-direction: column; gap: 10px; }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
 .panel {
   background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
   padding: 18px; box-shadow: 0 8px 26px rgba(90,70,45,.05);
@@ -338,20 +388,19 @@ a { color: inherit; }
 
 /* ---------------- 响应式 ---------------- */
 @media (max-width: 900px) {
-  .layout { grid-template-columns: minmax(0, 1fr); }
+  .layout { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 30px; }
   .item-list { max-height: none; }
   .topbar { padding: 12px 16px; }
-  .layout, .gantt-view { padding: 16px 16px 30px; }
+  .gantt-top { padding: 10px 14px; }
+  .gantt-body { padding: 12px 14px 24px; }
   .gantt-mode-bar { display: flex; }
-  .gantt-mobile { display: flex; }
-  .gantt-scroll { display: none; }
-  body.gm-table .gantt-mobile { display: none; }
-  body.gm-table .gantt-scroll { display: block; }
-  /* 切到甘特图后让时间条卡片尽量出现在首屏，少占顶部空间 */
-  .gantt-view .panel { padding: 12px; }
-  .gantt-view .panel-head { margin-bottom: 10px; }
-  .gantt-view .gantt-summary { margin-bottom: 8px; }
-  .gantt-view .gantt-mode-bar { margin-bottom: 8px; }
+  .gantt-overlay .gantt-mobile { display: flex; }
+  .gantt-overlay .gantt-tables { display: none; }
+  body.gm-table .gantt-overlay .gantt-mobile { display: none; }
+  body.gm-table .gantt-overlay .gantt-tables { display: block; }
+  .gantt-summary { margin-bottom: 8px; }
+  .gantt-mode-bar { margin-bottom: 8px; }
+  .gantt-day-head, .gm-day-head { padding: 8px 12px; }
 }
 @media (max-width: 620px) {
   .brand-text p { display: none; }

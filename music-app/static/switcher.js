@@ -1,7 +1,7 @@
 /* switcher.js —— 各功能页共用的「跨应用切换」+「上传中跳转保护」
  *
  * 1. 顶栏注入一个下拉，直接切到收音机 / 电视 / 音乐 / 工作日志，不必先回首页。
- *    只在挂在门户子路径（/radio/ /tv/ /music/ /work/）时显示；独立运行不显示，
+ *    只在挂在门户子路径（/radio/ /tv/ /music/ /work/ /device/）时显示；独立运行不显示，
  *    避免 ../radio/ 之类相对链接变成死链。
  * 2. 音乐上传进行中，点任何会离开本页的链接都会先弹确认：确认后用**新标签页**
  *    打开目标，当前音乐页保持不动，上传继续；只有关掉这个音乐页 / 整个浏览器，
@@ -18,11 +18,12 @@
     { key: 'tv',    name: '在线电视',   url: '../tv/' },
     { key: 'music', name: '在线音乐',   url: '../music/' },
     { key: 'work',  name: '工作日志',   url: '../work/' },
+    { key: 'device', name: '客户分切设备管理', url: '../device/' },
   ];
   var NAMES = {};
   APPS.forEach(function (a) { NAMES[a.key] = a.name; });
 
-  var m = location.pathname.match(/\/(radio|tv|music|work)\//);
+  var m = location.pathname.match(/\/(radio|tv|music|work|device)\//);
   if (!m) return;                       // 独立运行：不显示切换器
   var current = m[1];
   var bar = document.querySelector('.topbar-right');
@@ -172,7 +173,7 @@
 
   var pendingUrl = '';
   function targetName(url) {
-    var mm = String(url).match(/\/(radio|tv|music|work)\//);
+    var mm = String(url).match(/\/(radio|tv|music|work|device)\//);
     return mm ? NAMES[mm[1]] : '目标页面';
   }
   stay.addEventListener('click', function () { overlay.hidden = true; pendingUrl = ''; });

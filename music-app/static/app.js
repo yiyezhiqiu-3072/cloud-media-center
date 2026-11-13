@@ -307,9 +307,39 @@
     const id = state.queue[state.qi];
     if (id) loadAndPlay(id);
   }
+  // 服务端电台切歌 / 本页较晚才初始化时，只同步 UI 与歌词，绝不重设 audio.src
+  // （音源与进度由共享播放条按服务端时间轴统一控制，避免两个地方抢着 seek）
+  function syncRadioUI(id, index) {
+    const t = state.tracks.find((x) => x.id === id);
+    if (!t) return;
+    state.currentId = id;
+    // 让本页的上一首/下一首与电台队列对齐，用户手动切歌后可继续接着播
+    state.queue = state.tracks.map((x) => x.id);
+    state.order = state.queue.map((_x, i) => i);
+    state.orderPos = (typeof index === 'number' && index >= 0)
+      ? index : Math.max(0, state.queue.indexOf(id));
+    updateNowPlaying(t);
+    loadLyrics(id);
+    renderLibrary();
+    if (state.npOpen) { renderNowPlaying(); renderQueuePanel(); }
+  }
+  function wireRadio() {
+    window.addEventListener('cm:radio', (e) => {
+      const d = e.detail;
+      if (!d || !d.track) return;
+      syncRadioUI(String(d.track.id), d.index);
+    });
+  }
+  function leaveRadio() {
+    if (window.CMPlayer && CMPlayer.personal) CMPlayer.personal();
+  }
+  function inRadio() {
+    return !!(window.CMPlayer && CMPlayer.radioMode && CMPlayer.radioMode());
+  }
   function loadAndPlay(id) {
     const t = state.tracks.find((x) => x.id === id);
     if (!t) return;
+    leaveRadio();                    // 用户主动点歌 → 临时脱离电台同步
     state.currentId = id;
     audio.src = trackUrl(id, state.quality);
     audio.play().catch(() => toast('播放失败：' + (t.title || t.name)));
@@ -332,6 +362,7 @@
     $('#npArtist').textContent = t.artist || '未知艺人';
   }
   function togglePlay() {
+    leaveRadio();                    // 手动播放/暂停 → 个人模式
     if (!state.currentId) {
       if (state.tracks.length) playTrackFromLibrary(state.tracks[0].id);
       return;
@@ -340,6 +371,7 @@
   }
   // manual=true 表示手动点「下一首」，此时忽略单曲循环
   function next(manual = false) {
+    if (manual) leaveRadio();         // 手动切歌 → 个人模式
     if (!state.order.length) return;
     if (!manual && state.repeat === 'one') {
       audio.currentTime = 0; audio.play().catch(() => {}); return;
@@ -357,6 +389,7 @@
     loadByOrder();
   }
   function prev() {
+    leaveRadio();                    // 手动切歌 → 个人模式
     if (!state.order.length) return;
     if (audio.currentTime > 3) { audio.currentTime = 0; return; }
     let pos = state.orderPos - 1;
@@ -635,7 +668,11 @@
 
     audio.addEventListener('play', () => { renderPlayIcons(); renderLibrary(); });
     audio.addEventListener('pause', () => { renderPlayIcons(); renderLibrary(); });
-    audio.addEventListener('ended', () => next(false));   // 必须包一层，否则 Event 会被当成 manual
+    // 电台同步模式下由共享播放条按服务端时间轴接下一首，本页不能重复切歌
+    audio.addEventListener('ended', () => {
+      if (inRadio()) return;
+      next(false);                   // 必须包一层，否则 Event 会被当成 manual
+    });
     audio.addEventListener('loadedmetadata', () => {
       if (pendingSeek != null && isFinite(audio.duration)) {
         audio.currentTime = Math.min(pendingSeek, audio.duration);
@@ -654,7 +691,7 @@
       syncLyrics(audio.currentTime);
     });
     const bindSeek = (el) => {
-      el.addEventListener('input', () => { state.seeking = true; });
+      el.addEventListener('input', () => { leaveRadio(); state.seeking = true; });
       el.addEventListener('change', () => {
         if (isFinite(audio.duration)) audio.currentTime = (el.value / 1000) * audio.duration;
         state.seeking = false;
@@ -838,7 +875,7 @@
   }
 
   async function init() {
-    wirePlayer(); wireUpload(); wireLibraryOps(); wireLogin();
+    wirePlayer(); wireUpload(); wireLibraryOps(); wireLogin(); wireRadio();
     try {
       const s = await api('api/session');
       if (!s.ok) { showLogin(); return; }
@@ -868,7 +905,13 @@
           return true;
         }
       });
-      CMPlayer.resume();       // 数据就绪后再接力，避免抢占共享音源
+      if (!inRadio()) {
+        CMPlayer.resume();     // 个人模式：数据就绪后再做本地状态接力
+      } else {
+        // 电台已在本页 init 之前接入（事件错过）→ 补一次 UI / 歌词同步
+        const s = CMPlayer.state();
+        if (s && s.type === 'music' && s.id) syncRadioUI(s.id, s.index);
+      }
     }
     // 从其它应用点共享播放条的曲名跳进来（/music/#np）时自动展开沉浸式播放页
     if (location.hash === '#np') {

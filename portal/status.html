@@ -208,6 +208,14 @@
       </div>
       <span class="go">进入 ›</span>
     </a>
+    <a class="svc" id="svcDevice" href="device/">
+      <i class="dot"></i>
+      <div class="txt">
+        <div class="name">客户分切设备管理</div>
+        <div class="meta" id="deviceMeta">检测中…</div>
+      </div>
+      <span class="go">进入 ›</span>
+    </a>
   </section>
 
   <footer>
@@ -432,15 +440,17 @@
         '并确认编译时带了 <code>--with-http_stub_status_module</code>（官网 Windows 版默认就带）。');
     }
 
-    // 四个应用后端
+    // 五个应用后端
     var pair = await Promise.all([
       probe('radio/api/health'), probe('tv/api/health'),
-      probe('music/api/health'), probe('work/api/health')
+      probe('music/api/health'), probe('work/api/health'),
+      probe('device/api/health')
     ]);
     paintService($('svcRadio'), $('radioMeta'), pair[0]);
     paintService($('svcTv'), $('tvMeta'), pair[1]);
     paintService($('svcMusic'), $('musicMeta'), pair[2]);
     paintService($('svcWork'), $('workMeta'), pair[3]);
+    paintService($('svcDevice'), $('deviceMeta'), pair[4]);
 
     stamp();
   }

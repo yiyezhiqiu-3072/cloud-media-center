@@ -12,6 +12,7 @@
   GET  /api/meta              版本 / 登录用户 / 门户链接
   GET  /api/session           当前用户
   GET  /api/tracks            曲目库
+  GET  /api/radio             服务端电台时钟（当前曲目 / 进度 / 队列，全站同步接入）
   POST /api/upload            上传（JSON：{name, mime, b64}），返回曲目记录
   PATCH /api/tracks/<id>      更新时长/标题/艺人（浏览器读到元数据后回写）
   DELETE /api/tracks/<id>     删除曲目（同时从各播放列表移除）
@@ -52,7 +53,7 @@ import hot_reload
 import logger
 import portal_auth
 
-VERSION = "1.1.3"
+VERSION = "1.2.1"
 IS_FROZEN = getattr(sys, "frozen", False)
 BUNDLE_DIR = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 APP_DIR = os.path.dirname(os.path.abspath(sys.executable)) if IS_FROZEN else os.path.dirname(os.path.abspath(__file__))
@@ -133,6 +134,10 @@ STATE: dict = {
     "playlists": [],
     "started_at": time.time(),
     "config": dict(DEFAULTS),
+    # 服务端电台时钟：order=曲目顺序，idx=当前曲目，started_at=本曲开始的 unix 秒。
+    # 时间轴按真实时间持续推进，即使没有客户端在线也在「播放」；客户端打开页面时
+    # 只按 server_time 计算应接入的位置，无需服务端真的解码音频。
+    "radio": {"order": [], "idx": 0, "started_at": time.time()},
 }
 STATE_LOCK = threading.Lock()
 TRANSCODE_LOCK = threading.Lock()
@@ -213,6 +218,10 @@ def playlists_path() -> str:
     return os.path.join(DATA_DIR, "playlists.json")
 
 
+def radio_path() -> str:
+    return os.path.join(DATA_DIR, "radio.json")
+
+
 def load_store() -> None:
     os.makedirs(UPLOAD_DIR, exist_ok=True)
     try:
@@ -225,6 +234,100 @@ def load_store() -> None:
             STATE["playlists"] = json.load(fh) or []
     except Exception:
         STATE["playlists"] = []
+    load_radio()
+
+
+def load_radio() -> None:
+    """读取电台时钟；首次启动或文件损坏时从当前时间起播。"""
+    try:
+        with open(radio_path(), "r", encoding="utf-8") as fh:
+            d = json.load(fh) or {}
+        STATE["radio"] = {
+            "order": list(d.get("order") or []),
+            "idx": int(d.get("idx") or 0),
+            "started_at": float(d.get("started_at") or time.time()),
+        }
+    except Exception:
+        STATE["radio"] = {"order": [], "idx": 0, "started_at": time.time()}
+
+
+def save_radio() -> None:
+    """调用方须持有 STATE_LOCK。"""
+    try:
+        os.makedirs(DATA_DIR, exist_ok=True)
+        tmp = radio_path() + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(STATE["radio"], fh, ensure_ascii=False)
+        os.replace(tmp, radio_path())
+    except Exception as exc:
+        log_err(f"电台状态保存失败：{exc}")
+
+
+def radio_duration(t: dict) -> float:
+    """曲目时长；浏览器未回写元数据时用 240 秒兜底，避免除零或瞬间跳曲。"""
+    try:
+        d = float(t.get("duration") or 0)
+    except (TypeError, ValueError):
+        d = 0.0
+    return d if d >= 5 else 240.0
+
+
+def radio_status() -> dict:
+    """服务端电台时钟：按真实时间推进，返回当前曲目、应处进度与完整队列。
+
+    曲库发生增删改或「随机重排」时自动重建队列，尽量保持正在播放的曲目与已播放秒数，
+    这样重排后所有客户端不会突然跳回开头。
+    """
+    now = time.time()
+    with STATE_LOCK:
+        tracks = STATE["tracks"]
+        if not tracks:
+            return {"ok": True, "empty": True, "server_time": now, "track": None,
+                    "queue": [], "position": 0, "duration": 0, "index": 0, "total": 0}
+        r = STATE["radio"]
+        ids = [str(t.get("id") or "") for t in tracks]
+        changed = False
+        if list(r.get("order") or []) != ids:
+            old = list(r.get("order") or [])
+            oi = int(r.get("idx") or 0)
+            cur = old[oi] if old and 0 <= oi < len(old) else None
+            pos = max(0.0, now - float(r.get("started_at") or now))
+            r["order"] = list(ids)
+            if cur in ids:
+                r["idx"] = ids.index(cur)
+                r["started_at"] = now - min(pos, radio_duration(tracks[r["idx"]]) - 1)
+            else:
+                r["idx"] = 0
+                r["started_at"] = now
+            changed = True
+        n = len(ids)
+        if not (0 <= r["idx"] < n):
+            r["idx"] = 0
+            r["started_at"] = now
+            changed = True
+        # 按真实时间把时间轴推进到「此刻」（无人在线时也持续走）
+        guard = 0
+        while guard < n * 4 + 8:
+            guard += 1
+            d = radio_duration(tracks[r["idx"]])
+            if now - r["started_at"] < d:
+                break
+            r["started_at"] += d
+            r["idx"] = (r["idx"] + 1) % n
+            changed = True
+        if changed:
+            save_radio()
+        idx = r["idx"]
+        t = tracks[idx]
+        dur = radio_duration(t)
+        pos = max(0.0, min(dur - 0.1, now - r["started_at"]))
+        queue = [{"id": str(x.get("id") or ""),
+                  "title": x.get("title") or x.get("name") or "",
+                  "sub": x.get("artist") or ""} for x in tracks]
+        return {"ok": True, "empty": False, "server_time": now,
+                "track": public_track(t), "position": round(pos, 2),
+                "duration": round(dur, 2), "index": idx, "total": n,
+                "queue": queue}
 
 
 def save_tracks() -> None:
@@ -1014,6 +1117,9 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/assets":
             # 前端 version.js 轮询这个指纹，发现外部静态文件变了就提示刷新
             return self._json(HOT.assets() if HOT else {"ok": False})
+        if path == "/api/radio":
+            # 服务端电台时钟：所有客户端按同一时间轴接入当前曲目与进度
+            return self._json(radio_status())
         if path == "/api/tracks":
             with STATE_LOCK:
                 items = [public_track(t) for t in STATE["tracks"]]

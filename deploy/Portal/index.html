@@ -179,8 +179,24 @@
         </svg>
       </div>
       <h2>工作日志</h2>
-      <p>记录将办、在办与待跟踪结果的事，用甘特图看一天的时间分布。</p>
+      <p>记录将办、在办与待跟踪结果的事，用甘特图回顾多天计划与时间分布。</p>
       <span class="go">进入记录
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <a class="card" href="device/" data-app="device">
+      <span class="status" data-status><i></i><span>检测中</span></span>
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="9" width="34" height="30" rx="5"/>
+          <path d="M7 18h34M15 9v9M33 9v9"/>
+          <path d="M14 27h8M14 33h14M30 27h4M30 33h4" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <h2>客户分切设备管理</h2>
+      <p>基础数据、分切机单据录入审核、序时簿查询与机台总览。</p>
+      <span class="go">进入管理
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
       </span>
     </a>
@@ -211,24 +227,83 @@
   const modal = $('#loginModal'), frame = $('#loginFrame');
   let loggedIn = false;
 
-  /* ---------- 服务状态：由登录服务统一探测后端端口 ---------- */
-  fetch('auth/health', { cache: 'no-store' })
-    .then(r => r.json())
-    .then(d => {
-      document.querySelectorAll('.card').forEach((card) => {
-        const box = card.querySelector('[data-status]');
-        const up = !!d[card.dataset.app];
-        box.classList.add(up ? 'up' : 'down');
-        box.querySelector('span').textContent = up ? '在线' : '未响应';
+  /* ---------- 服务状态 ----------
+     auth/health 是 0.4s 的 TCP 端口探活（结果缓存 2 秒），服务刚重启或瞬时抖动
+     容易把某个应用误报成「未响应」。状态页早已改用 HTTP 直探 /api/health，
+     这里保持一致：TCP 汇总 + HTTP 直探复核 + 越过缓存重试 + 定时自愈。 */
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const PORT_HINT = { radio: 8090, tv: 8091, music: 8093, work: 8094, device: 8095 };
+  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+
+  function paint(card, up) {
+    const box = card.querySelector('[data-status]');
+    box.classList.remove('up', 'down');
+    box.classList.add(up ? 'up' : 'down');
+    box.querySelector('span').textContent = up ? '在线' : '未响应';
+    const key = card.dataset.app || '';
+    box.title = up ? '服务正常' :
+      '服务未响应：请确认对应 exe 已启动（' + key + ' 端口 ' +
+      (PORT_HINT[key] || '未知') + '）、nginx 已 reload，稍后会自动重试';
+  }
+
+  async function authHealth() {
+    try {
+      const r = await fetch('auth/health', { cache: 'no-store' });
+      if (!r.ok) return {};
+      return await r.json();
+    } catch (_) { return {}; }   // 登录服务不可达时完全依赖 HTTP 直探
+  }
+
+  async function probe(card, timeout) {
+    const url = card.getAttribute('href').replace(/\/$/, '') + '/api/health';
+    const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    const timer = setTimeout(() => { if (ctrl) ctrl.abort(); }, timeout);
+    try {
+      const r = await fetch(url, {
+        cache: 'no-store', credentials: 'same-origin',
+        signal: ctrl ? ctrl.signal : undefined,
       });
-    })
-    .catch(() => {
-      document.querySelectorAll('.card').forEach((card) => {
-        const box = card.querySelector('[data-status]');
-        box.classList.add('down');
-        box.querySelector('span').textContent = '未响应';
-      });
+      // 未登录时 nginx 会 302 到登录页；跟随重定向后的 200 不能算服务在线
+      if (!r.ok || r.redirected) return false;
+      try { const j = await r.json(); return !!j && typeof j === 'object'; }
+      catch (_) { return false; }
+    } catch (_) { return false; }
+    finally { clearTimeout(timer); }
+  }
+
+  const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function checkStatus() {
+    const first = await authHealth();
+    // 只画 auth/health 已登记的应用；未登记的（例如旧版 CloudAuth 不认识 device）
+    // 先保持「检测中」，交给下面的 HTTP 直探判定，避免首屏闪一下「未响应」。
+    cards.forEach((card) => {
+      if (has(first, card.dataset.app)) paint(card, !!first[card.dataset.app]);
     });
+
+    // 1) 对 TCP 判定为未响应 / 未登记的应用，用 HTTP 直探复核
+    const bad = cards.filter((card) => !first[card.dataset.app]);
+    if (!bad.length) return;
+    const http = await Promise.all(bad.map((card) => probe(card, 2500)));
+    bad.forEach((card, i) => { if (http[i]) paint(card, true); });
+
+    const still = bad.filter((_c, i) => !http[i]);
+    if (!still.length) return;
+
+    // 2) 越过 auth/health 的 2 秒缓存再探一次，覆盖刚重启 / 瞬时超时
+    await pause(1800);
+    const again = await authHealth();
+    still.forEach((card) => { if (again[card.dataset.app]) paint(card, true); });
+
+    // 3) 最后一次直探；仍失败才落定为「未响应」
+    const last = still.filter((card) => !again[card.dataset.app]);
+    if (!last.length) return;
+    const retry = await Promise.all(last.map((card) => probe(card, 2500)));
+    last.forEach((card, i) => { paint(card, !!retry[i]); });
+  }
+
+  checkStatus();
+  setInterval(checkStatus, 30000);   // 服务重启后首页无需刷新即可自动恢复「在线」
 
   /* ---------- 已登录：直接放行；未登录：点卡片弹登录页 ---------- */
   fetch('auth/session', { cache: 'no-store' })

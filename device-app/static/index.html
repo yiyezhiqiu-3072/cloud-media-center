@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7b9bea">
+<title>客户分切设备管理 · 云媒中心</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="9" width="34" height="30" rx="5"/>
+          <path d="M7 18h34M15 9v9M33 9v9"/>
+          <path d="M14 27h8M14 33h14M30 27h4M30 33h4" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>客户分切设备管理</h1>
+        <p>基础数据 · 单据 · 序时簿 · 总览</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="ver-chip" id="appVersion" data-version-url="api/meta" data-assets-url="api/assets" data-version-label="客户分切设备管理" data-app-key="device" hidden></span>
+      <a class="home-link" href="../" title="返回门户">← 门户</a>
+    </div>
+  </header>
+
+  <main class="app" id="app"></main>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="lightbox" id="photoLightbox" hidden>
+    <img id="lightboxImg" alt="照片大图">
+    <button type="button" id="lightboxClose" aria-label="关闭">×</button>
+  </div>
+
+  <div class="modal" id="loginModal">
+    <div class="login-card">
+      <h2>客户分切设备管理</h2>
+      <p>请输入账号密码以访问设备数据</p>
+      <div class="err" id="loginErr"></div>
+      <input id="lu" type="text" placeholder="用户名" autocomplete="username">
+      <input id="lp" type="password" placeholder="密码" autocomplete="current-password">
+      <button id="loginBtn">登录</button>
+    </div>
+  </div>
+
+  <script src="version.js"></script>
+  <script src="switcher.js"></script>
+  <script src="player.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

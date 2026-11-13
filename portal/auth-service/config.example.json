@@ -7,6 +7,7 @@
   "tv_port": 8091,
   "music_port": 8093,
   "work_port": 8094,
+  "device_port": 8095,
   "weather_enabled": true,
   "weather_ttl": 600,
   "log_dir": "logs",

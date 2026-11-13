@@ -54,11 +54,12 @@ DEFAULTS = {
     # 账号文件沿用 nginx 的 htpasswd；make-htpasswd.bat 修改后立即生效
     "htpasswd": "C:/nginx/conf/htpasswd",
     "session_days": 7,
-    # 两个后端端口，只用于 /auth/health 的探活显示
+    # 各应用后端端口，只用于 /auth/health 的探活显示（新增应用务必同步登记）
     "radio_port": 8090,
     "tv_port": 8091,
     "music_port": 8093,
     "work_port": 8094,
+    "device_port": 8095,
     "log_dir": "logs",
     "log_days": 14,
     # 天气数据源开关：默认只使用国内接口，不使用任何境外服务
@@ -79,7 +80,7 @@ WEATHER_LOCK = threading.Lock()
 # 同一时刻只允许一个线程取天气，避免外网不通时每次页面加载都堆一个慢线程
 WEATHER_FETCH_LOCK = threading.Lock()
 
-# /auth/health 探活结果缓存（状态页会定时轮询，避免每次都建 3 个 socket）
+# /auth/health 探活结果缓存（状态页会定时轮询，避免每次都建 5 个 socket）
 HEALTH_CACHE: dict = {"at": 0.0, "data": None}
 HEALTH_LOCK = threading.Lock()
 CHECK_LOG: dict = {"at": 0.0, "n": 0}
@@ -601,6 +602,7 @@ class Handler(BaseHTTPRequestHandler):
                 "tv": listening(cfg.get("tv_port", 8091)),
                 "music": listening(cfg.get("music_port", 8093)),
                 "work": listening(cfg.get("work_port", 8094)),
+                "device": listening(cfg.get("device_port", 8095)),
                 "uptime": int(now - STARTED),
                 "hot_reload": HOT.status() if HOT else {},
             }

@@ -41,7 +41,8 @@
     <section class="panel form-panel">
       <div class="panel-head">
         <h2 id="formTitle">记录一件事</h2>
-        <button type="button" class="mini-btn" id="formReset" hidden>取消编辑</button>
+        <button type="button" class="mini-btn add-item-btn" id="formReset"
+                title="放弃当前编辑，清空表单并新建一条" hidden>＋ 新增一条</button>
       </div>
       <form id="itemForm" autocomplete="off">
         <label class="field">
@@ -89,7 +90,11 @@
 
     <section class="panel list-panel">
       <div class="panel-head">
-        <h2>当日事项</h2>
+        <div class="list-head-left">
+          <h2>当日事项</h2>
+          <button type="button" class="mini-btn add-item-btn" id="addItemBtn"
+                  title="清空表单，为当前日期再添加一条记录">＋ 新增一条</button>
+        </div>
         <div class="stats" id="statsBar"></div>
       </div>
       <div class="filters" id="filters">
@@ -108,40 +113,53 @@
     </section>
   </main>
 
-  <!-- ============ 甘特图视图 ============ -->
-  <main class="gantt-view" id="ganttView" hidden>
-    <section class="panel">
-      <div class="panel-head">
-        <h2>日程甘特图 <small id="ganttDayLabel"></small></h2>
-        <div class="legend" id="legend">
-          <span data-s="planned"><i></i>将要发生</span>
-          <span data-s="doing"><i></i>正在发生</span>
-          <span data-s="followup"><i></i>待跟踪结果</span>
-          <span data-s="done"><i></i>已闭环</span>
+  <!-- ============ 甘特图：全屏独立层（点击后直接覆盖整屏，不依赖隐藏记录页） ============ -->
+  <div class="gantt-overlay" id="ganttView">
+    <div class="gantt-top">
+      <div class="gantt-top-left">
+        <button type="button" class="view-btn" id="ganttBack">← 返回记录</button>
+        <h2>计划回顾 · 日程甘特图 <small id="ganttDayLabel"></small></h2>
+      </div>
+      <div class="range-bar">
+        <div class="range-presets" id="rangePresets">
+          <button type="button" class="mini-btn" data-range="today">今天</button>
+          <button type="button" class="mini-btn on" data-range="week">近 7 天</button>
+          <button type="button" class="mini-btn" data-range="month30">近 30 天</button>
+          <button type="button" class="mini-btn" data-range="thisMonth">本月</button>
+          <button type="button" class="mini-btn" data-range="all">全部</button>
+        </div>
+        <div class="range-custom">
+          <input type="date" id="rangeFrom" aria-label="起始日期">
+          <span>至</span>
+          <input type="date" id="rangeTo" aria-label="结束日期">
+          <button type="button" class="mini-btn" id="rangeApply">应用</button>
+          <button type="button" class="mini-btn" id="rangeExportCsv">导出 CSV</button>
+          <button type="button" class="mini-btn" id="rangeExportJson">导出 JSON</button>
         </div>
       </div>
+    </div>
+
+    <div class="gantt-body">
       <div class="gantt-summary" id="ganttSummary"></div>
       <div class="gantt-mode-bar" id="ganttModeBar">
         <button type="button" class="mini-btn on" id="ganttModeCards">时间条</button>
         <button type="button" class="mini-btn" id="ganttModeTable">表格</button>
-        <span>手机端按时间条展示，无需左右拖动</span>
+        <span>按天分组回顾；手机端默认时间条，无需左右拖动</span>
       </div>
       <div class="gantt-mobile" id="ganttMobile"></div>
-      <div class="gantt-scroll" id="ganttScroll">
-        <div class="gantt" id="gantt">
-          <div class="gantt-head">
-            <div class="gantt-label-head">事项</div>
-            <div class="gantt-axis" id="ganttAxis"></div>
-          </div>
-          <div id="ganttRows"></div>
-        </div>
-      </div>
+      <div class="gantt-tables" id="ganttScroll"></div>
       <div class="gantt-empty" id="ganttEmpty" hidden>
-        这一天还没有记录。<button type="button" class="mini-btn" id="emptyGoRecord">去记录几件事</button>
+        这段日期还没有记录。<button type="button" class="mini-btn" id="emptyGoRecord">去记录几件事</button>
       </div>
-      <p class="gantt-tip">点击色块可编辑该事项 · 虚线为当前时间 · 时间轴会按当天事项自动扩展</p>
-    </section>
-  </main>
+      <p class="gantt-tip">点击色块可编辑该事项 · 虚线为当天当前时间 · 时间轴按所选范围的全部事项自适应</p>
+      <div class="legend" id="legend">
+        <span data-s="planned"><i></i>将要发生</span>
+        <span data-s="doing"><i></i>正在发生</span>
+        <span data-s="followup"><i></i>待跟踪结果</span>
+        <span data-s="done"><i></i>已闭环</span>
+      </div>
+    </div>
+  </div>
 
   <div class="toast" id="toast"></div>
 

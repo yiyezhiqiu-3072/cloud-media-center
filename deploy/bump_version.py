@@ -36,6 +36,7 @@ APPS = {
     "radio": ("radio-app/app.py", "云收音机"),
     "tv": ("tv-app/app.py", "云电视"),
     "work": ("work-app/app.py", "工作日志"),
+    "device": ("device-app/app.py", "客户分切设备管理"),
     "auth": ("portal/auth-service/app.py", "登录服务"),
 }
 # 母版 + 4 个应用副本（门户页直接用 portal/version.js）
@@ -45,6 +46,7 @@ SYNC = [
     "tv-app/static/version.js",
     "music-app/static/version.js",
     "work-app/static/version.js",
+    "device-app/static/version.js",
 ]
 
 

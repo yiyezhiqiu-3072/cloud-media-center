@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d3540">
+<title>登录 · 云媒中心</title>
+<style>
+  :root {
+    --bg: #f4efe6; --surface: #fffcf7; --ink: #1f1b18; --ink-2: #4a423a;
+    --muted: #8b8177; --line: #e6dccc; --accent: #b65c33; --accent-2: #d98b4a;
+    --danger: #c0563c; --good: #3f8f5f;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; color: var(--ink); background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .shell { display: grid; grid-template-columns: 42% 58%; min-height: 100vh; height: 100%; }
+
+  /* ---------------- 左侧：当前位置天气 ---------------- */
+  .weather {
+    position: relative; overflow: hidden; color: #f3f7f7;
+    padding: 34px 34px 28px; display: flex; flex-direction: column;
+    background: linear-gradient(158deg, #23485a 0%, #1b3543 48%, #142832 100%);
+  }
+  .weather::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(520px 280px at 90% -8%, rgba(255,255,255,.17), transparent 70%),
+      radial-gradient(420px 340px at -10% 108%, rgba(110,190,190,.18), transparent 70%);
+  }
+  .weather > * { position: relative; z-index: 1; }
+  .w-top { display: flex; align-items: center; gap: 8px; font-size: 11.5px; letter-spacing: .12em; opacity: .78; }
+  .w-top svg { opacity: .9; }
+  .w-place { margin-top: 26px; }
+  .w-city { font-size: 25px; font-weight: 600; letter-spacing: .06em; font-family: "Songti SC", "STSong", Georgia, serif; }
+  .w-region { margin-top: 5px; font-size: 12px; opacity: .7; letter-spacing: .04em; }
+  .w-now { margin-top: auto; display: flex; align-items: center; gap: 16px; padding: 22px 0 18px; }
+  .w-icon { width: 74px; height: 74px; flex: none; color: #ffd9a0; }
+  .w-icon svg { width: 100%; height: 100%; }
+  .w-temp { font-size: 62px; font-weight: 300; line-height: 1; letter-spacing: -.04em; }
+  .w-temp sup { font-size: 24px; font-weight: 400; vertical-align: top; margin-left: 3px; opacity: .8; }
+  .w-desc { margin-top: 8px; font-size: 14px; opacity: .9; }
+  .w-meta {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    border-top: 1px solid rgba(255,255,255,.16); padding-top: 18px;
+  }
+  .w-meta div { font-size: 11.5px; opacity: .72; line-height: 1.7; }
+  .w-meta b { display: block; font-size: 16px; font-weight: 500; opacity: 1; letter-spacing: .02em; }
+  .w-foot { margin-top: 18px; font-size: 10.5px; opacity: .5; }
+  .w-loading { opacity: .6; font-size: 13px; }
+
+  /* ---------------- 右侧：登录表单 ---------------- */
+  .pane { display: flex; flex-direction: column; justify-content: center; padding: 40px clamp(28px, 6vw, 76px); }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--accent); margin-bottom: 30px; }
+  .brand span { font-size: 13px; letter-spacing: .16em; color: var(--muted); }
+  h1 { margin: 0; font-size: 25px; font-weight: 600; letter-spacing: .06em; font-family: "Songti SC", "STSong", Georgia, serif; }
+  .sub { margin: 9px 0 28px; font-size: 12.5px; color: var(--muted); line-height: 1.8; }
+  .target { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font-size: 12.5px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 8px; letter-spacing: .04em; }
+  .input-wrap { position: relative; }
+  .input-wrap svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #b3a79a; pointer-events: none; }
+  input {
+    width: 100%; height: 46px; padding: 0 14px 0 40px; font-size: 14px;
+    color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; outline: none; transition: border-color .15s, box-shadow .15s;
+    font-family: inherit;
+  }
+  input:focus { border-color: var(--accent-2); box-shadow: 0 0 0 3px rgba(217,139,74,.14); }
+  input::placeholder { color: #b8ada1; }
+  .err {
+    min-height: 20px; margin: 2px 0 12px; font-size: 12px; color: var(--danger);
+    display: flex; align-items: center; gap: 6px; opacity: 0; transition: opacity .15s;
+  }
+  .err.show { opacity: 1; }
+  .actions { display: flex; gap: 12px; margin-top: 4px; }
+  button {
+    height: 46px; border-radius: 10px; font-size: 14px; font-family: inherit;
+    cursor: pointer; transition: transform .12s, box-shadow .15s, background .15s;
+  }
+  button:active { transform: translateY(1px); }
+  .btn-primary {
+    flex: 1; border: 0; color: #fff; letter-spacing: .12em;
+    background: linear-gradient(135deg, var(--accent), #c86b3c);
+    box-shadow: 0 8px 20px rgba(182,92,51,.22);
+  }
+  .btn-primary:hover { box-shadow: 0 10px 26px rgba(182,92,51,.32); }
+  .btn-primary:disabled { opacity: .62; cursor: default; box-shadow: none; }
+  .btn-cancel {
+    width: 108px; border: 1px solid var(--line); color: var(--ink-2); background: var(--surface);
+  }
+  .btn-cancel:hover { border-color: #d4c4ad; color: var(--ink); }
+  .pane-foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); line-height: 1.9; }
+  .pane-foot a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted rgba(139,129,119,.5); }
+  .pane-foot a:hover { color: var(--accent); }
+
+  @media (max-width: 760px) {
+    .shell { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .weather { padding: 20px 22px; }
+    .w-place { margin-top: 14px; }
+    .w-city { font-size: 19px; }
+    .w-now { padding: 12px 0 10px; margin-top: 6px; }
+    .w-icon { width: 48px; height: 48px; }
+    .w-temp { font-size: 40px; }
+    .w-meta { padding-top: 12px; }
+    .w-foot { margin-top: 10px; }
+    .pane { padding: 26px 24px 30px; }
+    .brand { margin-bottom: 18px; }
+    h1 { font-size: 22px; }
+    .sub { margin-bottom: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <!-- 左：按访问者当前公网 IP 获取天气 -->
+  <section class="weather" id="weather">
+    <div class="w-top">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+      当前位置 · 实时天气
+    </div>
+    <div class="w-place">
+      <div class="w-city" id="wCity">正在定位…</div>
+      <div class="w-region" id="wRegion">根据当前网络地址获取</div>
+    </div>
+    <div class="w-now">
+      <div class="w-icon" id="wIcon"></div>
+      <div>
+        <div class="w-temp" id="wTemp">--<sup>°</sup></div>
+        <div class="w-desc w-loading" id="wDesc">获取天气中…</div>
+      </div>
+    </div>
+    <div class="w-meta">
+      <div>今日最高 / 最低<b id="wRange">-- / --</b></div>
+      <div>相对湿度<b id="wHum">--</b></div>
+      <div>风速<b id="wWind">--</b></div>
+    </div>
+    <div class="w-foot" id="wFoot">天气数据来自中国天气网，仅供参考</div>
+  </section>
+
+  <!-- 右：登录 -->
+  <section class="pane">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="16" cy="16" r="14" opacity=".35"/>
+        <circle cx="16" cy="16" r="2.2" fill="currentColor" stroke="none"/>
+        <path d="M16 8a8 8 0 0 1 8 8M16 24a8 8 0 0 1-8-8" stroke-linecap="round"/>
+      </svg>
+      <span>云媒中心</span>
+    </div>
+
+    <h1 id="title">登录</h1>
+    <p class="sub"><span class="target" id="target"></span>　登录后即可继续使用，账号由服务器本地保存。</p>
+
+    <form id="form" autocomplete="on">
+      <div class="field">
+        <label for="username">用户名</label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+          <input id="username" name="username" type="text" placeholder="请输入用户名" autocomplete="username" required autofocus>
+        </div>
+      </div>
+      <div class="field">
+        <label for="password">密码</label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10"/></svg>
+          <input id="password" name="password" type="password" placeholder="请输入密码" autocomplete="current-password" required>
+        </div>
+      </div>
+      <div class="err" id="err"><span id="errText"></span></div>
+      <div class="actions">
+        <button class="btn-primary" id="loginBtn" type="submit">登 录</button>
+        <button class="btn-cancel" id="cancelBtn" type="button">取 消</button>
+      </div>
+    </form>
+
+    <div class="pane-foot">
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">苏ICP备2022007414号</a><br>
+      本服务仅供个人使用，请勿公开转播或用于商业用途。<br>
+      <span class="ver-chip" id="appVersion" data-version-url="auth/health" data-version-label="登录服务" hidden></span>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const inFrame = window.self !== window.top;
+  const params = new URLSearchParams(location.search);
+  const rawNext = params.get('next') || '/';
+  // 只允许站内路径，避免开放跳转
+  const next = rawNext.startsWith('/') && !rawNext.startsWith('//') ? rawNext : '/';
+
+  /* ---------- 按目标显示对应名称 ---------- */
+  const isRadio = next.indexOf('/radio') === 0;
+  const isTV = next.indexOf('/tv') === 0;
+  const iconRadio = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M7 8 16 3"/><circle cx="8" cy="14.5" r="2"/><path d="M13 13h5M13 17h5"/></svg>';
+  const iconTV = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M9 5 15 2"/><path d="M10 15v-4l4 2z" fill="currentColor" stroke="none"/></svg>';
+  const label = isRadio ? '在线收音机' : isTV ? '在线电视' : (next.indexOf('/status') === 0 ? '运行状态' : '云媒中心');
+  $('#title').textContent = '登录 · ' + label;
+  $('#target').innerHTML = (isRadio ? iconRadio : isTV ? iconTV : '') + '<span>即将进入 ' + label + '</span>';
+  document.title = '登录 · ' + label + ' · 云媒中心';
+
+  /* ---------- 已登录则直接放行（避免重复登录） ---------- */
+  fetch('auth/session', { cache: 'no-store' }).then(r => r.json()).then(d => {
+    if (d && d.ok) go(next);
+  }).catch(() => {});
+
+  function go(url) {
+    if (inFrame) { window.top.location.href = url; }
+    else { window.location.href = url; }
+  }
+
+  /* ---------- 登录 / 取消 ---------- */
+  const errBox = $('#err'), errText = $('#errText'), btn = $('#loginBtn');
+  function showErr(msg) { errText.textContent = msg; errBox.classList.add('show'); }
+  function clearErr() { errText.textContent = ''; errBox.classList.remove('show'); }
+
+  $('#form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearErr();
+    const username = $('#username').value.trim();
+    const password = $('#password').value;
+    if (!username || !password) { showErr('请输入用户名和密码'); return; }
+    btn.disabled = true; btn.textContent = '登录中…';
+    try {
+      const res = await fetch('auth/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, next }), cache: 'no-store'
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        showErr(data.error || '登录失败，请稍后再试');
+        $('#password').select();
+        return;
+      }
+      go(data.next || next);
+    } catch {
+      showErr('无法连接登录服务，请检查服务是否启动');
+    } finally {
+      btn.disabled = false; btn.textContent = '登 录';
+    }
+  });
+
+  $('#cancelBtn').addEventListener('click', () => {
+    if (inFrame) { window.parent.postMessage('cm-login-cancel', location.origin); }
+    else { window.location.href = '/'; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && inFrame) window.parent.postMessage('cm-login-cancel', location.origin);
+  });
+
+  /* ---------- 左侧天气：仅国内数据源，经 CloudAuth 同源代理 ----------
+     服务端链路：太平洋IP库/ipip.net 定位 → 中国天气网 toy1 查城市ID
+                 → d1 实况与今日高低温。浏览器不直连任何境外天气服务。 */
+  const ICONS = {
+    sun:'<circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+    cloudsun:'<circle cx="8.5" cy="8.5" r="3.2" fill="currentColor" opacity=".9"/><path d="M8.5 2v1.6M2 8.5h1.6M3.9 3.9l1.1 1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 17.5h10a3.4 3.4 0 0 0 .3-6.8 5 5 0 0 0-9.5-1A3.6 3.6 0 0 0 7 17.5z" fill="currentColor" opacity=".85"/>',
+    cloud:'<path d="M6 17.5h11.5a3.6 3.6 0 0 0 .3-7.2 5.3 5.3 0 0 0-10-1.1A3.8 3.8 0 0 0 6 17.5z" fill="currentColor" opacity=".85"/>',
+    rain:'<path d="M6 14.5h11.5a3.6 3.6 0 0 0 .3-7.2 5.3 5.3 0 0 0-10-1.1A3.8 3.8 0 0 0 6 14.5z" fill="currentColor" opacity=".85"/><path d="M8 17.5l-1 3M12.5 17.5l-1 3M17 17.5l-1 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>',
+    snow:'<path d="M6 14.5h11.5a3.6 3.6 0 0 0 .3-7.2 5.3 5.3 0 0 0-10-1.1A3.8 3.8 0 0 0 6 14.5z" fill="currentColor" opacity=".85"/><path d="M8 18h.01M12 19.5h.01M16 18h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+    sleet:'<path d="M6 14.5h11.5a3.6 3.6 0 0 0 .3-7.2 5.3 5.3 0 0 0-10-1.1A3.8 3.8 0 0 0 6 14.5z" fill="currentColor" opacity=".85"/><path d="M8.5 18l-1 2.5M15.5 18h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    storm:'<path d="M6 14h11.5a3.6 3.6 0 0 0 .3-7.2 5.3 5.3 0 0 0-10-1.1A3.8 3.8 0 0 0 6 14z" fill="currentColor" opacity=".85"/><path d="M13 15l-3 4h3l-1.5 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>',
+    fog:'<path d="M6 12.5h11.5a3.6 3.6 0 0 0 .3-7.2 5.3 5.3 0 0 0-10-1.1A3.8 3.8 0 0 0 6 12.5z" fill="currentColor" opacity=".8"/><path d="M4 16.5h16M6.5 19.5h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".8"/>'
+  };
+  function paint(w) {
+    $('#wDesc').classList.remove('w-loading');
+    $('#wCity').textContent = w.city || '当前位置';
+    $('#wRegion').textContent = [w.region, w.country].filter(Boolean).join(' · ') || '根据当前网络地址获取';
+    $('#wTemp').innerHTML = Math.round(w.temp) + '<sup>°</sup>';
+    $('#wDesc').textContent = w.desc + (w.feels != null ? ' · 体感 ' + Math.round(w.feels) + '°' : '');
+    $('#wIcon').innerHTML = '<svg viewBox="0 0 24 24" fill="none">' + (ICONS[w.icon] || ICONS.cloud) + '</svg>';
+    $('#wRange').textContent = (w.max != null ? Math.round(w.max) + '° / ' + Math.round(w.min) + '°' : '-- / --');
+    $('#wHum').textContent = w.hum != null ? w.hum + '%' : '--';
+    $('#wWind').textContent = w.wind != null ? w.wind + ' km/h' : '--';
+    $('#wFoot').textContent = '更新于 ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'}) + ' · ' + (w.source || '国内天气');
+  }
+  function fail() {
+    $('#wDesc').classList.remove('w-loading');
+    $('#wCity').textContent = '当前位置';
+    $('#wDesc').textContent = '天气信息暂不可用';
+    $('#wIcon').innerHTML = '<svg viewBox="0 0 24 24" fill="none">' + ICONS.cloud + '</svg>';
+    $('#wFoot').textContent = '天气服务暂不可用，不影响登录';
+  }
+
+  const CACHE_KEY = 'cm_weather_v2', TTL = 10 * 60 * 1000;
+  async function withTimeout(url, ms) {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), ms);
+    try {
+      const r = await fetch(url, { signal: ctl.signal, cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status);
+      return await r.json();
+    } finally { clearTimeout(timer); }
+  }
+  async function fromServer() {
+    const w = await withTimeout('/auth/weather', 20000);
+    if (!w || w.ok === false || !Number.isFinite(+w.temp)) throw new Error('bad weather');
+    return w;
+  }
+
+  (async () => {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (raw) {
+        const c = JSON.parse(raw);
+        if (c.data && Number.isFinite(+c.data.temp) && Date.now() - c.at < TTL) { paint(c.data); return; }
+      }
+    } catch {}
+    try {
+      const w = await fromServer();
+      paint(w);
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), data: w })); } catch {}
+      return;
+    } catch {}
+    fail();
+  })();
+})();
+</script>
+<script src="version.js"></script>
+</body>
+</html>

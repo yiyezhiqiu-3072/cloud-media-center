@@ -27,7 +27,13 @@
         <span class="w-temp" id="wTemp">--°</span>
         <span class="w-city" id="wCity">天气</span>
       </div>
-      <a class="home-link" href="../" title="返回门户">← 门户</a>
+      <a class="home-link" href="../" title="返回门户主页" aria-label="返回门户主页">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 11l8-7 8 7"/><path d="M6 10.5V19h12v-8.5"/>
+        </svg>
+        <span>首页</span>
+      </a>
       <span class="ver-chip" id="appVersion" data-version-url="api/meta" data-assets-url="api/assets" data-version-label="云音乐" data-app-key="music" hidden></span>
     </div>
   </header>

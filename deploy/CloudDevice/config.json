@@ -1,0 +1,10 @@
+{
+  "host": "127.0.0.1",
+  "port": 8095,
+  "username": "admin",
+  "password": "",
+  "trust_proxy_auth": true,
+  "portal_auth_url": "http://127.0.0.1:8092/auth/check",
+  "data_dir": "",
+  "photo_max_mb": 12
+}

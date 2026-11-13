@@ -16,6 +16,8 @@
     day: '', items: [], stats: {}, filter: 'all', view: 'record',
     editing: null, formStatus: 'planned',
     pendingPhotos: [], ganttMode: 'cards',
+    // 计划回顾：甘特图按日期范围加载，与记录页的单日数据分开
+    range: null, rangeItems: [], rangeStats: {},
   };
 
   // ---------------------------------------------------------------- 纯函数（甘特图几何）
@@ -69,6 +71,57 @@
     const d = new Date(p[0], p[1] - 1, p[2] + n);
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') +
       '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  // ---------------------------------------------------------------- 计划回顾：日期范围
+  function lastDayOfMonth(day) {
+    const p = String(day).split('-').map(Number);
+    const d = new Date(p[0], p[1], 0);
+    return p[0] + '-' + String(p[1]).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function rangePreset(key, today) {
+    const t = today || todayStr();
+    if (key === 'today') return { key: 'today', from: t, to: t, label: '今天' };
+    if (key === 'week') return { key: 'week', from: shiftDay(t, -6), to: t, label: '近 7 天' };
+    if (key === 'month30') return { key: 'month30', from: shiftDay(t, -29), to: t, label: '近 30 天' };
+    if (key === 'thisMonth') {
+      return { key: 'thisMonth', from: t.slice(0, 7) + '-01', to: lastDayOfMonth(t), label: '本月' };
+    }
+    if (key === 'all') return { key: 'all', from: '', to: '', label: '全部' };
+    return { key: 'week', from: shiftDay(t, -6), to: t, label: '近 7 天' };
+  }
+  function weekdayLabel(day) {
+    const p = String(day).split('-').map(Number);
+    const names = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    return names[new Date(p[0], p[1] - 1, p[2]).getDay()] || '';
+  }
+  function groupByDay(items) {
+    const map = new Map();
+    (items || []).forEach((it) => {
+      const d = it.day || '未标日期';
+      if (!map.has(d)) map.set(d, []);
+      map.get(d).push(it);
+    });
+    return Array.from(map.entries())
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0])))
+      .map(([day, list]) => ({ day, items: list }));
+  }
+  function sumMinutes(items) {
+    return (items || []).reduce((n, it) => n + Math.max(0, toMin(it.end) - toMin(it.start)), 0);
+  }
+  function rangeText() {
+    const r = state.range || rangePreset('week');
+    if (r.key === 'all') return '全部日期';
+    if (r.from && r.from === r.to) return r.from;
+    return (r.from || '最早') + ' ~ ' + (r.to || '最新');
+  }
+  function rangeQuery() {
+    const r = state.range || rangePreset('week');
+    if (r.key === 'all' && !r.from && !r.to) return 'all=1';
+    const p = [];
+    if (r.from) p.push('from=' + encodeURIComponent(r.from));
+    if (r.to) p.push('to=' + encodeURIComponent(r.to));
+    return p.join('&');
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
@@ -277,8 +330,16 @@
       '<span class="stat">时长 <b>' + esc(fmtDuration(s.minutes)) + '</b></span>' +
       STATUS_KEYS.map((k) =>
         '<span class="stat">' + STATUS_LABEL[k] + ' <b>' + (s[k] || 0) + '</b></span>').join('');
+  }
+
+  // 甘特图层用的范围汇总（与记录页单日统计分开，避免被覆盖）
+  function renderRangeSummary(r) {
+    const s = r.stats || {};
+    const days = (r.range && r.range.days) || [];
     $('#ganttSummary').innerHTML =
-      '<span class="stat">' + esc(state.day) + '</span>' +
+      '<span class="stat">' + esc(rangeText()) + ' · ' + esc((state.range || {}).label || '') + '</span>' +
+      '<span class="stat">有记录 <b>' + days.length + '</b> 天</span>' +
+      '<span class="stat">共 <b>' + (s.total || 0) + '</b> 件</span>' +
       STATUS_KEYS.map((k) =>
         '<span class="stat">' + STATUS_LABEL[k] + ' <b>' + (s[k] || 0) + '</b></span>').join('') +
       '<span class="stat">合计 <b>' + esc(fmtDuration(s.minutes)) + '</b></span>';
@@ -339,15 +400,9 @@
     });
   }
 
-  // ---------------------------------------------------------------- 渲染：甘特图
-  function renderGantt() {
-    const items = state.items.slice();
-    const win = windowFor(items);
-    const axis = $('#ganttAxis');
-    const rows = $('#ganttRows');
+  // ---------------------------------------------------------------- 渲染：甘特图（按天分组的日期范围）
+  function buildAxis(axis, win, day) {
     axis.innerHTML = '';
-    rows.innerHTML = '';
-
     const hours = [];
     for (let m = Math.ceil(win.start / 60) * 60; m <= win.end; m += 60) hours.push(m);
     hours.forEach((m) => {
@@ -361,21 +416,25 @@
       }
       axis.appendChild(tick);
     });
-
-    const np = state.day === todayStr() ? nowPercent(win, new Date()) : null;
-    if (np !== null) {
-      const now = document.createElement('div');
-      now.className = 'now-line';
-      now.style.left = np + '%';
-      const tag = document.createElement('span');
-      tag.textContent = '现在 ' + fmtMin(new Date().getHours() * 60 + new Date().getMinutes());
-      now.appendChild(tag);
-      axis.appendChild(now);
+    if (day === todayStr()) {
+      const np = nowPercent(win, new Date());
+      if (np !== null) {
+        const now = document.createElement('div');
+        now.className = 'now-line';
+        now.style.left = np + '%';
+        const tag = document.createElement('span');
+        tag.textContent = '现在 ' + fmtMin(new Date().getHours() * 60 + new Date().getMinutes());
+        now.appendChild(tag);
+        axis.appendChild(now);
+      }
     }
-
-    $('#ganttEmpty').hidden = items.length > 0;
-    $('#ganttDayLabel').textContent = state.day;
-
+    return hours;
+  }
+  function buildRows(rows, items, win, day) {
+    rows.innerHTML = '';
+    const np = day === todayStr() ? nowPercent(win, new Date()) : null;
+    const hours = [];
+    for (let m = Math.ceil(win.start / 60) * 60; m <= win.end; m += 60) hours.push(m);
     items.forEach((it) => {
       const row = document.createElement('div');
       row.className = 'gantt-row';
@@ -421,12 +480,60 @@
       row.appendChild(track);
       rows.appendChild(row);
     });
-    renderGanttMobile(items, win);
   }
-
-  // 手机端：每项一张卡片，用整行宽度画时间条，不用左右拖动也能看出起止与时长
-  function renderGanttMobile(items, win) {
+  function renderGanttTableGroups(groups, win) {
+    const mount = $('#ganttScroll');
+    if (!mount) return;
+    mount.innerHTML = '';
+    groups.forEach((g) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'gantt-day';
+      const head = document.createElement('div');
+      head.className = 'gantt-day-head';
+      head.innerHTML = '<b>' + esc(g.day) + '</b><span>' + esc(weekdayLabel(g.day)) +
+        ' · ' + g.items.length + ' 件 · ' + esc(fmtDuration(sumMinutes(g.items))) + '</span>';
+      wrap.appendChild(head);
+      const scroll = document.createElement('div');
+      scroll.className = 'gantt-scroll';
+      scroll.innerHTML = '<div class="gantt"><div class="gantt-head">' +
+        '<div class="gantt-label-head">事项</div><div class="gantt-axis"></div></div>' +
+        '<div class="gantt-rows"></div></div>';
+      buildAxis(scroll.querySelector('.gantt-axis'), win, g.day);
+      buildRows(scroll.querySelector('.gantt-rows'), g.items, win, g.day);
+      wrap.appendChild(scroll);
+      mount.appendChild(wrap);
+    });
+  }
+  function renderGanttMobileGroups(groups, win) {
     const box = $('#ganttMobile');
+    if (!box) return;
+    box.innerHTML = '';
+    groups.forEach((g) => {
+      const day = document.createElement('div');
+      day.className = 'gm-day';
+      day.innerHTML = '<div class="gm-day-head"><b>' + esc(g.day) + '</b><span>' +
+        esc(weekdayLabel(g.day)) + ' · ' + g.items.length + ' 件 · ' +
+        esc(fmtDuration(sumMinutes(g.items))) + '</span></div><div class="gm-day-body"></div>';
+      renderGanttMobile(g.items, win, day.querySelector('.gm-day-body'));
+      box.appendChild(day);
+    });
+  }
+  function renderGanttRange() {
+    const items = state.rangeItems.slice();
+    const groups = groupByDay(items);
+    const win = windowFor(items);
+    $('#ganttDayLabel').textContent = rangeText() + ' · ' + ((state.range || {}).label || '');
+    $('#ganttEmpty').hidden = items.length > 0;
+    renderGanttMobileGroups(groups, win);
+    renderGanttTableGroups(groups, win);
+  }
+  // 兼容每分钟定时重绘与旧调用
+  function renderGantt() { return renderGanttRange(); }
+
+  // 手机端：每项一张卡片；box 可传入「某一天的容器」，用于按天分组
+  function renderGanttMobile(items, win, box) {
+    box = box || $('#ganttMobile');
+    if (!box) return;
     box.innerHTML = '';
     if (!items.length) {
       box.innerHTML = '<div class="empty">这一天还没有记录。</div>';
@@ -478,30 +585,62 @@
     $('#ganttModeCards').classList.toggle('on', state.ganttMode === 'cards');
     $('#ganttModeTable').classList.toggle('on', state.ganttMode === 'table');
   }
+  function applyRangeUI(r) {
+    state.range = r;
+    $('#rangeFrom').value = r.from || '';
+    $('#rangeTo').value = r.to || '';
+    $$('#rangePresets button').forEach((b) =>
+      b.classList.toggle('on', b.dataset.range === r.key));
+  }
+  function setRange(r) {
+    applyRangeUI(r);
+    loadRange();
+  }
+  async function loadRange() {
+    try {
+      const r = await api('api/items?' + rangeQuery());
+      state.rangeItems = r.items || [];
+      state.rangeStats = r.stats || {};
+      renderRangeSummary(r);
+      renderGanttRange();
+    } catch (e) {
+      if (e.status !== 401) toast('加载失败：' + (e.message || e));
+    }
+  }
+  function exportRange(fmt) {
+    const r = state.range || rangePreset('week');
+    const a = document.createElement('a');
+    a.href = 'api/export?' + rangeQuery() + '&fmt=' + fmt;
+    a.download = 'work-' + (r.key === 'all' ? 'all' :
+      (r.from || 'all') + '_' + (r.to || 'all')) + '.' + fmt;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
   function setView(v, push = true) {
     state.view = v;
-    $('#recordView').hidden = v !== 'record';
-    $('#ganttView').hidden = v !== 'gantt';
-    // 双保险：inline display 不受样式表 display:grid 覆盖（.layout 曾导致记录页隐藏失效）
-    $('#recordView').style.display = v === 'record' ? '' : 'none';
-    $('#ganttView').style.display = v === 'gantt' ? '' : 'none';
-    $('#viewToggle').textContent = v === 'record' ? '查看甘特图 →' : '← 返回记录';
-    if (v === 'gantt') renderGantt();
-    // 记录页可能已滚到很深，切换后若不定位会停在页面中间，看起来像「点了没跳过去」。
-    // 渲染完成后自动回到顶部，整个甘特图从首屏开始显示（切回记录页同理）。
-    var jump = function () {
+    const overlay = $('#ganttView');
+    if (v === 'gantt') {
+      // 全屏独立层：不再依赖 [hidden] 隐藏记录页，也不会被挤到页面下方。
+      // 覆盖层自己从顶部开始滚动，点开即「跳到整个甘特图页面」。
+      overlay.style.display = 'block';
+      document.body.classList.add('cm-gantt-open');
+      overlay.scrollTop = 0;
+      $('#viewToggle').textContent = '← 返回记录';
+      renderGanttRange();      // 先用已有数据渲染，避免空白
+      loadRange();             // 再按所选日期范围拉取
+    } else {
+      overlay.style.display = 'none';
+      document.body.classList.remove('cm-gantt-open');
+      $('#viewToggle').textContent = '查看甘特图 →';
       try { window.scrollTo({ top: 0, behavior: 'smooth' }); }
       catch (_) { window.scrollTo(0, 0); }
-    };
-    if (window.requestAnimationFrame) window.requestAnimationFrame(jump);
-    else setTimeout(jump, 0);
+    }
     if (push) history.replaceState(null, '', '#' + v);
   }
   function setDay(day) {
     state.day = day;
     $('#dayInput').value = day;
     $('#fDay').value = day;
-    $('#ganttDayLabel').textContent = day;
     loadAll();
   }
 
@@ -530,6 +669,16 @@
     const d = new Date();
     const m = d.getHours() * 60 + Math.ceil(d.getMinutes() / 15) * 15;
     return fmtMin(m % (24 * 60));
+  }
+  // 从编辑态（或任意状态）一键新建：清空表单、回到「添加记录」，并定位到标题输入框。
+  // 日期保持当前查看的这一天，方便连续补记当天多件事。
+  function newItem() {
+    resetForm();
+    const t = $('#fTitle');
+    if (t) {
+      t.focus();
+      if (t.scrollIntoView) t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
   function editItem(it, fromGantt) {
     state.editing = it.id;
@@ -624,8 +773,7 @@
       state.items = r.items || [];
       renderStats(r.stats || {});
       renderList();
-      $('#ganttDayLabel').textContent = state.day;
-      if (state.view === 'gantt') renderGantt();
+      if (state.view === 'gantt') await loadRange();
     } catch (e) {
       if (e.status !== 401) toast('加载失败：' + (e.message || e));
     }
@@ -634,7 +782,8 @@
   // ---------------------------------------------------------------- 事件
   function wire() {
     $('#itemForm').addEventListener('submit', submitForm);
-    $('#formReset').addEventListener('click', resetForm);
+    $('#formReset').addEventListener('click', newItem);   // 编辑态的「＋ 新增一条」
+    $('#addItemBtn').addEventListener('click', newItem);  // 当日事项面板头的常驻入口
     $$('#fStatus button').forEach((b) =>
       b.addEventListener('click', () => setFormStatus(b.dataset.status)));
     $$('#filters button').forEach((b) =>
@@ -646,9 +795,21 @@
 
     $('#viewToggle').addEventListener('click', () =>
       setView(state.view === 'record' ? 'gantt' : 'record'));
+    $('#ganttBack').addEventListener('click', () => setView('record'));
     $('#emptyGoRecord').addEventListener('click', () => setView('record'));
     window.addEventListener('hashchange', () =>
       setView(location.hash === '#gantt' ? 'gantt' : 'record', false));
+
+    // 计划回顾：快捷范围 / 自定义起止 / 范围导出
+    $$('#rangePresets button').forEach((b) =>
+      b.addEventListener('click', () => setRange(rangePreset(b.dataset.range))));
+    $('#rangeApply').addEventListener('click', () => {
+      const from = $('#rangeFrom').value || '', to = $('#rangeTo').value || '';
+      if (from && to && from > to) { toast('起始日期不能晚于结束日期'); return; }
+      setRange({ key: 'custom', from, to, label: (from || '最早') + ' ~ ' + (to || '最新') });
+    });
+    $('#rangeExportCsv').addEventListener('click', () => exportRange('csv'));
+    $('#rangeExportJson').addEventListener('click', () => exportRange('json'));
 
     $('#dayInput').addEventListener('change', () => setDay($('#dayInput').value || todayStr()));
     $('#prevDay').addEventListener('click', () => setDay(shiftDay(state.day, -1)));
@@ -708,6 +869,7 @@
   async function init() {
     wire();
     setGanttMode('cards');
+    applyRangeUI(rangePreset('week'));   // 甘特图默认「近 7 天」回顾
     state.day = todayStr();
     $('#dayInput').value = state.day;
     resetForm();
@@ -725,6 +887,10 @@
   window.CW_PURE = {
     watermarkLines, windowFor, barGeom, fmtMin, toMin, fmtDuration,
     drawWatermarked, renderList, renderGanttMobile, setGanttMode, setView, state,
+    resetForm, newItem, editItem,
+    rangePreset, lastDayOfMonth, weekdayLabel, groupByDay, sumMinutes,
+    rangeText, rangeQuery, applyRangeUI, setRange, loadRange, exportRange,
+    renderRangeSummary, renderGanttRange, renderGanttMobileGroups, renderGanttTableGroups,
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
